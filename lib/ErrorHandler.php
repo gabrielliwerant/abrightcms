@@ -105,7 +105,7 @@ class ErrorHandler
 			$this->_createLog('Encountered fatal error: ');
 			$this->_sendEmail('A Bright Concept Fatal Error', 'Encountered fatal error: ');
 			
-			header('Location:' . HTTP_ROOT_PATH . '/views/_template/error.html');
+			header('Location:' . ERROR_HANDLER_PAGE_PATH);
 		}
 	}
 }

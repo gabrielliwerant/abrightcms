@@ -67,5 +67,6 @@ define('APP_VIEW_PATH', VIEW_PATH . '/_app');
 define('APP_CONTROLLER_PATH', CONTROLLER_PATH . '/app');
 define('TEMPLATE_PATH', VIEW_PATH . '/_template');
 define('IMAGES_PATH', PUBLIC_PATH . '/images');
+define('ERROR_HANDLER_PAGE_PATH', HTTP_ROOT_PATH . '/views/_template/error.html');
 
 /* EOF config/paths.php */
