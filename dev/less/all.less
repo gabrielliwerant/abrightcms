@@ -1,0 +1,44 @@
+/*
+	Main LESS file that is compiled into styles.css using lessphp.
+
+	@author Gabriel Liwerant
+*/
+
+@import "header.less";
+@import "footer.less";
+
+/*
+ * Declare Constants and Mixins
+ *************************************************************/
+
+/* CSS3 Rounded corners */
+.rounded-corners {
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
+/* CSS3 Transparency */
+.transparency(@opacity) {
+	filter:alpha(opacity=@opacity);
+	-moz-opacity:@opacity;
+	-khtml-opacity:@opacity;
+	opacity:@opacity;
+}
+
+/*CSS3 Shadow */
+.drop-shadow {
+	-moz-box-shadow: 2px 2px 2px #444;
+	-webkit-box-shadow: 2px 2px 2px #444;
+	box-shadow: 2px 2px 2px #444;
+}
+
+/* CSS3 glow effect: */
+.glow {
+	@color:#bbb;
+	/*@color:#A6E5FD;*/
+	
+	-moz-box-shadow:0 0 5px @color;
+	-webkit-box-shadow:0 0 5px @color;
+	box-shadow:0 0 5px @color;
+}

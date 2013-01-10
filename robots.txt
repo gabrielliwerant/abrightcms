@@ -1,0 +1,6 @@
+# http://robotstxt.org/
+
+User-agent: *
+Disallow: /
+Disallow: /dev/
+Sitemap: http://abrightcms.com/sitemap.xml

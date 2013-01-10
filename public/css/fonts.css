@@ -1,0 +1,33 @@
+/* 
+	Grab outside fonts for the CSS
+
+	@author Gabriel Liwerant
+*/
+
+@font-face
+{
+	font-family:Calibri;
+	src:url('CALIBRI.TTF');
+}
+
+@font-face
+{
+	font-family:Calibri;
+	font-weight:bold;
+	src:url('CALIBRIB.TTF');
+}
+
+@font-face
+{
+	font-family:Calibri;
+	font-style:italic;
+	src:url('CALIBRII.TTF');
+}
+
+@font-face
+{
+	font-family:Calibri;
+	font-weight:bold;
+	font-style:italic;
+	src:url('CALIBRIZ.TTF');
+}

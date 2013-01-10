@@ -1,0 +1,41 @@
+{
+	"title"			: "Default",
+	"description"	: "Stores default values for our html document",
+	"head"			: {
+		"head_doc"	: {
+			"doctype"	: "null",
+			"html_dir"	: "ltr",
+			"html_lang"	: "en-US",
+			"title"		: "A Bright CMS",
+			"title_page": ""
+		},
+		"head_meta"	: {
+			"name=description"			: "Custom, light-weight CMS and MVC framework for web applications.",
+			"name=keywords"				: "cms, web, application, app, mvc, framework",
+			"name=author"				: "Gabriel Liwerant",
+			"http-equiv=Content-Type"	: "text/html; charset=utf-8"
+		},
+		"head_css" : {
+			"reset"	: "reset",
+			"fonts"	: "fonts",
+			"main"	: "style"
+		}
+	},
+	"header" : {
+		"header_nav" : {
+			"Home"	: "",
+			"App"	: "app"
+		}
+	},
+	"footer"	: {
+		"footer_copyright" : {
+			"symbol"		: "&copy;",
+			"holder"		: "Gabriel Liwerant",
+			"start_date"	: "2012"
+		},
+		"footer_js"	: {
+			"jQuery"			: "jquery-1.6.1",
+			"jQuery UI"			: "jquery-ui-1.8.7.min"
+		}
+	}
+}

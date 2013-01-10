@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : sitemap.xml
+    Created on : August 8, 2012, 11:20 PM
+    Author     : Gabriel Liwerant
+    Description: XML Sitemap for search engines
+-->
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	
+	<url>
+		<loc>http://abrightcms.com/</loc>
+	</url>
+	
+</urlset>
