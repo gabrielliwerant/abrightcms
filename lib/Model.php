@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed');
 
 /**
  * A Bright CMS
@@ -22,17 +22,19 @@
 class Model
 {
 	/**
-	 * Holds an instance of the database class.
+	 * Holds an instance of the storage object.
 	 *
-	 * @var object $db
-	 */
-	public $db;
+	 * @var object $storage
+	 */	
+	public $storage;
+	
 	/**
-	 * Holds an instance of the JSON class.
+	 * Holds an instance of the log object.
 	 *
-	 * @var object $json
+	 * @var object $log
 	 */
-	public $json;
+	public $log;
+	
 	/**
 	 * Holds an instance of the key generator class.
 	 *
@@ -42,45 +44,73 @@ class Model
 	
 	/**
 	 * Upon instantiation, we pass all the objects we want our model object to
-	 * contain. We also store the database table names.
+	 * contain. We also load all data required according to storage type.
 	 * 
-	 * @param object $db Database object to set in our model object
-	 * @param object $json JSON object to set in our model object
+	 * @param object $storage_obj Data storage object
+	 * @param string $storage_type The way data is stored and retrieved
 	 */
-	public function __construct($db, $json)
+	public function __construct($storage_obj, $storage_type, $log_obj)
 	{
-		$this->db		= $db;
-		$this->json		= $json;
-		
-		$this->db->setDatabaseTableNames(array(
-			'role_type'			=> 'role_type',
-			'flag_type'			=> 'flag_type',
-			'user'				=> 'user',
-			'user_setting'		=> 'user_setting',
-			'group'				=> 'group',
-			'project'			=> 'project',
-			'project_comment'	=> 'project_comment',
-			'list'				=> 'list',
-			'list_comment'		=> 'list_comment',
-			'item'				=> 'item',
-			'item_comment'		=> 'item_comment',
-			'item_status'		=> 'item_status',
-			'status_type'		=> 'status_type'
-			)
-		);
+		$this->storage	= $storage_obj;
+		$this->log		= $log_obj;		
+
+		switch ($storage_type)
+		{
+			case 'json' :
+				$file_arr = scandir(JSON_PATH);
+				foreach ($file_arr as $file)
+				{
+					if (preg_match('/\.json/', $file))
+					{
+						$file_name = explode('.', $file);						
+						$this->setDataFromStorage($file_name[0], $file_name[0]);
+					}
+				}
+				break;
+			case 'xml' :
+				$file_arr = scandir(XML_PATH);		
+				foreach ($file_arr as $file)
+				{
+					if (preg_match('/\.xml/', $file))
+					{
+						$file_name = explode('.', $file);
+						$this->setDataFromStorage($file_name[0], $file_name[0]);
+					}
+				}
+				break;
+		}
 	}
 	
 	/**
-	 * Gather the data we need to build out the standard template.
-	 * 
-	 * We grab the data from a JSON file, using our JSON object.
+	 * Adds a data file to the storage property.
 	 *
-	 * @param string $json_file Name of the JSON file to load as view data
-	 * @return array JSON template data
+	 * @param string $json_file Name of data file to set
+	 * @param string $key Name of key to reference data file in array
 	 */
-	public function getTemplateData($json_file = 'default')
+	public function setDataFromStorage($data_file, $key)
 	{
-		return $this->json->getJsonFileAsArray($json_file);
+		$this->storage->setFileAsArray($data_file, $key);
+	}
+	
+	/**
+	 * We grab the data from a data file, using our storage object.
+	 *
+	 * @param string $json_file Name of the file to load as view data
+	 * @return array Data from storage file
+	 */
+	public function getDataFromStorage($data_file)
+	{		
+		return $this->storage->getFileAsArray($data_file);
+	}
+	
+	/**
+	 * Grabs all the data from our storage.
+	 *
+	 * @return array All data as array of arrays
+	 */
+	public function getAllDataFromStorage()
+	{
+		return $this->storage->getAllDataAsArray();
 	}
 	
 	/**
@@ -91,6 +121,17 @@ class Model
 	public function setKeyGenerator($key_gen)
 	{
 		$this->key_gen = $key_gen;
+	}
+	
+	/**
+	 * Destroy the data after it is no longer needed. We may also want to log it 
+	 * from here in the future.
+	 *
+	 * @param string &$data Data to destroy, passed by reference
+	 */
+	public function destroyData(&$data)
+	{
+		$data = null;
 	}
 }
 // End of Model Class

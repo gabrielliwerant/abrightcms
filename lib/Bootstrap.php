@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed');
 
 /**
  * A Bright CMS
@@ -27,18 +27,21 @@ class Bootstrap
 	 * @var array $_url
 	 */
 	private $_url = array();
+	
 	/**
 	 * Holds the controller object instance.
 	 *
 	 * @var object $_controller
 	 */
 	private $_controller;
+	
 	/**
 	 * Holds the name of the method to call
 	 *
 	 * @var string $_method
 	 */
 	private $_method;
+	
 	/**
 	 * Holds the parameters for methods.
 	 *
@@ -48,16 +51,27 @@ class Bootstrap
 	private $_parameter = array();
 	
 	/**
+	 * Holds the storage type value for the controllers
+	 *
+	 * @var string $_storage_type
+	 */
+	private $_storage_type;
+	
+	/**
 	 * We are sad if new bootstrap object doesn't load the application, so we
 	 * make sure it does what it must to find the controller and load 
 	 * dependencies.
 	 * 
 	 * Upon construction, we set the URL, controller, method, and parameters.
 	 * Then we send them to the router.
+	 * 
+	 * @param string $storage_type The way basic data is storaged and retrieved
 	 */
-	public function __construct()
-	{
-        $this->_setUrl();
+	public function __construct($storage_type)
+	{		
+		$this->_storage_type = $storage_type;
+		
+		$this->_setUrl();
 		$this->_setController($this->_getUrl(0));
 		$this->_setMethod($this->_controller, $this->_getUrl(1));
 		$this->_setParameter($this->_getUrl(), $this->_method);
@@ -95,6 +109,7 @@ class Bootstrap
 	 */
 	private function _getUrl($key = null)
 	{
+		//Must use null because empty will be true for 0
 		if (is_null($key))
 		{
 			return $this->_url;
@@ -165,6 +180,8 @@ class Bootstrap
 			// Scan the controllers directory for all valid files
 			$controllers_arr = scandir(CONTROLLER_PATH, 1);
 
+			$is_controller = false;
+			
 			foreach ($controllers_arr as $controller)
 			{
 				// Separate the file name from the extension
@@ -176,8 +193,8 @@ class Bootstrap
 				}
 			}
 
-			// Set the URL if it passed the checks above
-			if ($is_controller)
+			// Set the URL if it passed the checks above and is not error
+			if ($is_controller AND $url !== 'error')
 			{
 				$this->_controller = $this->_makeController($url);
 			}
@@ -222,11 +239,33 @@ class Bootstrap
 	}
 	
 	/**
+	 * Factory for the storage type our model uses.
+	 *
+	 * @return object $storage_type Storage object
+	 */
+	private function _makeStorageType()
+	{
+		$storage_type = ucfirst(STORAGE_TYPE);
+		
+		return new $storage_type;
+	}
+	
+	/**
+	 * Factory for the log object our model has access to.
+	 *
+	 * @return object Log
+	 */
+	private function _makeLogger()
+	{
+		return new Log();
+	}
+	
+	/**
 	 * Factory that handles the creation of new model objects based upon the
 	 * controller.
 	 * 
 	 * Before we create the model object, we create its dependencies. The model
-	 * depends upon a database object, so we create it and then pass it to the
+	 * depends upon a storage object, so we create it and then pass it to the
 	 * model constructor.
 	 * 
 	 * @param string $controller_name Allows us to find the correct model
@@ -234,12 +273,13 @@ class Bootstrap
 	 */
 	private function _makeModel($controller_name)
 	{
+		$storage	= $this->_makeStorageType();
+		$log		= $this->_makeLogger();
 		$db			= new Database();
-		$json		= new Json();
 		
 		$model_name	= $controller_name . 'Model';
-		
-		return new $model_name($db, $json);
+
+		return new $model_name($storage, $this->_storage_type, $log, $db);
 	}
 	
 	/**
@@ -249,7 +289,14 @@ class Bootstrap
 	 */
 	private function _getControllerName()
 	{
-		return lcfirst(get_class($this->_controller));
+		if (PHP_VERSION < 5.3)
+		{
+			return strtolower(get_class($this->_controller));
+		}
+		else
+		{
+			return lcfirst(get_class($this->_controller));
+		}
 	}
 	
 	/**
@@ -293,15 +340,15 @@ class Bootstrap
 		
 		if ($controller_name !== 'error')
 		{
-			if ($method === 'index')
+			// Index to begin looking for parameters (0 is the first)
+			$index_start = 2;
+			
+			if ( ($method === 'index') AND (count($url) <= $index_start) )
 			{
-				$this->_parameter = $controller_name;
+				$this->_parameter = array($controller_name);
 			}
 			else
 			{
-				// Begin looping at 3rd index
-				$index_start = 2;
-
 				foreach ($url as $key => $value)
 				{
 					if ($key >= $index_start)
@@ -322,20 +369,20 @@ class Bootstrap
 	 * 
 	 * @param string $type Name of the error to display.
 	 */
-	private function _error($type)
+	public function _error($type)
 	{
 		// Make sure to have an error controller and the proper page name.
 		$this->_controller	= $this->_makeController('error');
 		$page				= $this->_getControllerName();
-		
+
 		switch ($type)
 		{
 			case '404'	: 
 				$this->_method      = 'index';
 				$this->_parameter   = array(
-					$page, 
-					$type . ': Page Not Found',
-					'This page does not exist.');
+					'Oops! 404:<br /><span>Page Not Found</span>',
+					'The page you are looking for does not exist. Maybe it\'s at one of the links below:'
+				);
 				break;
 		}
 		

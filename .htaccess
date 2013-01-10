@@ -1,7 +1,39 @@
+Options +Indexes
+<IfModule mod_rewrite.c>
 RewriteEngine On
-
-RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteBase /
+RewriteRule ^index\.php$ - [L]
+#RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
+#RewriteRule . /index.php [L]
+RewriteRule ^(.+)$ index.php?url=$1 [L,QSA]
 
-RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+#RewriteCond %{HTTP_HOST} ^www\.abrightcms\.com [NC]
+#RewriteRule ^(.*)$ http://abrightcms.com/$1 [L,R=301]
+</IfModule>
+
+# Compress Text, HTML, JavaScript, CSS, XML:
+
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+
+# Compress certain file types by extension:
+
+<files *.eot>
+SetOutputFilter DEFLATE
+</files>
+<files *.ttf>
+SetOutputFilter DEFLATE
+</files>
+<files *.svg>
+SetOutputFilter DEFLATE
+</files>

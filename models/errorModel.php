@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed');
 
 /**
  * A Bright CMS
@@ -25,12 +25,13 @@ class ErrorModel extends Model
 	/**
 	 * Call the parent constructor and pass it a database object.
 	 * 
-	 * @param object $db Database object to pass to the model constructor
-	 * @param object key_gen Key gen object to pass to the model constructor
+     * @param object $storage Data storage object
+	 * @param string $storage_type The way data is stored and retrieved
+	 * @param object $log Log object for errors, other
 	 */
-	public function __construct($db, $key_gen)
+	public function __construct($storage_obj, $storage_type, $log, $db)
 	{
-		parent::__construct($db, $key_gen);
+		parent::__construct($storage_obj, $storage_type, $log, $db);
 	}
 }
 // End of ErrorModel Class

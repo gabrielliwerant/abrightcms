@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed');
 
 /**
  * A Bright CMS
@@ -20,13 +20,21 @@
  * 
  * @subpackage lib
  * @author Gabriel Liwerant
- * 
- * @param object $_view Holds an instance of the base view
- * @param object $_model Holds an instance of the base model
  */
 Class Controller
 {	
+	/**
+	 * Holds an instance of the base view
+	 *
+	 * @var object $_view
+	 */
 	protected $_view;
+	
+	/**
+	 * Holds an instance of the base model
+	 *
+	 * @var object $_model
+	 */
 	protected $_model;
 	
 	/**
@@ -37,10 +45,51 @@ Class Controller
 	 */
 	public function __construct($view, $model)
 	{
-		$this->_view = $view;		
-		$this->_model = $model;
+		$this->_view	= $view;		
+		$this->_model	= $model;
 	}
     
+	/**
+	 * Factory for key generator objects, allows us to decouple.
+	 *
+	 * @return object KeyGenerator
+	 */
+	public function _makeKeyGenerator()
+	{
+		return new KeyGenerator();
+	}
+	
+	/**
+	 * Allows us to force re-caching on included files like CSS and JS.
+	 *
+	 * @param boolean $is_mode_cache_busting Whether or not to add re-cache value
+	 * @param string $preexisting_value Any preexisting re-cache value to use
+	 * @return string The re-cache string to append to files
+	 */
+	protected function _cacheBuster($is_mode_cache_busting, $preexisting_value = null)
+	{
+		if ($is_mode_cache_busting)
+		{
+			if (empty($preexisting_value))
+			{
+				$this->_model->setKeyGenerator($this->_makeKeyGenerator());
+			
+				$cache_buster = $this->_model->key_gen
+					->generateKeyFromStandard(10, array('digital'));
+			}
+			else
+			{
+				$cache_buster = $preexisting_value;
+			}
+		}
+		else
+		{
+			$cache_buster = null;
+		}
+		
+		return '?' . $cache_buster;
+	}
+	
     /**
      * Set the view properties for the rendering of the basic HTML head 
      * information.
@@ -49,17 +98,10 @@ Class Controller
      */
     private function _setHeadDoc($head_data)
     {
-        if (is_array($head_data))
-        {
-            foreach($head_data as $key => $value)
-            {
-                $this->_view->$key = $value;
-            }
-        }
-        else
-        {
-            throw new MyException('Expected Array to Generate HTML Head.');
-        }
+        foreach($head_data as $key => $value)
+		{
+			$this->_view->$key = $value;
+		}
     }
 	
     /**
@@ -69,7 +111,7 @@ Class Controller
      */
     private function _setHeadMeta($head_meta)
     {
-        $this->_view->meta = '';
+        $this->_view->meta = null;
         
         foreach ($head_meta as $type => $value)
         {
@@ -77,63 +119,175 @@ Class Controller
         }
     }
     
-    /**
-     * Set the view property for the rendering of the head css link tags.
-     * 
-     * @param string array $head_css_data CSS file names for building
-     * @param string $cache_buster Optional random string to force re-caching
-     */
-    private function _setHeadCss($head_css_data, $cache_buster = null)
-    {
-        $this->_view->css = '';
+	/**
+	 * Set the view property for the head CSS link tags.
+	 *
+	 * @param array $include_data Data with CSS file names and other info
+	 * @param string $cache_buster Optional random string to force re-caching
+	 */
+	private function _setHeadIncludesCss($include_data, $cache_buster)
+	{
+		$this->_view->css = null;
         
-        foreach ($head_css_data as $value)
+        foreach ($include_data as $name => $css_data)
         {
-            $this->_view->css .= $this->_view->buildHeadCss($value, $cache_buster);
+            $this->_view->css .= $this->_view->buildHeadCss($name, $css_data, $cache_buster);
         }
-    }
-    
+	}
+	
+	/**
+	 * Sets the favicon in the appropriate view property.
+	 *
+	 * @param array $favicon_data Data used to build favicon
+	 * @param string $cache_buster Optional random string to force re-caching
+	 */
+	private function _setHeadIncludesFavicon($favicon_data, $cache_buster)
+	{
+		$this->_view->favicon = $this->_view->buildFavicon($favicon_data, $cache_buster);				
+	}
+	
+	/**
+	 * Set the view property for the head JS script tags.
+	 *
+	 * @param array $include_data Data with JS file names and other info
+	 * @param string $cache_buster Optional random string to force re-caching
+	 */
+	private function _setHeadIncludesJs($include_data, $cache_buster)
+	{
+		$this->_view->head_js = null;
+		
+		foreach ($include_data as $name => $js_data)
+		{
+			$this->_view->head_js .= $this->_view->buildJs($js_data, $cache_buster);
+		}
+	}
+	
     /**
      * Set the view property for the rendering of the header navigation.
      * 
-     * @param string array $header_nav_data Name and path of header navigation
+     * @param array $header_nav_data Name and other information for header nav
+	 * @param string $separator Optional separator in HTML for nav items
      */
-    private function _setHeaderNav($header_nav_data)
+    protected function _setHeaderNav($header_nav_data, $separator = null)
     {
-        $this->_view->header_nav = '';
-        
-        foreach ($header_nav_data as $name => $path)
+        $this->_view->header_nav	= null;
+		$nav_count					= count($header_nav_data);
+		$i							= 1;        
+		
+		foreach ($header_nav_data as $nav => $data)
         {
-            $this->_view->header_nav .= $this->_view->buildHeaderNav($name, $path);
+            if ($i === 1)
+			{
+				$list_class = 'first';
+			}			
+			elseif ($i === $nav_count)
+			{
+				$list_class = 'last';
+				$separator	= null;
+			}
+			else
+			{
+				$list_class= null;
+			}
+			
+			if ((boolean)$data['is_anchor'])
+			{			
+				$nav = $this->_view->buildAnchorTag(
+					$nav,
+					$data['path'], 
+					$data['is_internal'], 
+					$data['target'],
+					$data['title']
+				);
+			}
+			
+			$this->_view->header_nav .=  $this->_view->buildNav(
+				$nav, 
+				$list_class, 
+				$separator
+			);
+
+			$i++;
         }
     }
+	
+	/**
+	 * Set the view property for the rendering of the branding section of the 
+	 * header.
+	 *
+	 * @param string prefix Prefix for view property name
+	 * @param array $branding_data Branding values for building HTML
+	 */
+	protected function _setBranding($prefix, $branding_data)
+	{
+		$output_name = $prefix . 'logo';
+		
+		$this->_view->$output_name = $this->_view->buildBrandingLogo(
+			$branding_data['logo']['src'],
+			$branding_data['logo']['alt'],
+			$branding_data['logo']['text'],
+			$branding_data['logo']['path'],
+			(boolean)$branding_data['logo']['is_internal'],
+			$branding_data['logo']['target'],
+			$branding_data['logo']['title']
+		);
+		
+		if ( ! empty($branding_data['tagline']))
+		{
+			$this->_view->tagline = $branding_data['tagline'];
+		}
+	}
     
-    /**
-     * Sets the view property for the rendering of the footer copyright 
-     * information.
-     * 
-     * @param string array $footer_copyright_data Footer copyright values
-     * @param string $start_date Start date for copyright
-     * @param boolean $show_current_date Whether or not to append current date
-     */
-    private function _setFooterCopyright(
-		$footer_copyright_data,
-		$start_date,
-		$show_current_date = true)
-    {
-        $this->_view->footer_copyright = '';
-        
-        foreach ($footer_copyright_data as $value)
-        {
-            $this->_view->footer_copyright .= $this->_view->buildFooterCopyrightStart($value);
-        }
-        
-        if ($show_current_date)
-        {
-            $this->_view->footer_copyright .= $this->_view->buildFooterCopyrightEnd($start_date);
-        }
-    }
-    
+	/**
+	 * Set the view property for the rendering of the footer navigation.
+	 *
+	 * @param array $footer_nav_data Name and other information for footer nav
+	 * @param string $separator Optional separator in HTML for nav items
+	 */
+	protected function _setFooterNav($footer_nav_data, $separator = null)
+	{
+		$this->_view->footer_nav = null;
+		
+		$nav_count	= count($footer_nav_data);
+		$i			= 1;
+		
+		foreach ($footer_nav_data as $nav => $data)
+		{
+			if ($nav === 'copyright')
+			{
+				$this->_view->footer_nav .= $this->
+					_view->buildCopyright($data, $separator, true);
+			}
+			else
+			{
+				if ((boolean)$data['is_anchor'])
+				{
+					$nav = $this->_view->buildAnchorTag(
+						$nav, 
+						$path, 
+						$is_internal, 
+						$target,
+						$title
+					);
+				}
+				
+				// If we use a separator, make the last one null
+				if ($i === $nav_count)
+				{
+					$separator = null;
+				}
+				
+				$this->_view->footer_nav .= $this->_view->buildNav(
+					$nav, 
+					null, 
+					$separator
+				);
+			}
+			
+			$i++;
+		}
+	}
+	
     /**
      * Sets the view property for the footer JS script tags to be rendered.
      * 
@@ -142,14 +296,11 @@ Class Controller
      */
     private function _setFooterJs($footer_js_data, $cache_buster = null)
     {
-        // Depending on our development mode, get the correct paths js file
-		IS_MODE_PRODUCTION ? $paths_file = 'paths_remote' : $paths_file = 'paths_local';
+		$this->_view->footer_js = null;
 		
-		$this->_view->footer_js = $this->_view->buildFooterJs($paths_file, $cache_buster);
-        
-		foreach ($footer_js_data as $name)
+		foreach ($footer_js_data as $name => $js_data)
 		{
-			$this->_view->footer_js .= $this->_view->buildFooterJs($name, $cache_buster);
+			$this->_view->footer_js .= $this->_view->buildJs($js_data, $cache_buster);
 		}
     }
     
@@ -164,34 +315,19 @@ Class Controller
 	 * @param string $page_name Name of the page we load as the view
 	 */
 	public function render($page_name)
-	{	
-		$template = $this->_model->getTemplateData();
-
-		// If we are in cache busting mode, get our cache buster value
-		if (IS_MODE_CACHE_BUSTING)
-		{
-			$this->_model->setKeyGenerator(new KeyGenerator());
-			
-			$cache_buster = '?' . $this->_model->key_gen
-				->generateKeyFromStandard(10, array('digital'));
-		}
-		else
-		{
-			$cache_buster = null;
-		}
+	{
+		$template = $this->_model->getDataFromStorage('template');
 		
-		// Build out the view template pages with the JSON data
+		$cache_buster = $this->_cacheBuster(IS_MODE_CACHE_BUSTING, CACHE_BUSTING_VALUE);
+		
+		// Build out the basic view template pages with the JSON data
 		$this->_setHeadDoc($template['head']['head_doc']);
 		$this->_setHeadMeta($template['head']['head_meta']);
-        $this->_setHeadCss($template['head']['head_css'], $cache_buster);
-        $this->_setHeaderNav($template['header']['header_nav']);
-		$this->_setFooterCopyright(
-			$template['footer']['footer_copyright'], 
-            $template['footer']['footer_copyright']['start_date']
-		);		
+		$this->_setHeadIncludesCss($template['head']['head_includes']['head_css'], $cache_buster);
+		$this->_setHeadIncludesFavicon($template['head']['head_includes']['favicon'], $cache_buster);
+		$this->_setHeadIncludesJs($template['head']['head_includes']['head_js'], $cache_buster);
 		$this->_setFooterJs($template['footer']['footer_js'], $cache_buster);
 
-		// Renders the view
 		$this->_view->renderPage($page_name);
 	}
 }

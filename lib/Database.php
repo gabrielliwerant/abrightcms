@@ -1,13 +1,14 @@
 <?php
 
 /**
- * A Bright CMS
+ * TaskVolt
  * 
- * Core MVC/CMS framework used in TaskVolt and created for lightweight, custom
- * web applications.
+ * Project management, todo list, collaboration, and social web application tool
+ * for consumers.
  * 
- * @package A Bright CMS
+ * @package TaskVolt
  * @author Gabriel Liwerant
+ * @link http://taskvolt.com
  */
 
 /**
@@ -370,6 +371,45 @@ class Database extends PDO
 		$statement->setFetchMode(PDO::FETCH_NUM);
 		
 		return $statement->fetchAll();
+	}
+	
+	//
+	//
+	//
+	public function leftJoin()
+	{
+		
+	}
+	
+	//
+	//
+	//
+	public function rightJoin(
+		$table, 
+		$column_list, 
+		$join_table, 
+		$join_column, 
+		$where_column, 
+		$where_value
+	)
+	{
+		$column_clause	= $this->_buildColumnList($column_list, $table);
+		
+		$statement = $this->prepare("
+			SELECT $column_clause 
+			FROM {$table} 
+			RIGHT JOIN {$join_table} 
+			ON ({$table}.{$join_column} = {$join_table}.{$join_column}) 
+			WHERE {$table}.{$where_column} = {$where_value}
+		");
+		//Debug::printArray($statement);
+		$statement->execute();
+		$statement->setFetchMode(PDO::FETCH_NUM);
+		//Debug::printArray($statement->fetchAll());
+		return $statement->fetchAll();
+		
+		//SELECT prod_name, supplier_name, supplier_address FROM product RIGHT JOIN suppliers 
+		//ON (product.supplier_id = suppliers.supplier_id) WHERE supplier_name='Microsoft';
 	}
 	
 	/**

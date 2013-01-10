@@ -1,0 +1,168 @@
+/**
+ * Constants
+ * 
+ * LESS file that is compiled into styles.css using lessphp.
+ *
+ * @package A Bright Concept
+ * @author Gabriel Liwerant
+ */
+
+/**
+ * Misc.
+ *************************************************************/
+
+@path: "../images";
+ 
+@url-image-logo-alt:				@path + "/logo.png";
+
+/**
+ * Fonts
+ *************************************************************/
+ 
+/* @url-primary-font-eot:			"../fonts/yanonekaffeesatz-bold.eot";
+@url-primary-font-eot-ie:		"../fonts/yanonekaffeesatz-bold.eot?#iefix";
+@url-primary-font-svg:			"../fonts/yanonekaffeesatz-bold.svg#webfont";
+@url-primary-font-ttf:			"../fonts/yanonekaffeesatz-bold.ttf";
+@url-primary-font-woff:			"../fonts/yanonekaffeesatz-bold.woff";
+ 
+@primary-font: "Yanone Kaffeesatz Bold";
+@primary-font-list: @primary-font, Helvetica, Arial, sans-serif; */
+
+/**
+ * Sizes
+ *************************************************************/
+
+@wrapper-width:		100%;
+
+.background-size(@width, @height) {
+	background-size: @width @height;
+	-webkit-background-size: @width @height;
+	-o-background-size: @width @height;
+	-moz-background-size: @width @height;
+}
+
+/**
+ * Colors
+ *************************************************************/
+
+
+
+/**
+ * Gradients
+ *************************************************************/
+ 
+.gradient(@start-color, @end-color) {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(@start-color), to(@end-color)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient(@start-color, @end-color); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient(@start-color, @end-color); /* FF3.6 */
+	background-image:     -ms-linear-gradient(@start-color, @end-color); /* IE10 */
+	background-image:      -o-linear-gradient(@start-color, @end-color); /* Opera 11.10+ */
+	background-image:         linear-gradient(@start-color, @end-color);
+}
+
+/**
+ * Shadow
+ *************************************************************/
+ 
+.text-shadow(@x-offset, @y-offset, @color) {
+	text-shadow: @x-offset @y-offset 0 @color;
+	/* filter: progid:DXImageTransform.Microsoft.Shadow(color=@color, direction=135); */ /* IE Proprietary Filter*/
+ }
+
+.no-text-shadow {
+	text-shadow: none;
+}
+ 
+.drop-shadow(@offset-x, @offset-y, @radius, @color) {
+	-moz-box-shadow:	@offset-x @offset-y @radius @color;
+	-webkit-box-shadow:	@offset-x @offset-y @radius @color;
+	box-shadow:			@offset-x @offset-y @radius @color;
+}
+
+.inner-shadow(@offset-x, @offset-y, @radius, @color) {
+   -moz-box-shadow:		inset @offset-x @offset-y @radius @color;
+   -webkit-box-shadow:	inset @offset-x @offset-y @radius @color;
+   box-shadow:			inset @offset-x @offset-y @radius @color;
+}
+
+.drop-inner-shadow(
+	@offset-x1, 
+	@offset-y1, 
+	@radius1, 
+	@color1, 
+	@offset-x2, 
+	@offset-y2, 
+	@radius2, 
+	@color2
+) {
+	-moz-box-shadow:	@offset-x1 @offset-y1 @radius1 @color1, inset @offset-x2 @offset-y2 @radius2 @color2;
+	-webkit-box-shadow:	@offset-x1 @offset-y1 @radius1 @color1, inset @offset-x2 @offset-y2 @radius2 @color2;
+	box-shadow:			@offset-x1 @offset-y1 @radius1 @color1, inset @offset-x2 @offset-y2 @radius2 @color2;
+}
+
+.glow(@radius, @color) {
+	-moz-box-shadow:	0 0 @radius @color;
+	-webkit-box-shadow:	0 0 @radius @color;
+	box-shadow:			0 0 @radius @color;
+}
+
+/**
+ * Rounded Corners
+ *************************************************************/
+
+.rounded-all-corners(@radius) {
+	-moz-border-radius:		@radius;
+	-webkit-border-radius:	@radius;
+	border-radius:			@radius;
+}
+ 
+.rounded-top-corners(@radius) {
+	-moz-border-radius:		@radius @radius 0 0;
+	-webkit-border-radius:	@radius @radius 0 0;
+	border-radius:			@radius @radius 0 0;
+}
+
+.rounded-bottom-corners(@radius) {
+	-moz-border-radius:		0 0 @radius @radius;
+	-webkit-border-radius:	0 0 @radius @radius;
+	border-radius:			0 0 @radius @radius;
+}
+
+/**
+ * Transitions
+ *************************************************************/
+
+ @transition-time: 400ms;
+ 
+.transition(@style, @time, @easing) {
+	transition:			@style @time @easing;
+   -moz-transition:		@style @time @easing;
+   -webkit-transition:	@style @time @easing;
+   -o-transition:		@style @time @easing;
+}
+
+/**
+ * Basic, Misc.
+ *************************************************************/
+ 
+.css_clear {
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.box_sizing {
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+/**
+ * Testing
+ *************************************************************/
+ 
+ .test {
+	border: 10px solid red;
+ }

@@ -1,44 +1,120 @@
-/*
-	Main LESS file that is compiled into styles.css using lessphp.
+/**
+ * All
+ *
+ * Imports and glues together all LESS files and other styles.
+ *
+ * @package A Bright CMS
+ * @author Gabriel Liwerant
+ */
 
-	@author Gabriel Liwerant
-*/
+/**
+ * Initial Imports
+ *************************************************************/
+
+@import "constants.less";
+@import "fonts.less";
+
+/**
+ * Basic Elements
+ *************************************************************/
+
+body { 
+	font-size: 100%;
+}
+
+a {
+	text-decoration: underline;
+}
+
+a:hover,
+a.section-nav {
+	text-decoration: none;
+}
+
+.clear {
+	clear: both;
+}
+
+.no-css,
+.hide,
+noscript {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+/**
+ * Body
+ *************************************************************/
+ 
+#wrapper-outer {
+	width: @wrapper-width;
+	margin: auto;
+}
+
+#warning,
+#warning a {
+	color: @font-color-primary;
+}
+
+#warning {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 1.25em;
+	line-height: 1.25em;
+	
+	padding: 1.5em;
+	background: yellow;
+	top: 0;
+	border-bottom: 3px solid red;
+	
+	i {
+		display: none;
+	}
+}
+
+.exception {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 1em;
+	
+	padding: 1em;
+	background: #ffffff;
+	border-top: 2px solid red;
+	border-bottom: 2px solid red;
+}
+
+/**
+ * Main Imports
+ *************************************************************/
 
 @import "header.less";
 @import "footer.less";
-
-/*
- * Declare Constants and Mixins
+ 
+/**
+ * Media Queries
  *************************************************************/
-
-/* CSS3 Rounded corners */
-.rounded-corners {
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
+ 
+@media only screen and (min-width: 650px) {
+	@import "650-up.less";
+}
+ 
+@media only screen and (min-width: 850px) {
+	@import "850-up.less";
 }
 
-/* CSS3 Transparency */
-.transparency(@opacity) {
-	filter:alpha(opacity=@opacity);
-	-moz-opacity:@opacity;
-	-khtml-opacity:@opacity;
-	opacity:@opacity;
+@media only screen and (min-width: 1100px) {
+	@import "1100-up.less";
 }
 
-/*CSS3 Shadow */
-.drop-shadow {
-	-moz-box-shadow: 2px 2px 2px #444;
-	-webkit-box-shadow: 2px 2px 2px #444;
-	box-shadow: 2px 2px 2px #444;
-}
-
-/* CSS3 glow effect: */
-.glow {
-	@color:#bbb;
-	/*@color:#A6E5FD;*/
-	
-	-moz-box-shadow:0 0 5px @color;
-	-webkit-box-shadow:0 0 5px @color;
-	box-shadow:0 0 5px @color;
-}
+/* @media only screen and (min-width: 1600px) {
+	@import "1600-up.less";
+} */

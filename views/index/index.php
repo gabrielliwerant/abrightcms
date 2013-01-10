@@ -1,5 +1,5 @@
-<h1>This is the Home header.</h1>
+<div id="container">
 
-<h2>This is a subheader.</h2>
+	<h1>We are in Index.</h1>
 
-<p>This is a paragraph.</p>
+</div>

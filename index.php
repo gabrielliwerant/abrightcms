@@ -29,18 +29,27 @@ require_once ABSOLUTE_ROOT_PATH . '/config/paths.php';
 require_once ABSOLUTE_ROOT_PATH . '/config/database.php';
 require_once ABSOLUTE_ROOT_PATH . '/config/config.php';
 
-// Create a new log object for error logging
-$log = new Log();
-
 // Create the main application object which also loads the approprate 
-// controller and calls the appropriate method (with any parameters)
+// controller and calls the appropriate method (with any parameters). We wrap 
+// in a try catch block to hide system exceptions in a production environment.
 try
 {
-	new Bootstrap();
+	new Bootstrap(STORAGE_TYPE);
 }
 catch (MyException $e)
 {
-	echo $e->caughtException($log);
+	if (IS_MODE_PRODUCTION)
+	{
+		exit($e->caughtException());
+	}
+	else
+	{
+		$e->caughtException();
+	}
 }
+
+// If we land here, we know the app executed successfully, so we define a 
+// constant, the absence of which will indicate a fatal program error.
+define('EXECUTION_SUCCESSFUL', true);
 
 /* EOF index.php */

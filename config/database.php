@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed');
 
 /**
  * A Bright CMS

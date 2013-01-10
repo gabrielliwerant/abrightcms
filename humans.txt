@@ -2,7 +2,7 @@
 
 /* TEAM */
 Designer/Developer: Gabriel Liwerant
-Site: http://ABrightConcept.com
+Site: http://abrightconcept.com
 Twitter: @gabrielliwerant
 
 /* THANKS */
@@ -10,5 +10,5 @@ Name:
 
 /* SITE */
 Standards: HTML5, CSS3
-Components: LESS, jQuery, jQuery UI
-Software: Netbeans, phpmyadmin, Firebug, Notepad++
+Components: LESS, jQuery, HTML5Shiv
+Software: Netbeans, Firebug, Notepad++, git

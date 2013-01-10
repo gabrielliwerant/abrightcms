@@ -1,3 +1,7 @@
-<h1><?php echo $this->error_type; ?></h1>
+<div id="container">
 
-<h2><?php echo $this->error_msg; ?></h2>
+	<h1><?php echo $this->error_type; ?></h1>
+
+	<h2><?php echo $this->error_msg; ?></h2>
+	
+</div>

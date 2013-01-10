@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed');
 
 /**
  * A Bright CMS
@@ -22,24 +22,24 @@
 class Json
 {
 	/**
-	 * Stores array of arrays for JSON files with their associated data.
-	 *
-	 * @var array $json
+	 * Error codes for Json class.
 	 */
-	public $json = array();
+	const JSON_LAST_ERROR				= 1001;
+	const COULD_NOT_CONVERT_TO_BOOELAN	= 1002;
 	
 	/**
-	 * Upon construction, store the default template JSON file in our JSON 
-	 * property.
-	 * 
-	 * @param array $json_file_arr JSON files to store
+	 * Stores array of arrays for JSON files with their associated data.
+	 *
+	 * @var array $_json
 	 */
-	public function __construct($json_file_arr)
+	private $_json = array();
+	
+	/**
+	 * Nothing to see here...
+	 */
+	public function __construct()
 	{
-		foreach($json_file_arr as $key => $json_file)
-		{
-			$this->setJsonFileAsArray($json_file, $key);
-		}
+		//
 	}
 	
 	/**
@@ -70,7 +70,7 @@ class Json
 			}
 			else
 			{
-				//throw exception
+				throw make_exception_object('Json Exception (' . json_last_error() . ')', self::JSON_LAST_ERROR);
 			}
 		}
 	}
@@ -97,7 +97,7 @@ class Json
 			}
 			else
 			{
-				//throw exception
+				throw make_exception_object('Json Exception (' . json_last_error() . ')', self::JSON_LAST_ERROR);
 			}
 		}
 	}
@@ -108,11 +108,11 @@ class Json
 	 * @param string $file_name Is the name of the JSON file we want data from
 	 * @param string $key Allows us to set a name for the JSON array
 	 */
-	public function setJsonFileAsArray($file_name, $key)
+	public function setFileAsArray($file_name, $key)
 	{
 		$json_encoded = file_get_contents(JSON_PATH . '/' . $file_name . '.json');
 		
-		$this->json[$key] = $this->getJsonDecode($json_encoded);
+		$this->_json[$key] = $this->getJsonDecode($json_encoded);
 	}
 	
 	/**
@@ -121,9 +121,19 @@ class Json
 	 * @param string $json_key Is the name of the JSON file
 	 * @return array Gets us the specific array we want 
 	 */
-	public function getJsonFileAsArray($json_key)
+	public function getFileAsArray($json_key)
 	{
-		return $this->json[$json_key];
+		return $this->_json[$json_key];
+	}
+	
+	/**
+	 * Returns all JSON files as an array of arrays.
+	 *
+	 * @return array Entire array of arrays of JSON data
+	 */
+	public function getAllDataAsArray()
+	{
+		return $this->_json;
 	}
 	
 	/**
@@ -146,14 +156,7 @@ class Json
 		}
 		else
 		{
-			if (class_exists('MyException'))
-			{
-				throw new MyException('Could not convert string to boolean in ' . __CLASS__ . ' class');
-			}
-			else
-			{
-				throw new Exception('Could not convert string to boolean in ' . __CLASS__ . ' class');
-			}
+			throw make_exception_object('Json Exception', self::COULD_NOT_CONVERT_TO_BOOELAN);
 		}
 
 		return $true_boolean;

@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed');
 
 /**
  * A Bright CMS
@@ -25,12 +25,13 @@ class IndexModel extends Model
 	/**
 	 * Call the parent constructor and pass it objects.
 	 * 
-	 * @param object $db Database object to pass to the model constructor
-     * @param object $json
+     * @param object $storage Data storage object
+	 * @param string $storage_type The way data is stored and retrieved
+	 * @param object $log Log object for errors, other
 	 */
-	public function __construct($db, $json)
+	public function __construct($storage_obj, $storage_type, $log, $db)
 	{
-		parent::__construct($db, $json);
+		parent::__construct($storage_obj, $storage_type, $log, $db);
 	}
 }
 // End of IndexModel Class

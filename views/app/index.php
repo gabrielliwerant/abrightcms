@@ -1,5 +1,5 @@
-<h1>This is the App header.</h1>
+<div id="container">
 
-<h2>This is a subheader.</h2>
-
-<p>This is a paragraph.</p>
+	<h1>We are in App.</h1>
+	
+</div>

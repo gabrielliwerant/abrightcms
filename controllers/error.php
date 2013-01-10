@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed');
 
 /**
  * A Bright CMS
@@ -40,16 +40,19 @@ Class Error extends Controller
 	 * We can set whatever values we want to use in the template here, or we can
 	 * use the defaults in the base render method.
 	 * 
-	 * @param string array $parameter_arr Contains the needed arguments
+	 * @param array $parameter_arr
 	 */
 	public function index($parameter_arr)
 	{
-		$page_name		= $parameter_arr[0];
-		$error_header	= $parameter_arr[1];
-		$error_msg		= $parameter_arr[2];
+		$error_header	= $parameter_arr[0];
+		$error_msg		= $parameter_arr[1];
 		
 		$this->_view->setErrorType($error_header);
 		$this->_view->setErrorMsg($error_msg);
+		
+		$page_name = 'error-404';
+		
+		$this->_view->page = $page_name;
 		
 		$this->render($page_name);
 	}

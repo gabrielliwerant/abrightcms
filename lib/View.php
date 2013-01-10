@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed');
 
 /**
  * A Bright CMS
@@ -30,6 +30,20 @@ class View
 	}
 	
 	/**
+	 * Build IE conditional tags with embeded code.
+	 *
+	 * @param string $conditional The conditional statement to use
+	 * @param string $embed Any code to embed in the statement
+	 * @return string Built IE conditional with embeded code
+	 */
+	private function _buildIeConditional($conditional, $embed)
+	{
+		$conditional = '<!--[if ' . $conditional . ']>' . $embed . '<![endif]-->';
+		
+		return $conditional;
+	}
+	
+	/**
 	 * Builds the meta tags for the head view.
 	 * 
 	 * @param string $type Type section of meta tag
@@ -43,114 +57,278 @@ class View
             $meta = '<meta ' . $type . ' content="' . $value . '" />';
 		}
 		else
-		{
-			$meta = 'Incorrect Data Type for Meta';
+		{	
+			throw new MyException('Incorrect data type for meta tag with method: ' . __METHOD__ . ' in ' . __CLASS__);
 		}
         
         return $meta;
 	}
 	
 	/**
-	 * Builds the css link tags for the head view.
-	 * 
-	 * @param string $name CSS file name
-	 * @param string $cache_buster Appends query string to bust cache
-     * @return string Completed CSS link tag or error message
+	 * Builds the HTML for a favicon.
+	 *
+	 * @param array $favicon_data Data used to build favicon
+	 * @param string $cache_buster Optional random string to force re-caching
+	 * @return string Built HTML for favicon
 	 */
-	public function buildHeadCss($name, $cache_buster = null)
+	public function buildFavicon($favicon_data, $cache_buster = null)
 	{
-		if (is_string($name))
+		if ((boolean)$favicon_data['is_internal'])
 		{
+			$favicon = '<link href="' . IMAGES_PATH . '/favicon.ico' . $cache_buster . '" rel="shortcut icon" />';
+		}
+		else
+		{
+			$favicon = '<link href="' . $favicon_data['href'] . $cache_buster . '" rel="shortcut icon" />';
+		}
+		
+		if ($favicon_data['ie_conditional'] !== '')
+		{
+			$favicon = $this->_buildIeConditional($favicon_data['ie_conditional'], $favicon);
+		}
+        
+        return $favicon;
+	}
+	
+	/**
+	 * Build the HTML link tag for CSS files.
+	 *
+	 * @param string $name CSS file name
+	 * @param array $css_data CSS file associated data
+	 * @param string $cache_buster Appends query string to bust cache
+	 * @return string Built CSS link tag
+	 */
+	public function buildHeadCss($name, $css_data, $cache_buster = null)
+	{
+		if ((boolean)$css_data['is_internal'])
+		{			
 			$css = '<link rel="stylesheet" href="' . CSS_PATH . '/' . $name . '.css' . $cache_buster . '" />';
 		}
 		else
 		{
-			$css = 'Incorrect Data Type for CSS';
+			$css = '<link rel="stylesheet" href="' . $css_data['href'] . $cache_buster . '" />';
+		}
+		
+		if ($css_data['ie_conditional'] !== '')
+		{
+			$css = $this->_buildIeConditional($css_data['ie_conditional'], $css);
 		}
         
         return $css;
 	}
+	
+	/**
+	 * Build the script tags for JS files in the head section.
+	 *
+	 * @param array $js_data JS file associated data
+	 * @param string $cache_buster Appends query string to bust cache
+	 * @return string Built script tag for JS file
+	 */
+	public function buildJs($js_data, $cache_buster = null)
+	{
+		$cache_buster = null;
+		
+		if ((bool)$js_data['is_internal'])
+		{
+			if ( ! empty($js_data['src']))
+			{
+				$src = 'src="' . JS_PATH . '/' . $js_data['src'] . '.js' . $cache_buster . '"';
+			}
+			else
+			{
+				$src = null;
+			}
+			
+			if ( ! isset($js_data['code']) OR empty($js_data['code']))
+			{
+				$code = null;
+			}
+			else
+			{
+				$code = $js_data['code'];
+			}
+			
+			$js = '<script ' . $src . '>' . $code . '</script>';
+		}
+		else
+		{
+			$src = 'src="' . $js_data['src'] . '"';
+			
+			if ( ! isset($js_data['code']) OR empty($js_data['code']))
+			{
+				$code = null;
+			}
+			else
+			{
+				$code = $js_data['code'];
+			}
+			
+			$js = '<script ' . $src . '>' . $code . '</script>';
+		}
+		
+		if ( ! empty($js_data['ie_conditional']))
+		{
+			$js = $this->_buildIeConditional($js_data['ie_conditional'], $js);
+		}
 
+        return $js;
+	}
+	
+	/**
+	 * Build an HTML anchor tag.
+	 *
+	 * @param string $text Text for anchor tag display
+	 * @param string $path Used to build the href attribute
+	 * @param boolean $is_internal If href is local or remote
+	 * @param string $target Anchor tag target element
+	 * @param string $title Anchor tag title element
+	 * @param string $class Anchor tag class
+	 * @param string $id Anchor tag id
+	 * @return string Built HTML anchor tag
+	 */
+	public function buildAnchorTag(
+		$text,
+		$path, 
+		$is_internal,
+		$target		= '_blank',
+		$title		= null,
+		$class		= null,
+		$id			= null
+	)
+	{
+		if ((boolean)$is_internal)
+		{
+			$href = HTTP_ROOT_PATH . '/' . $path;
+		}
+		else
+		{
+			$href = $path;
+		}
+		
+		$anchor_data['href']	= null;
+		$anchor_data['target']	= null;
+		$anchor_data['title']	= null;
+		$anchor_data['id']		= null;
+		$anchor_data['class']	= null;
+		
+		$attribute_list = null;
+		foreach ($anchor_data as $key => $val)
+		{
+			if ( ! empty($$key))
+			{
+				$attribute		= $key . '="' . $$key . '"';
+				$attribute_list	.= $attribute . ' ';
+			}
+		}
+		
+		$anchor = '<a ' . $attribute_list . '>' . $text . '</a>';
+		
+		return $anchor;
+	}
+	
 	/**
 	 * Builds the header navigation for the header view.
-	 * 
-	 * @param string $name Name of navigation item
-	 * @param string $path Navigation path
-     * @return string Navigation item or error message
+	 *
+	 * @param string $nav The HTML for the navigation item
+	 * @param string $list_class CSS class to use with list item 
+	 * @param string $separator_string Separating HTML between items
+	 * @return string Built navigation item or error message
 	 */
-	public function buildHeaderNav($name, $path)
+	public function buildNav($nav, $list_class, $separator_string = null)
 	{
-		if (is_string($name) AND is_string($path))
+		if ( ! empty($separator_string))
 		{
-			$header_nav = '<li><a href="' . HTTP_ROOT_PATH . '/' . $path .'" target="_self">' . $name . '</a></li>';
+			$separator	= '<span class="separator">' . $separator_string . '</span>';
 		}
 		else
 		{
-			$header_nav = 'Incorrect Data Type for Header Navigation';
+			$separator = null;
 		}
-        
-        return $header_nav;
+		
+		$header_nav	= '<li class="' . $list_class . '">' . $nav . $separator . '</li>';
+		
+		return $header_nav;
 	}
 	
 	/**
-	 * Builds the starting copyright section for the footer in our view.
-	 * 
-	 * @param string array $footer_data Used to build the copyright section
+	 * Build the HTML for the copyright.
+	 *
+	 * @param array $copyright_data Data pertaining to copyright information
+	 * @param string $separator Optional separator string to append
+	 * @param boolean $show_current_date Whether or not we show the current date
+	 * @return string Built HTML copyright from data
 	 */
-	public function buildFooterCopyrightStart($value)
+	public function buildCopyright($copyright_data, $separator = null, $show_current_date = true)
 	{
-		if (is_string($value))
-		{			
-            $footer_copyright_start = $value . ' ';
-		}
-		else
+		$copyright	= $copyright_data['symbol'];
+		$copyright	.= ' ' . $copyright_data['holder'];
+		$copyright	.= ' ' . $copyright_data['start_date'];
+		
+		if ($show_current_date)
 		{
-			$footer_copyright_start = 'Incorrect Data Type for Footer Copyright';
+			if ((int)$copyright_data['start_date'] < (int)date('Y'))
+			{
+				$copyright .= ' - ' . date('Y');
+			}
 		}
-        
-        return $footer_copyright_start;
+		
+		$separator	= '<span class="separator">' . $separator . '</span>';
+		
+		$copyright	= '<li>' . $copyright . $separator . '</li>';
+		
+		return $copyright;
 	}
     
-    /**
-     * Used to build the end date section of the copyright part of the footer in
-     * our view.
-     * 
-     * @param string $start_date Begin date will help determine if we show end
-     * @return string Completed end data section
-     */
-    public function buildFooterCopyrightEnd($start_date)
-    {
-        if ((int)$start_date < (int)date('Y'))
-        {
-            $footer_copyright_end = '- ' . date('Y');
-        }
-        else
-        {
-            $footer_copyright_end = '';
-        }
-        
-        return $footer_copyright_end;
-    }
-	
 	/**
-	 * Builds the script tags for the javascript we include in our footer.
-	 * 
-	 * @param string $file_name Name used to build the script tags
-	 * @param string $cache_buster Appends query string to bust cache
-	 * @return string Script tag with file.
+	 * Builds the brand logo section.
+	 *
+	 * @param string $src Img tag src attribute
+	 * @param string $alt Img tag alt attribute
+	 * @param string $text Text to nest in branding anchor
+	 * @param string $path Used to build the href attribute
+	 * @param boolean $is_internal If href is local or remote
+	 * @param string $target Anchor tag target attribute
+	 * @param string $title Anchor tag title attribute
+	 * @param string $id Img tag id
+	 * @return string Prepared HTML for logo with anchor tag
 	 */
-	public function buildFooterJs($file_name, $cache_buster = null)
+	public function buildBrandingLogo(
+		$src, 
+		$alt,
+		$text,
+		$path, 
+		$is_internal, 
+		$target, 
+		$title,
+		$id = null
+	)
 	{
-		if (is_string($file_name))
+		$img_data['src']	= null;
+		$img_data['alt']	= null;
+		$img_data['id']		= null;
+		
+		$src = IMAGES_PATH . '/' . $src;
+		
+		$attribute_list = null;
+		foreach ($img_data as $key => $val)
 		{
-			$footer_js = "<script src=" . JS_PATH . '/' . $file_name . ".js" . $cache_buster . "></script>";
+			if ( ! empty($$key))
+			{
+				$attribute		= $key . '="' . $$key . '"';
+				$attribute_list	.= $attribute . ' ';
+			}
 		}
-		else
+		
+		$logo = '<img ' . $attribute_list . '/>';	
+		
+		$logo_anchor	= $this->buildAnchorTag($logo, $path, $is_internal, $target, $title);
+		
+		if ( ! empty($text))
 		{
-			$footer_js = 'Incorrect Data Type for Footer Javascript';
+			$this->site_name = $text;
 		}
-
-		return $footer_js;
+		
+		return $logo_anchor;
 	}
 	
 	/**

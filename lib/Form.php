@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed');
 
 /**
  * A Bright CMS
@@ -155,188 +155,6 @@ class Form
 	}
 	
 	/**
-	 * Allows us to populate a property with meta data for our fields.
-	 *
-	 * @param string $key Key name for field array
-	 * @param array $meta_data Array with meta data for field
-	 */
-	public function setFieldMeta($key, $meta_data)
-	{
-		$this->field_meta[$key] = $meta_data;
-	}
-	
-	/**
-	 * Public-facing setter for labels, which builds them with the appropriate
-	 * HTML as well as a line-break if desired.
-	 *
-	 * @param string $for For value for label
-	 * @param string $text Text portion of label
-	 */
-	public function setLabel($for, $text)
-	{
-		$label	= '<label for="' . $for . '">' . $text . '</label>';		
-		
-		$this->_setLabel($for, $label);
-	}
-	
-	/**
-	 * Builds and then sets an input field.
-	 *
-	 * @param string $name Name attribute
-	 * @param string $id Field id
-	 * @param string $maxlength Maxlength attribute
-	 * @param string $type Type attribute
-	 * @param string $value Value attribute
-	 * @param string $size Size attrivute
-	 * @param boolean $is_required Tells us if field is required or not
-	 * @param string $icon_class Class name for icon or empty
-	 */
-	public function setInput(
-		$name, 
-		$id, 
-		$maxlength, 
-		$type			= null, 
-		$value			= null, 
-		$size			= null,
-		$is_required	= false,
-		$icon_class		= null
-	)
-	{
-		$field			= $this->_buildField($name, $id, $maxlength, $type, $value, $size);		
-		$required		= $this->_buildRequired($is_required, $field, $icon_class);
-		$input_field	= '<input ' . $field . '/>' . $required;
-		
-		$this->_setField($id, $input_field);
-	}
-	
-	/**
-	 * Builds and then sets a textarea field.
-	 *
-	 * @param string $name Name attribute
-	 * @param string $id Field id
-	 * @param string $maxlength Maxlength attribute
-	 * @param string $value Value attribute
-	 * @param string $size Size attrivute
-	 * @param boolean $is_required Tells us if field is required or not
-	 * @param string $icon_class Class name for icon or empty
-	 */
-	public function setTextArea(
-		$name, 
-		$id, 
-		$maxlength, 
-		$value			= null, 
-		$size			= null,
-		$is_required	= false,
-		$icon_class		= null
-	)
-	{
-		$field			= $this->_buildField($name, $id, $maxlength, null, $value, $size);		
-		$required		= $this->_buildRequired($is_required, $field, $icon_class);
-		$input_field	= '<textarea ' . $field . '></textarea>' . $required;
-		
-		$this->_setField($id, $input_field);
-	}
-	
-	/**
-	 * Public-facing setter for form select fields, which builds them with the 
-	 * appropriate HTML.
-	 *
-	 * @param string $name Name attribute
-	 * @param array $option_data Data to use for building the select options
-	 * @param string $id Select id
-	 */
-	public function setSelect($name, $option_data, $id, $is_required = false)
-	{
-		$option = null;
-		
-		if (is_array($option_data))
-		{
-			foreach ($option_data as $text => $value)
-			{
-				$option .= '<option value="' . $value . '">' . $text . '</option>';
-			}
-		}
-		else
-		{
-			// @todo error if no option_data
-		}
-
-		$field		= $this->_buildField($name, $id, null);
-		$required	= $this->_buildRequired($is_required, $field, null);
-		
-		$select_field = '<select ' . $field . ' >' . $option . '</select>' . $required;
-		
-		$this->_setField($id, $select_field);
-	}
-	
-	/**
-	 * Build the HTML form from all the appropriate properties with any desired
-	 * id or enclosing tag for the individual fields and return the built form.
-	 *
-	 * @param string $field_tag_type HTML tag to enclose fields with
-	 * @param string $id Form id
-	 * @return string Built HTML form
-	 */
-	public function getForm($field_tag_type = null, $name = null, $id = null)
-	{
-		$fields = null;
-				
-		foreach ($this->_fields as $field_id => $field)
-		{
-			// Find matching labels to connect to other form fields
-			foreach ($this->_labels as $for => $label)
-			{
-				if ($for === $field_id)
-				{
-					$field = $label . $field;
-					
-					break;
-				}
-			}
-			
-			if ( ! empty($field_tag_type))
-			{
-				$fields .= $this->_htmlTagWrap($field_tag_type, $field);
-			}
-			else
-			{
-				$fields .= $field;
-			}
-		}
-		
-		$action				= $this->_form_action;
-		$method				= $this->_form_method;
-		$form['action']		= null;
-		$form['method']		= null;
-		$form['name']		= null;
-		$form['id']			= null;
-		$form_attributes	= null;
-		
-		foreach ($form as $attribute => $value)
-		{
-			$form_attributes .= $attribute . '="' . $$attribute . '" ';
-		}
-		
-		$built_form = '<form ' . $form_attributes . ' >' . $fields . '</form>';
-
-		return $built_form;
-	}
-	
-	/**
-	 * Allows us to enclose parts of our form in an HTML tag.
-	 *
-	 * @param string $tag_type The HTML tag to enclose with
-	 * @param string $inner The HTML to enclose
-	 * @return string The enclosed HTML
-	 */
-	private function _htmlTagWrap($tag_type, $inner)
-	{
-		$enclosed = '<' . $tag_type . '>' . $inner . '</' . $tag_type . '>';
-		
-		return $enclosed;
-	}
-	
-	/**
 	 * Helps us build our fields by adding required class and required icon.
 	 * 
 	 * We pass the field by reference so that changes are made to it out of the
@@ -398,10 +216,9 @@ class Form
 		$input['size']			= null;
 
 		$field = null;
-
 		foreach ($input as $key => $val)
 		{
-			if ( ! empty($key))
+			if ( ! empty($$key))
 			{
 				$attribute	= $key . '="' . $$key . '"';
 				$field		.= $attribute . ' ';
@@ -412,91 +229,231 @@ class Form
 	}
 	
 	/**
-	 * Checks whether or not a field is required, and if it is, whether or not
-	 * any data has been submitted in it.
+	 * Allows us to populate a property with meta data for our fields.
 	 *
-	 * @param string $field_data The data for the field we are checking
-	 * @param string $required_value The requirement value of the field (yes/no)
-	 * @return boolean Whether or not the required field is filled
+	 * @param string $key Key name for field array
+	 * @param array $meta_data Array with meta data for field
 	 */
-	private function _isRequiredFieldFilled($field_data, $required_value)
+	public function setFieldMeta($key, $meta_data)
 	{
-		$is_required = (boolean)$required_value;
-
-		if ($is_required)
+		$this->field_meta[$key] = $meta_data;
+	}
+	
+	/**
+	 * Public-facing setter for labels, which builds them with the appropriate
+	 * HTML as well as a line-break if desired.
+	 *
+	 * @param string $for For value for label
+	 * @param string $text Text portion of label
+	 */
+	public function setLabel($for, $text)
+	{
+		$label	= '<label for="' . $for . '">' . $text . '</label>';		
+		
+		$this->_setLabel($for, $label);
+	}
+	
+	/**
+	 * Builds and then sets an input field.
+	 *
+	 * @param string $name Name attribute
+	 * @param string $id Field id
+	 * @param string $maxlength Maxlength attribute
+	 * @param string $type Type attribute
+	 * @param string $value Value attribute
+	 * @param string $size Size attrivute
+	 * @param boolean $is_required Tells us if field is required or not
+	 * @param string $icon_class Class name for icon or empty
+	 */
+	public function setInput(
+		$name, 
+		$id, 
+		$maxlength, 
+		$type			= null, 
+		$value			= null, 
+		$size			= null,
+		$is_required	= false,
+		$icon_class		= null
+	)
+	{
+		$field			= $this->_buildField($name, $id, $maxlength, $type, $value, $size);		
+		$required		= $this->_buildRequired($is_required, $field, $icon_class);
+		$input_field	= '<input ' . $field . '/>' . $required;
+		
+		$this->_setField($id, $input_field);
+	}
+	
+	/**
+	 * Builds and then sets a textarea field.
+	 *
+	 * @param string $name Name attribute
+	 * @param string $id Field id
+	 * @param boolean $is_required Tells us if field is required or not
+	 * @param string $icon_class Class name for icon or empty
+	 */
+	public function setTextArea(
+		$name, 
+		$id, 
+		$is_required	= false,
+		$icon_class		= null
+	)
+	{
+		$field			= $this->_buildField($name, $id, null, null, null, null);		
+		$required		= $this->_buildRequired($is_required, $field, $icon_class);
+		$input_field	= '<textarea ' . $field . '></textarea>' . $required;
+		
+		$this->_setField($id, $input_field);
+	}
+	
+	/**
+	 * Public-facing setter for form select fields, which builds them with the 
+	 * appropriate HTML.
+	 *
+	 * @param string $name Name attribute
+	 * @param array $option_data Data to use for building the select options
+	 * @param string $id Select id
+	 */
+	public function setSelect($name, $option_data, $id, $is_required = false)
+	{
+		$option = null;		
+		foreach ($option_data as $text => $value)
 		{
-			if ( ! empty($field_data))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			$option .= '<option value="' . $value . '">' . $text . '</option>';
 		}
-		else
+
+		$field		= $this->_buildField($name, $id, null);
+		$required	= $this->_buildRequired($is_required, $field, null);
+		
+		$select_field = '<select ' . $field . ' >' . $option . '</select>' . $required;
+		
+		$this->_setField($id, $select_field);
+	}
+	
+	/**
+	 * Get the array property with all the stored fields.
+	 *
+	 * @return array All the fields for the form
+	 */
+	public function getFields()
+	{
+		return $this->_fields;
+	}
+
+	/**
+	 * Find the matching label to connect to the correct field and return it.
+	 *
+	 * @param string $field_key Key of field to find matching label for
+	 * @return string Matching label
+	 */
+	public function getLabelMatchingFieldKey($field_key)
+	{
+		foreach ($this->_labels as $for => $label)
 		{
-			return true;
+			if ($for === $field_key)
+			{
+				return $label;
+			}
 		}
 	}
 	
 	/**
-	 * Checks whether or not a field is used for checking against spam, and if
-	 * so, compare the data submitted to the requested answer.
+	 * Build the HTML form from all the appropriate properties with any desired
+	 * id and individual fields and return the built form.
 	 *
-	 * @param string $spam_field_data Spam field data to compare to answer
-	 * @param string $spam_check_value The spam check value for the field
-	 * @param array $spam_check_answer_data Spam check answers for comparison
-	 * @return boolean Whether the spam check field was satisfied correctly
+	 * @param string $fields HTML fields to enclose in form
+	 * @param string $id Form id
+	 * @return string Built HTML form
 	 */
-	private function _isSpamCheckAnswerValid(
-		$spam_field_data, 
-		$spam_check_value,
-		$spam_check_answer_data
-	)
+	public function getForm($fields, $name = null, $id = null)
 	{
-		$is_spam_check_field = (boolean)$spam_check_value;
-
-		if ($is_spam_check_field)
+		$action				= $this->_form_action;
+		$method				= $this->_form_method;
+		
+		$form['action']		= null;
+		$form['method']		= null;
+		$form['name']		= null;
+		$form['id']			= null;
+		
+		$form_attributes = null;		
+		foreach ($form as $attribute => $value)
 		{
-			foreach ($spam_check_answer_data as $value)
-			{
-				if (strtolower($spam_field_data) === strtolower($value))
-				{
-					return true;
-				}
-			}
-			
-			return false;
-		}
-		else
-		{
-			return true;
+			$form_attributes .= $attribute . '="' . $$attribute . '" ';
 		}
 		
-		return true;
+		$built_form = '<form ' . $form_attributes . ' >' . $fields . '</form>';
+
+		return $built_form;
+	}
+	
+	/**
+	 * Runs a honeypot check for the form.
+	 * 
+	 * A honeypot is an input field in a form that is hidden with css. Because
+	 * a normal user should not see it, it should remain empty when the form is
+	 * submitted. If it is filled, we may assume it was filled by a bot, and we
+	 * can handle the form as such.
+	 *
+	 * @param array $submitted_data Form data to check against
+	 * @param string $honeypot_field_name Field name to check
+	 * @return string Send the data back upon failure, empty upon success 
+	 */
+	public function validateHoneypot($submitted_data, $honeypot_field_name)
+	{
+		foreach ($this->field_meta as $name => $field_values)
+		{
+			if (isset($field_values[$honeypot_field_name]))
+			{
+				$is_honeypot = (boolean)$field_values[$honeypot_field_name];
+
+				if ($is_honeypot)
+				{
+					if ( ! empty($submitted_data[$name]))
+					{
+						// Return the value upon failure for logging
+						return $submitted_data[$name];
+					}
+				}
+			}
+		}
+		
+		return null;
 	}
 	
 	/**
 	 * Validate data against any spam checking.
+	 * 
+	 * If we find a spam check field, we loop through the correct values to find
+	 * a match. If we do, we have passed the validation. If the loop doesn't 
+	 * find any true answers, we have failed validation. If there are no spam 
+	 * check fields, we have passed the validation.
 	 *
 	 * @param array $submitted_data Form data to check against
+	 * @param string $spam_check_field_name Field name to check for spam
+	 * @param string $spam_check_answer_field_name Answer field name to check
 	 * @return boolean Result of our validation
 	 */
-	public function validateSpamCheck($submitted_data)
+	public function validateSpamCheck(
+		$submitted_data, 
+		$spam_check_field_name,
+		$spam_check_answer_field_name
+	)
 	{
 		foreach ($this->field_meta as $name => $field_values)
 		{
-			if ( isset($field_values['is_spam_check']) AND isset($field_values['spam_check_answer']) )
+			if ( isset($field_values[$spam_check_field_name]) AND isset($field_values[$spam_check_answer_field_name]) )
 			{
-				$is_spam_check_answer_valid = $this->_isSpamCheckAnswerValid(
-					$submitted_data[$name], 
-					$field_values['is_spam_check'], 
-					$field_values['spam_check_answer']
-				);
-				
-				if ( ! $is_spam_check_answer_valid)
+				$is_spam_check_field = (boolean)$field_values[$spam_check_field_name];
+
+				if ($is_spam_check_field)
 				{
+					foreach ($field_values[$spam_check_answer_field_name] as $value)
+					{
+						if (strtolower($submitted_data[$name]) === strtolower($value))
+						{
+							return true;
+						}
+					}
+
 					return false;
 				}
 			}
@@ -507,39 +464,76 @@ class Form
 	
 	/**
 	 * Validate data against required fields.
+	 * 
+	 * We use a loop to search for values in required fields and exit as soon as
+	 * we find an empty field with a required value. Otherwise, we have passed
+	 * verification.
 	 *
 	 * @param array $submitted_data Form data to check against
+	 * @param string $required_field_name Field name to check for required
+	 * @param string $required_message_field_name Field name to check for message
 	 * @param boolean $does_append_err_msg If we should append our error message
 	 * @return boolean Result of our validation
 	 */
-	public function validateRequiredFields($submitted_data, $does_append_err_msg = false)
+	public function validateRequiredFields(
+		$submitted_data, 
+		$required_field_name,
+		$required_message_field_name,
+		$does_append_err_msg = false
+	)
 	{
 		foreach ($this->field_meta as $name => $field_values)
 		{			
-			if (isset($field_values['is_required']))
+			if (isset($field_values[$required_field_name]))
 			{
-				$is_required_field_filled = $this->_isRequiredFieldFilled(
-					$submitted_data[$name], 
-					$field_values['is_required']
-				);				
-				
-				if ( ! $is_required_field_filled)
+				$is_required = (boolean)$field_values[$required_field_name];
+
+				if ($is_required)
 				{
-					// Append the name of the field to the message for display
-					if ($does_append_err_msg)
+					if (empty($submitted_data[$name]))
 					{
-						$this->form_messages['required_field'] = 
-							ucfirst($name)
-							. ' ' 
-							. $this->form_messages['required_field'];
+						// Append the name of the field to the message for display
+						if ($does_append_err_msg)
+						{
+							$this->form_messages[$required_message_field_name] = 
+								'The '
+								. ucfirst($name)
+								. ' field is empty. ' 
+								. $this->form_messages[$required_message_field_name];
+						}
+
+						return false;
 					}
-					
-					return false;
 				}
 			}
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Searches through fields for an email field and then matches against user
+	 * submitted data in a field with the same name.
+	 *
+	 * @param array $submitted_data Form data to look through
+	 * @return string/boolean Either the submitted email address or false
+	 */
+	public function getUserEnteredEmail($submitted_data)
+	{
+		foreach ($this->field_meta as $name => $field_values)
+		{
+			if (isset($field_values['is_email']))
+			{
+				$is_email = (boolean)$field_values['is_email'];
+				
+				if ($is_email)
+				{
+					return $submitted_data[$name];
+				}
+			}
+		}
+		
+		return false;
 	}
 }
 // End of Form Class

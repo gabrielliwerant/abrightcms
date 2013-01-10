@@ -1,12 +1,16 @@
-</div>
+</div> <!-- End the inner wrapper to make footer 100% screen width -->
 
-	<footer>
-		<p>
-			<?php echo $this->footer_copyright; ?>
-		</p>
-	</footer>
+<footer>
+	<div id="fine-print">
+		<ul>
+			<?php echo $this->footer_nav; ?>
+		</ul>
+	</div>	
+</footer>
 
-	<?php echo $this->footer_js; ?>
+</div> <!-- End outer wrapper here -->
+
+<?php echo $this->footer_js; ?>
 
 </body>
 

@@ -1,6 +1,11 @@
 # http://robotstxt.org/
 
 User-agent: *
-Disallow: /
-Disallow: /dev/
+
+Disallow: /config/
+Disallow: /controllers/
+Disallow: /models/
+Disallow: /lib/
+Disallow: /logs/
+
 Sitemap: http://abrightcms.com/sitemap.xml

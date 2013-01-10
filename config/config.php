@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed');
 
 /**
  * A Bright CMS
@@ -17,71 +17,102 @@
  * as our autoloaders, and check whether or not we should install the database.
  */
 
-/**
- * Configuration file
- * 
- * Configure some aspects of the program before we get fully up and running such
- * as our autoloaders, and check whether or not we should install the database.
- */
-
-// PHP 5.3 sets magic quotes to off by default, but lower versions don't
+// PHP 5.3 sets magic quotes to off by default, but lower versions don't and
+// magic quotes are evil, so set them off here.
 if (PHP_VERSION < 5.3)
 {	
-	@set_magic_quotes_runtime(0);
+	@set_magic_quotes_runtime(false);
 }
 
+// Create the loader with our valid paths.
 require_once LIBRARY_PATH . '/Loader.php';
-
-// Create the loader with our valid paths, saving the development path for later
 $loader = new Loader(array(
 	'library_path'			=> LIBRARY_PATH,
 	'model_path'			=> MODEL_PATH,
-	'app_model_path'		=> APP_MODEL_PATH,
 	'view_path'				=> VIEW_PATH,
-	'app_view_path'			=> APP_VIEW_PATH,
-	'controller_path'		=> CONTROLLER_PATH,
-	'app_controller_path'	=> APP_CONTROLLER_PATH
+	'controller_path'		=> CONTROLLER_PATH
 ));
-
 spl_autoload_register(array($loader, 'autoload'));
-set_exception_handler(array(new MyException(), 'uncaughtException'));
 
-// Development mode aspects are dealt with here
+// Development-only aspects are dealt with here.
 if ( ! IS_MODE_PRODUCTION)
 {
-	$loader->setAdditionalPath(DEVELOPMENT_PATH);
+	// Since we're in development mode, add development path to loader.
 	$loader->setAdditionalPath(DEVELOPMENT_LIBRARY_PATH);
 	
-	$less_file_input	= 'all.less';
-    $css_file_output	= 'style.css';
-
-    lessc::ccompile(
+	// Compile our LESS code!
+	$less_file_input = 'all.less';
+    $css_file_output = 'style.css';
+	lessc::ccompile(
 		LESS_IN_PATH	. '/' . $less_file_input, 
         LESS_OUT_PATH	. '/' . $css_file_output,
 		true
     );
+	
+	// If we want to concatenate files, we can output them to the header one
+	// after the other, called here.
+	if (DOES_CONCATENATE)
+	{
+		$js_files = array(
+			'paths_production.js',
+			'modernizr-custom.js'
+		);
+		$css_files = array(
+			'reset.css',
+			'style.css'
+		);
+		
+		switch (CONCATENATE_TYPE)
+		{
+			case 'js':
+				$js_concat = new Concatenate(
+					'Content-type: application/javascript', 
+					FILE_ROOT_PATH . '/dev/js/', 
+					$js_files
+				);
+				
+				$js_concat->loadPageConcatenator();
+				
+				break;			
+			case 'css':
+				$css_concat = new Concatenate(
+					'Content-type: text/css', 
+					FILE_ROOT_PATH . '/dev/css/', 
+					$css_files
+				);
+				
+				$css_concat->loadPageConcatenator();
+				
+				break;
+		}
+	}
 }
 
-// Create a database, get a database connection, and then run the install file
-if ( ! IS_MODE_INSTALLED)
+// Global factory for exception subclass, defined here for decoupling
+function make_exception_object($msg = null, $code = null, $previous = null)
 {
-	if (DB_TYPE === 'mysql')
-	{
-		$mysql_connection = mysql_connect(DB_HOST, DB_USER, DB_PASS) or exit(DB_ERR_MSG);
-		
-		mysql_query("
-			CREATE DATABASE 
-			IF NOT EXISTS ". DB_NAME, $mysql_connection
-		) or exit(DB_ERR_MSG);
-	}
-	else
-	{		
-		throw new MyException('Wrong Database Type for Establishing Connection.');
-	}
-	
-	$db = new Database();
+	return new MyException(new Log(), $msg, $code, $previous);
+}
+// Set class and method for uncaught exceptions
+set_exception_handler(array(new MyException(new Log()), 'uncaughtException'));
 
-	require_once DEVELOPMENT_PATH . '/install.php';
+// Error reporting levels
+if (IS_MODE_DEBUG)
+{
+	error_reporting(E_ALL);
+}
+else
+{
+	error_reporting(0);
+	
+	// Because error reporting is off, we need a way to register errors
+	register_shutdown_function(array(
+		new ErrorHandler(
+			new Log(), 
+			new Email()
+		),
+		'showFatalErrorPage')
+	);
 }
 
 /* EOF config/config.php */

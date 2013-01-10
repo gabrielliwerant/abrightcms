@@ -9,11 +9,15 @@
 	<?php echo $this->meta; ?>
 
 	<?php echo $this->css; ?>
-    
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+	
+	<?php echo $this->favicon; ?>
+	
+	<?php echo $this->head_js; ?>
    
 </head>
 
 <body>
+	
+<div id="wrapper-outer" class="<?php echo $this->page; ?>">
+	
+	<div id="wrapper-inner">

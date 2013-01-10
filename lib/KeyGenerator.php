@@ -1,14 +1,13 @@
-<?php
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed');
 
 /**
- * TaskVolt
+ * A Bright CMS
  * 
- * Project management, todo list, collaboration, and social web application tool
- * for consumers.
+ * Core MVC/CMS framework used in TaskVolt and created for lightweight, custom
+ * web applications.
  * 
- * @package TaskVolt
+ * @package A Bright CMS
  * @author Gabriel Liwerant
- * @link http://taskvolt.com
  */
 
 /**
