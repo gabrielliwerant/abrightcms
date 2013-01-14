@@ -90,12 +90,11 @@ class ApplicationFactory
 	 * controller constructor.
 	 * 
 	 * @param string $controller_name To construct the correct controller
-	 * @param string $storage_type Storage type for model
 	 * @return object The controller with the name that matches the given URL.
 	 */
-	public static function makeController($controller_name, $storage_type)
+	public static function makeController($controller_name)
 	{
-		$model	= self::_makeModel($controller_name, $storage_type);
+		$model	= self::_makeModel($controller_name, STORAGE_TYPE);
 		$view	= self::_makeView($controller_name);
 		
 		return new $controller_name($model, $view);

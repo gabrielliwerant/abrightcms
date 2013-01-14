@@ -34,7 +34,7 @@ require_once ABSOLUTE_ROOT_PATH . '/config/config.php';
 // in a try catch block to hide system exceptions in a production environment.
 try
 {
-	new Bootstrap(STORAGE_TYPE, $_GET);
+	new Bootstrap($_GET);
 }
 catch (MyException $e)
 {

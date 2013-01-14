@@ -51,13 +51,6 @@ class Bootstrap
 	private $_parameter = array();
 	
 	/**
-	 * Holds the storage type value for the controllers
-	 *
-	 * @var string $_storage_type
-	 */
-	private $_storage_type;
-	
-	/**
 	 * We are sad if new bootstrap object doesn't load the application, so we
 	 * make sure it does what it must to find the controller and load 
 	 * dependencies.
@@ -65,12 +58,10 @@ class Bootstrap
 	 * Upon construction, we set the URL, controller, method, and parameters.
 	 * Then we send them to the router.
 	 * 
-	 * @param string $storage_type The way basic data is storaged and retrieved
+	 * @param array $get_data Loads data from the URL query string
 	 */
-	public function __construct($storage_type, $get_data)
+	public function __construct($get_data)
 	{		
-		$this->_storage_type = $storage_type;
-		
 		$this->_setUrl($get_data);
 		$this->_setController($this->_getUrl(0));
 		$this->_setMethod($this->_controller, $this->_getUrl(1));
@@ -174,7 +165,7 @@ class Bootstrap
 		if (empty($url))
 		{
 			//$this->_controller = $this->_makeController('index');
-			$this->_controller = ApplicationFactory::makeController('index', $this->_storage_type);
+			$this->_controller = ApplicationFactory::makeController('index');
 		}	
 		else
 		{
@@ -198,7 +189,7 @@ class Bootstrap
 			if ($is_controller AND $url !== 'error')
 			{
 				//$this->_controller = $this->_makeController($url);
-				$this->_controller = ApplicationFactory::makeController($url, $this->_storage_type);
+				$this->_controller = ApplicationFactory::makeController($url);
 			}
 			else
 			{
@@ -298,7 +289,7 @@ class Bootstrap
 	{
 		// Make sure to have an error controller and the proper page name.
 		//$this->_controller	= $this->_makeController('error');
-		$this->_controller	= ApplicationFactory::makeController('error', $this->_storage_type);
+		$this->_controller	= ApplicationFactory::makeController('error');
 		$page				= $this->_getControllerName();
 
 		switch ($type)
