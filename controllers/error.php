@@ -26,12 +26,12 @@ Class Error extends Controller
 	/**
 	 * Construct the parent class.
 	 * 
-	 * @param object $view Pass the view we want to store in the controller
 	 * @param object $model Pass the model we want to store in the controller
+	 * @param object $view Pass the view we want to store in the controller
 	 */
-	public function __construct($view, $model)
+	public function __construct($model, $view)
 	{
-		parent::__construct($view, $model);
+		parent::__construct($model, $view);
 	}
 	
 	/**

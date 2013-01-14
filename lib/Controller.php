@@ -24,13 +24,6 @@
 Class Controller
 {	
 	/**
-	 * Holds an instance of the base view
-	 *
-	 * @var object $_view
-	 */
-	protected $_view;
-	
-	/**
 	 * Holds an instance of the base model
 	 *
 	 * @var object $_model
@@ -38,15 +31,22 @@ Class Controller
 	protected $_model;
 	
 	/**
+	 * Holds an instance of the base view
+	 *
+	 * @var object $_view
+	 */
+	protected $_view;
+	
+	/**
 	 * Upon construction we store the model object and the view object.
 	 *  
-	 * @param object $view View object we store and use in the controller
 	 * @param object $model Model object we store and use in the controller
+	 * @param object $view View object we store and use in the controller
 	 */
-	public function __construct($view, $model)
+	public function __construct($model, $view)
 	{
-		$this->_view	= $view;		
 		$this->_model	= $model;
+		$this->_view	= $view;
 	}
     
 	/**

@@ -29,9 +29,9 @@ class ErrorModel extends Model
 	 * @param string $storage_type The way data is stored and retrieved
 	 * @param object $log Log object for errors, other
 	 */
-	public function __construct($storage_obj, $storage_type, $log, $db)
+	public function __construct($storage_obj, $storage_type, $log)
 	{
-		parent::__construct($storage_obj, $storage_type, $log, $db);
+		parent::__construct($storage_obj, $storage_type, $log);
 	}
 }
 // End of ErrorModel Class

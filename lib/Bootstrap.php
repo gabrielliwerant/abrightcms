@@ -67,11 +67,11 @@ class Bootstrap
 	 * 
 	 * @param string $storage_type The way basic data is storaged and retrieved
 	 */
-	public function __construct($storage_type)
+	public function __construct($storage_type, $get_data)
 	{		
 		$this->_storage_type = $storage_type;
 		
-		$this->_setUrl();
+		$this->_setUrl($get_data);
 		$this->_setController($this->_getUrl(0));
 		$this->_setMethod($this->_controller, $this->_getUrl(1));
 		$this->_setParameter($this->_getUrl(), $this->_method);
@@ -86,11 +86,11 @@ class Bootstrap
 	 * Otherwise, initialize it as an empty value. Then we create an array of 
 	 * slash-separated values to store in the URL property.
 	 */
-	private function _setUrl()
+	private function _setUrl($get_data)
 	{
-		if (isset($_GET['url']))
+		if (isset($get_data['url']))
 		{
-			$url = $this->_sanitizeUrl($_GET['url']);
+			$url = $this->_sanitizeUrl($get_data['url']);
 		}
 		else
 		{
@@ -150,7 +150,7 @@ class Bootstrap
 	 */
 	private function _sanitizeUrl($url)
 	{
-		unset($_GET['url']);
+		//unset($_GET);
 		
 		$url = rtrim($url, '/');
 		$url = strip_tags($url);
@@ -173,7 +173,8 @@ class Bootstrap
 		// controller
 		if (empty($url))
 		{
-			$this->_controller = $this->_makeController('index');
+			//$this->_controller = $this->_makeController('index');
+			$this->_controller = ApplicationFactory::makeController('index', $this->_storage_type);
 		}	
 		else
 		{
@@ -196,90 +197,14 @@ class Bootstrap
 			// Set the URL if it passed the checks above and is not error
 			if ($is_controller AND $url !== 'error')
 			{
-				$this->_controller = $this->_makeController($url);
+				//$this->_controller = $this->_makeController($url);
+				$this->_controller = ApplicationFactory::makeController($url, $this->_storage_type);
 			}
 			else
 			{
 				$this->_error('404');
 			}
 		}
-	}
-	
-	/**
-	 * Factory that handles the creation of the new controller object.
-	 * 
-	 * Before we create the controller object, we create its dependencies. The
-	 * controller depends upon the view and the model, so we first create the
-	 * appropriate counterparts to the controller and then pass them to the
-	 * controller constructor.
-	 * 
-	 * @param string $controller_name To construct the correct controller
-	 * @return object The controller with the name that matches the given URL.
-	 */
-	private function _makeController($controller_name)
-	{
-		$view	= $this->_makeView($controller_name);		
-		$model	= $this->_makeModel($controller_name);
-
-		return new $controller_name($view, $model);
-	}
-	
-	/**
-	 * Factory that handles the creation of new view objects based upon the 
-	 * controller.
-	 * 
-	 * @param string $controller_name Allows us to find the correct view
-	 * @return object view_name The view object for the controller
-	 */
-	private function _makeView($controller_name)
-	{
-		$view_name = $controller_name . 'View';
-
-		return new $view_name();
-	}
-	
-	/**
-	 * Factory for the storage type our model uses.
-	 *
-	 * @return object $storage_type Storage object
-	 */
-	private function _makeStorageType()
-	{
-		$storage_type = ucfirst(STORAGE_TYPE);
-		
-		return new $storage_type;
-	}
-	
-	/**
-	 * Factory for the log object our model has access to.
-	 *
-	 * @return object Log
-	 */
-	private function _makeLogger()
-	{
-		return new Log();
-	}
-	
-	/**
-	 * Factory that handles the creation of new model objects based upon the
-	 * controller.
-	 * 
-	 * Before we create the model object, we create its dependencies. The model
-	 * depends upon a storage object, so we create it and then pass it to the
-	 * model constructor.
-	 * 
-	 * @param string $controller_name Allows us to find the correct model
-	 * @return object model_name The model object for the controller
-	 */
-	private function _makeModel($controller_name)
-	{
-		$storage	= $this->_makeStorageType();
-		$log		= $this->_makeLogger();
-		$db			= new Database();
-		
-		$model_name	= $controller_name . 'Model';
-
-		return new $model_name($storage, $this->_storage_type, $log, $db);
 	}
 	
 	/**
@@ -372,7 +297,8 @@ class Bootstrap
 	public function _error($type)
 	{
 		// Make sure to have an error controller and the proper page name.
-		$this->_controller	= $this->_makeController('error');
+		//$this->_controller	= $this->_makeController('error');
+		$this->_controller	= ApplicationFactory::makeController('error', $this->_storage_type);
 		$page				= $this->_getControllerName();
 
 		switch ($type)
