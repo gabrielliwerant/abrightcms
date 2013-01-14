@@ -1,3 +1,5 @@
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed'); ?>
+
 </div> <!-- End the inner wrapper to make footer 100% screen width -->
 
 <footer>

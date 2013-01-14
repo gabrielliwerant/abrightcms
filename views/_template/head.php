@@ -1,3 +1,5 @@
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed'); ?>
+
 <!DOCTYPE html <?php echo $this->doctype; ?>>
 
 <html dir="<?php echo $this->html_dir; ?>" lang="<?php echo $this->html_lang; ?>">

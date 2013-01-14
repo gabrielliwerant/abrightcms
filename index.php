@@ -48,8 +48,4 @@ catch (MyException $e)
 	}
 }
 
-// If we land here, we know the app executed successfully, so we define a 
-// constant, the absence of which will indicate a fatal program error.
-define('EXECUTION_SUCCESSFUL', true);
-
 /* EOF index.php */

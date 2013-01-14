@@ -100,7 +100,9 @@ class ErrorHandler
 	 */
 	public function showFatalErrorPage()
 	{
-		if ( ! defined('EXECUTION_SUCCESSFUL'))
+		$error_last = error_get_last();
+		
+		if ( ! empty($error_last) )
 		{
 			$this->_createLog('Encountered fatal error: ');
 			$this->_sendEmail('A Bright Concept Fatal Error', 'Encountered fatal error: ');
