@@ -1,16 +1,23 @@
-/*
-	Header LESS file that is compiled into styles.css using lessphp.
-
-	@author Gabriel Liwerant
-*/
+/**
+ * Header
+ *
+ * Header section.
+ *
+ * @package A Bright CMS
+ * @author Gabriel Liwerant
+ */
 
 header {
 	background-color: #ddd;
-	padding: 5px;
-	margin-bottom:10px;
+	padding: 1em;
+	margin-bottom: 1em;
 
 	li {
-		float: left;
-		width: 75px;
+		display: inline-block;
+		margin-right: 1em;
+	}
+	
+	ul li:last-child {
+		margin-right: 0;
 	}
 }

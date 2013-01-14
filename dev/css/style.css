@@ -45,24 +45,32 @@ a:hover, a.section-nav { text-decoration:none; }
 }
 header {
   background-color:#dddddd;
-  padding:5px;
-  margin-bottom:10px;
+  padding:1em;
+  margin-bottom:1em;
 }
 header li {
-  float:left;
-  width:75px;
+  display:inline-block;
+  margin-right:1em;
 }
+header ul li:last-child { margin-right:0; }
+#container { padding:1em; }
 footer {
   background-color:#dddddd;
-  padding:5px;
-  margin-top:10px;
+  padding:1em;
+  margin-top:1em;
 }
+footer li .separator { display:none; }
 @media only screen and (min-width: 650px) {
-  body { font-size:75%; }
+  body { font-size:110%; }
+  footer li { display:inline-block; }
+  footer li .separator {
+    display:inline-block;
+    margin:0 0.5em;
+  }
 }
 @media only screen and (min-width: 850px) {
-  body { font-size:90%; }
+  body { font-size:120%; }
 }
 @media only screen and (min-width: 1100px) {
-  body { font-size:120%; }
+  body { font-size:130%; }
 }
