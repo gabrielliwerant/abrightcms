@@ -23,7 +23,7 @@
 class Debug
 {
 	/**
-	 * Debug is a static class, so lets leave the constructor empty.
+	 * Prevent object instantiation of class.
 	 */
 	private function __construct()
 	{
@@ -50,7 +50,7 @@ class Debug
 			echo '<pre>';
 			
 			$is_arr ? print_r($value) : var_dump($value);
-			
+
 			echo '</pre>';
 			echo '<br />';
 		

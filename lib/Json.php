@@ -78,20 +78,22 @@ class Json
 	/**
 	 * Handles JSON encoding.
 	 *
-	 * @param string $value Contents to be encoded as JSON
+	 * @param string, array, integer $value Contents to be encoded as JSON
 	 * @return string Encoded JSON contents
 	 */
 	public function getJsonEncode($value)
 	{
 		if (PHP_VERSION < 5.3)
 		{
-			return json_encode((string)$value);
+			return json_encode($value);
 		}
 		else
 		{
-			$json_encode = json_encode((string)$value);
+			$json_encode = json_encode($value);
 			
-			if (json_last_error() === JSON_ERROR_NONE)
+			$error_last = json_last_error();
+			
+			if ($error_last === JSON_ERROR_NONE)
 			{
 				return $json_encode;
 			}

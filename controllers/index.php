@@ -54,7 +54,7 @@ Class Index extends Controller
 		// Build page-specific elements
 		$this->_setHeaderNav($header['header']['header_nav'], $header['header']['separator']);
 		$this->_setFooterNav($template['footer']['footer_nav'], $template['footer']['separator']);
-		
+
 		$page_name = 'index';
 		
 		$this->_view->page = $page_name;

@@ -125,7 +125,7 @@ class Model
 	
 	/**
 	 * Destroy the data after it is no longer needed. We may also want to log it 
-	 * from here in the future.
+	 * in the future.
 	 *
 	 * @param string &$data Data to destroy, passed by reference
 	 */

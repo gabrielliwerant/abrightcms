@@ -37,6 +37,16 @@ class ApplicationFactory
 	}
 	
 	/**
+	 * Makes the log object our model has access to.
+	 *
+	 * @return object Log
+	 */
+	public static function makeLogger()
+	{
+		return new Log();
+	}
+	
+	/**
 	 * Handles the creation of new model objects based upon the controller.
 	 * 
 	 * Before we create the model object, we create its dependencies. The model
@@ -69,16 +79,6 @@ class ApplicationFactory
 		$view_name = $controller_name . 'View';
 
 		return new $view_name();
-	}
-	
-	/**
-	 * Makes the log object our model has access to.
-	 *
-	 * @return object Log
-	 */
-	public static function makeLogger()
-	{
-		return new Log();
 	}
 	
 	/**

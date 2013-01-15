@@ -52,6 +52,7 @@ else
 	define('PUBLIC_PATH', HTTP_ROOT_PATH . '/public');
 	define('DEVELOPMENT_PATH', FILE_ROOT_PATH . '/dev');
 	define('DEVELOPMENT_LIBRARY_PATH', DEVELOPMENT_PATH . '/lib');
+	define('TESTS_PATH', DEVELOPMENT_PATH . '/tests');
 	define('JSON_PATH', DEVELOPMENT_PATH . '/json');
 	define('XML_PATH', DEVELOPMENT_PATH . '/xml');
 	define('LESS_IN_PATH', DEVELOPMENT_PATH . '/less');
