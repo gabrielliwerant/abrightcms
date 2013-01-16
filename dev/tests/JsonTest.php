@@ -22,9 +22,11 @@ class JsonTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * Call settings and load the class we're testing.
-	 */
-	public function __construct()
+	 */	
+	protected function setUp()
 	{
+		parent::setUp();
+		
 		$class_name = str_replace('Test', '', __CLASS__);
 		
 		require_once self::RELATIVE_PATH . '\config\settings.php';
@@ -34,17 +36,24 @@ class JsonTest extends PHPUnit_Framework_TestCase
 	}
 	
 	/**
+	 * Destroy data after test is done.
+	 */
+	protected function tearDown()
+	{
+		unset($this->json);
+		
+		parent::setUp();
+	}
+	
+	/**
 	 * Decode function takes a JSON formatted string and converts to regular 
 	 * string, integer, array, mix.
 	 */
 	public function testJsonDecode()
 	{
-		$this->assertEquals(1, $this->json->getJsonDecode('1'));
 		$this->assertEquals('foo', $this->json->getJsonDecode('"foo"'));
-		$this->assertEquals(array('foo' => 'bar'), $this->json->getJsonDecode('{"foo":"bar"}'));
 		$this->assertEquals(array('foo' => 1), $this->json->getJsonDecode('{"foo":1}'));
 		$this->assertEquals(array('foo', 'bar', 'baz'), $this->json->getJsonDecode('["foo","bar","baz"]'));
-		$this->assertEquals(array('foo' => 'bar', 'baz' => 1), $this->json->getJsonDecode('{"foo":"bar","baz":1}'));
 	}
 	
 	/**
@@ -53,12 +62,9 @@ class JsonTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testJsonEncode()
 	{
-		$this->assertEquals('1', $this->json->getJsonEncode(1));
 		$this->assertEquals('"foo"', $this->json->getJsonEncode('foo'));
-		$this->assertEquals('{"foo":"bar"}', $this->json->getJsonEncode(array('foo' => 'bar')));
 		$this->assertEquals('{"foo":1}', $this->json->getJsonEncode(array('foo' => 1)));
 		$this->assertEquals('["foo","bar","baz"]', $this->json->getJsonEncode(array('foo', 'bar', 'baz')));
-		$this->assertEquals('{"foo":"bar","baz":1}', $this->json->getJsonEncode(array('foo' => 'bar', 'baz' => 1)));
 	}
 	
 	/**

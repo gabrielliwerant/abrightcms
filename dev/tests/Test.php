@@ -16,30 +16,19 @@
  * @subpackage
  * @author Gabriel Liwerant
  */
-class Test
+class Test extends PHPUnit_Framework_TestCase
 {
-	const MAIN_PATH			= 'C:\WampServer2\www\abrightcms';
-	const LIBRARY_PATH		= 'C:\WampServer2\www\abrightcms\lib';
-	const MODEL_PATH		= 'C:\WampServer2\www\abrightcms\lib';
-	const VIEW_PATH			= 'C:\WampServer2\www\abrightcms\lib';
-	const CONTROLLER_PATH	= 'C:\WampServer2\www\abrightcms\lib';
+	const RELATIVE_PATH = '..\..';
 	
 	//
 	//
 	//
 	public function __construct()
 	{
-		//
-	}
-	
-	//
-	//
-	//
-	public function init()
-	{
-		require_once self::MAIN_PATH . '\config\settings.php';
-		require_once self::MAIN_PATH . '\config\paths.php';
-		require_once self::MAIN_PATH . '\config\config.php';
+		$class_name = str_replace('Test', '', __CLASS__);
+		
+		require_once self::RELATIVE_PATH . '\config\settings.php';
+		require_once self::RELATIVE_PATH . '\lib\\' . $class_name . '.php';
 	}
 }
 // End of Test Class
