@@ -19,11 +19,20 @@
 class ApplicationFactory
 {
 	/**
-	 * Prevent object creation
+	 * Holds the storage type for model creation.
+	 *
+	 * @var string $_storage_type
 	 */
-	private function __construct()
+	private $_storage_type;
+
+	/**
+	 * Set storage type for model upon construction.
+	 *
+	 * @param type $storage_type 
+	 */
+	public function __construct($storage_type)
 	{
-		//
+		$this->_storage_type = $storage_type;
 	}
 
 	/**
@@ -62,8 +71,8 @@ class ApplicationFactory
 		$model_name		= $controller_name . 'Model';
 		$storage_type	= strtolower($storage_type);
 		
-		$storage	= self::_makeTemplateStorage($storage_type);
-		$log		= self::makeLogger();		
+		$storage	= $this->_makeTemplateStorage($storage_type);
+		$log		= $this->makeLogger();		
 		
 		return new $model_name($storage, $storage_type, $log);
 	}
@@ -92,10 +101,10 @@ class ApplicationFactory
 	 * @param string $controller_name To construct the correct controller
 	 * @return object The controller with the name that matches the given URL.
 	 */
-	public static function makeController($controller_name)
+	public function makeController($controller_name)
 	{
-		$model	= self::_makeModel($controller_name, STORAGE_TYPE);
-		$view	= self::_makeView($controller_name);
+		$model	= $this->_makeModel($controller_name, $this->_storage_type);
+		$view	= $this->_makeView($controller_name);
 		
 		return new $controller_name($model, $view);
 	}
