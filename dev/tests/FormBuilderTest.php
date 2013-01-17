@@ -11,12 +11,12 @@
  */
 
 /**
- * FormTest Class
+ * FormBuilderTest Class
  * 
  * @subpackage dev/tests
  * @author Gabriel Liwerant
  */
-class FormTest extends PHPUnit_Framework_TestCase
+class FormBuilderTest extends PHPUnit_Framework_TestCase
 {
 	const RELATIVE_PATH = '..\..';
 
@@ -45,6 +45,6 @@ class FormTest extends PHPUnit_Framework_TestCase
 		parent::tearDown();
 	}
 }
-// End of FormTest Class
+// End of FormBuilderTest Class
 
-/* EOF dev/tests/FormTest.php */
+/* EOF dev/tests/FormBuilderTest.php */

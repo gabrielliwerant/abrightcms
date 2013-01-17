@@ -19,7 +19,7 @@
  * @subpackage lib
  * @author Gabriel Liwerant
  */
-class Form
+class FormBuilder
 {
 	/**
 	 * Stores the form action.
@@ -50,66 +50,46 @@ class Form
 	private $_fields = array();
 	
 	/**
-	 * Stores messages to display for errors/success
-	 *
-	 * @var array $form_messages
-	 */
-	public $form_messages = array();
-	
-	/**
 	 * Stores all the field meta data
 	 *
-	 * @var array $field_meta
+	 * @var array $_field_meta
 	 */
-	public $field_meta = array();
+	private $_field_meta = array();
 	
 	/**
-	 * Upon construction, we set the form action, post URL, method, and any form
-	 * messages.
+	 * Upon construction, we set the form action, method, and any form messages.
 	 *
 	 * @param string $form_action
 	 * @param string $form_method
-	 * @param string $form_messages
 	 */
-	public function __construct(
-		$form_action	= null, 
-		$form_method	= null, 
-		$form_messages	= null
-	)
+	public function __construct($form_action = null, $form_method = null)
 	{
 		$this->_setFormAction($form_action);
 		$this->_setFormMethod($form_method);
-		$this->_setFormMessages($form_messages);
 	}
 	
 	/**
-	 * Store the form action.
+	 * Form action setter
 	 *
-	 * @param string $form_action The form action
+	 * @param string $form_action
 	 */
 	private function _setFormAction($form_action)
 	{
 		$this->_form_action = $form_action;
+		
+		return $this;
 	}
 	
 	/**
-	 * Store the form method.
+	 * Form method setter
 	 *
-	 * @param string $form_method The form method
+	 * @param string $form_method
 	 */
 	private function _setFormMethod($form_method)
 	{
 		$this->_form_method = $form_method;
-	}
-	
-	/**
-	 * Store the form messages.
-	 *
-	 * @param string $form_messages The form messages
-	 */
-	private function _setFormMessages($form_messages)
-	{
-		$this->form_messages = $form_messages;
+		
+		return $this;
 	}
 	
 	/**
@@ -121,6 +101,8 @@ class Form
 	private function _setLabel($key, $label)
 	{
 		$this->_labels[$key] = $label;
+		
+		return $this;
 	}
 	
 	/**
@@ -132,6 +114,54 @@ class Form
 	private function _setField($key, $field)
 	{
 		$this->_fields[$key] = $field;
+		
+		return $this;
+	}
+	
+	/**
+	 * Allows us to populate a property with meta data for our fields.
+	 *
+	 * @param string $key Key name for field array
+	 * @param array $meta_data Array with meta data for field
+	 */
+	public function setFieldMeta($key, $meta_data)
+	{
+		$this->_field_meta[$key] = $meta_data;
+		
+		return $this;
+	}
+	
+	/**
+	 * Get a specific field's meta data.
+	 *
+	 * @param string $key Field to return meta data for
+	 * @return array 
+	 */
+	public function getFieldMeta($key)
+	{
+		return $this->_field_meta[$key];
+	}
+	
+	/**
+	 * All field meta data getter
+	 *
+	 * @return array All stored field meta data
+	 */
+	public function getAllFieldMeta()
+	{
+		return $this->_field_meta;
+	}
+	
+	/**
+	 * Build HTML label
+	 *
+	 * @param string $for For attribute for label
+	 * @param string $text Text portion of label
+	 * @return string 
+	 */
+	private function _buildLabel($for, $text)
+	{
+		return	'<label for="' . $for . '">' . $text . '</label>';
 	}
 	
 	/**
@@ -209,28 +239,19 @@ class Form
 	}
 	
 	/**
-	 * Allows us to populate a property with meta data for our fields.
-	 *
-	 * @param string $key Key name for field array
-	 * @param array $meta_data Array with meta data for field
-	 */
-	public function setFieldMeta($key, $meta_data)
-	{
-		$this->field_meta[$key] = $meta_data;
-	}
-	
-	/**
-	 * Public-facing setter for labels, which builds them with the appropriate
-	 * HTML as well as a line-break if desired.
+	 * Setter for labels, which first creates them with the appropriate HTML.
 	 *
 	 * @param string $for For value for label
 	 * @param string $text Text portion of label
+	 * @return object FormBuilder
 	 */
 	public function setLabel($for, $text)
 	{
-		$label	= '<label for="' . $for . '">' . $text . '</label>';		
+		$label = $this->_buildLabel($for, $text);
 		
-		$this->_setLabel($for, $label);
+		$this->_labels[$for] = $label;
+		
+		return $this;
 	}
 	
 	/**
@@ -261,6 +282,8 @@ class Form
 		$input_field	= '<input ' . $field . '/>' . $required;
 		
 		$this->_setField($id, $input_field);
+		
+		return $this;
 	}
 	
 	/**
@@ -283,6 +306,8 @@ class Form
 		$input_field	= '<textarea ' . $field . '></textarea>' . $required;
 		
 		$this->_setField($id, $input_field);
+		
+		return $this;
 	}
 	
 	/**
@@ -307,6 +332,8 @@ class Form
 		$select_field = '<select ' . $field . ' >' . $option . '</select>' . $required;
 		
 		$this->_setField($id, $select_field);
+		
+		return $this;
 	}
 	
 	/**
@@ -366,145 +393,19 @@ class Form
 	}
 	
 	/**
-	 * Runs a honeypot check for the form.
-	 * 
-	 * A honeypot is an input field in a form that is hidden with css. Because
-	 * a normal user should not see it, it should remain empty when the form is
-	 * submitted. If it is filled, we may assume it was filled by a bot, and we
-	 * can handle the form as such.
-	 *
-	 * @param array $submitted_data Form data to check against
-	 * @param string $honeypot_field_name Field name to check
-	 * @return string Send the data back upon failure, empty upon success 
-	 */
-	public function validateHoneypot($submitted_data, $honeypot_field_name)
-	{
-		foreach ($this->field_meta as $name => $field_values)
-		{
-			if (isset($field_values[$honeypot_field_name]))
-			{
-				$is_honeypot = (boolean)$field_values[$honeypot_field_name];
-
-				if ($is_honeypot)
-				{
-					if ( ! empty($submitted_data[$name]))
-					{
-						// Return the value upon failure for logging
-						return $submitted_data[$name];
-					}
-				}
-			}
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Validate data against any spam checking.
-	 * 
-	 * If we find a spam check field, we loop through the correct values to find
-	 * a match. If we do, we have passed the validation. If the loop doesn't 
-	 * find any true answers, we have failed validation. If there are no spam 
-	 * check fields, we have passed the validation.
-	 *
-	 * @param array $submitted_data Form data to check against
-	 * @param string $spam_check_field_name Field name to check for spam
-	 * @param string $spam_check_answer_field_name Answer field name to check
-	 * @return boolean Result of our validation
-	 */
-	public function validateSpamCheck(
-		$submitted_data, 
-		$spam_check_field_name,
-		$spam_check_answer_field_name
-	)
-	{
-		foreach ($this->field_meta as $name => $field_values)
-		{
-			if ( isset($field_values[$spam_check_field_name]) AND isset($field_values[$spam_check_answer_field_name]) )
-			{
-				$is_spam_check_field = (boolean)$field_values[$spam_check_field_name];
-
-				if ($is_spam_check_field)
-				{
-					foreach ($field_values[$spam_check_answer_field_name] as $value)
-					{
-						if (strtolower($submitted_data[$name]) === strtolower($value))
-						{
-							return true;
-						}
-					}
-
-					return false;
-				}
-			}
-		}
-		
-		return true;
-	}
-	
-	/**
-	 * Validate data against required fields.
-	 * 
-	 * We use a loop to search for values in required fields and exit as soon as
-	 * we find an empty field with a required value. Otherwise, we have passed
-	 * verification.
-	 *
-	 * @param array $submitted_data Form data to check against
-	 * @param string $required_field_name Field name to check for required
-	 * @param string $required_message_field_name Field name to check for message
-	 * @param boolean $does_append_err_msg If we should append our error message
-	 * @return boolean Result of our validation
-	 */
-	public function validateRequiredFields(
-		$submitted_data, 
-		$required_field_name,
-		$required_message_field_name,
-		$does_append_err_msg = false
-	)
-	{
-		foreach ($this->field_meta as $name => $field_values)
-		{			
-			if (isset($field_values[$required_field_name]))
-			{
-				$is_required = (boolean)$field_values[$required_field_name];
-
-				if ($is_required)
-				{
-					if (empty($submitted_data[$name]))
-					{
-						// Append the name of the field to the message for display
-						if ($does_append_err_msg)
-						{
-							$this->form_messages[$required_message_field_name] = 
-								'The '
-								. ucfirst($name)
-								. ' field is empty. ' 
-								. $this->form_messages[$required_message_field_name];
-						}
-
-						return false;
-					}
-				}
-			}
-		}
-		
-		return true;
-	}
-	
-	/**
 	 * Searches through fields for an email field and then matches against user
 	 * submitted data in a field with the same name.
 	 *
 	 * @param array $submitted_data Form data to look through
 	 * @return string/boolean Either the submitted email address or false
 	 */
-	public function getUserEnteredEmail($submitted_data)
+	public function findUserEnteredEmail($submitted_data)
 	{
-		foreach ($this->field_meta as $name => $field_values)
+		foreach ($this->_field_meta as $name => $field_data)
 		{
-			if (isset($field_values['is_email']))
+			if (isset($field_data['is_email']))
 			{
-				$is_email = (boolean)$field_values['is_email'];
+				$is_email = (boolean)$field_data['is_email'];
 				
 				if ($is_email)
 				{
