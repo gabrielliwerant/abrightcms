@@ -50,13 +50,6 @@ class Form
 	private $_fields = array();
 	
 	/**
-	 * Stores POST URL in case it differs from the form action.
-	 *
-	 * @var string $form_post
-	 */	
-	public $form_post;
-	
-	/**
 	 * Stores messages to display for errors/success
 	 *
 	 * @var array $form_messages
@@ -75,19 +68,16 @@ class Form
 	 * messages.
 	 *
 	 * @param string $form_action
-	 * @param string $form_post
 	 * @param string $form_method
 	 * @param string $form_messages
 	 */
 	public function __construct(
 		$form_action	= null, 
-		$form_post		= null, 
 		$form_method	= null, 
 		$form_messages	= null
 	)
 	{
 		$this->_setFormAction($form_action);
-		$this->_setFormPost($form_post);
 		$this->_setFormMethod($form_method);
 		$this->_setFormMessages($form_messages);
 	}
@@ -100,16 +90,6 @@ class Form
 	private function _setFormAction($form_action)
 	{
 		$this->_form_action = $form_action;
-	}
-	
-	/**
-	 * Store the form POST URL.
-	 *
-	 * @param string $form_post The form POST URL
-	 */
-	private function _setFormPost($form_post)
-	{
-		$this->form_post = $form_post;
 	}
 	
 	/**
