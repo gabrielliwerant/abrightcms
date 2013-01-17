@@ -93,19 +93,6 @@ class FormBuilder
 	}
 	
 	/**
-	 * Sets a form field label in our array property as a key => value pair.
-	 *
-	 * @param string $key Key to use as identifier for value
-	 * @param string $label The value to store
-	 */
-	private function _setLabel($key, $label)
-	{
-		$this->_labels[$key] = $label;
-		
-		return $this;
-	}
-	
-	/**
 	 * Sets a form field in our array property as a key => value pair.
 	 *
 	 * @param string $key Key to use as identifier for value
@@ -119,40 +106,6 @@ class FormBuilder
 	}
 	
 	/**
-	 * Allows us to populate a property with meta data for our fields.
-	 *
-	 * @param string $key Key name for field array
-	 * @param array $meta_data Array with meta data for field
-	 */
-	public function setFieldMeta($key, $meta_data)
-	{
-		$this->_field_meta[$key] = $meta_data;
-		
-		return $this;
-	}
-	
-	/**
-	 * Get a specific field's meta data.
-	 *
-	 * @param string $key Field to return meta data for
-	 * @return array 
-	 */
-	public function getFieldMeta($key)
-	{
-		return $this->_field_meta[$key];
-	}
-	
-	/**
-	 * All field meta data getter
-	 *
-	 * @return array All stored field meta data
-	 */
-	public function getAllFieldMeta()
-	{
-		return $this->_field_meta;
-	}
-	
-	/**
 	 * Build HTML label
 	 *
 	 * @param string $for For attribute for label
@@ -161,7 +114,7 @@ class FormBuilder
 	 */
 	private function _buildLabel($for, $text)
 	{
-		return	'<label for="' . $for . '">' . $text . '</label>';
+		return '<label for="' . $for . '">' . $text . '</label>';
 	}
 	
 	/**
@@ -236,6 +189,40 @@ class FormBuilder
 		}
 		
 		return $field;
+	}
+	
+	/**
+	 * Allows us to populate a property with meta data for our fields.
+	 *
+	 * @param string $key Key name for field array
+	 * @param array $meta_data Array with meta data for field
+	 */
+	public function setFieldMeta($key, $meta_data)
+	{
+		$this->_field_meta[$key] = $meta_data;
+		
+		return $this;
+	}
+	
+	/**
+	 * Get a specific field's meta data.
+	 *
+	 * @param string $key Field to return meta data for
+	 * @return array 
+	 */
+	public function getFieldMeta($key)
+	{
+		return $this->_field_meta[$key];
+	}
+	
+	/**
+	 * All field meta data getter
+	 *
+	 * @return array All stored field meta data
+	 */
+	public function getAllFieldMeta()
+	{
+		return $this->_field_meta;
 	}
 	
 	/**
@@ -318,7 +305,13 @@ class FormBuilder
 	 * @param array $option_data Data to use for building the select options
 	 * @param string $id Select id
 	 */
-	public function setSelect($name, $option_data, $id, $is_required = false)
+	public function setSelect(
+		$name, 
+		$option_data, 
+		$id, 
+		$is_required = false,
+		$icon_class	= null
+	)
 	{
 		$option = null;		
 		foreach ($option_data as $text => $value)
@@ -327,9 +320,9 @@ class FormBuilder
 		}
 
 		$field		= $this->_buildField($name, $id, null);
-		$required	= $this->_buildRequired($is_required, $field, null);
+		$required	= $this->_buildRequired($is_required, $field, $icon_class);
 		
-		$select_field = '<select ' . $field . ' >' . $option . '</select>' . $required;
+		$select_field = '<select ' . $field . '>' . $option . '</select>' . $required;
 		
 		$this->_setField($id, $select_field);
 		
@@ -337,11 +330,22 @@ class FormBuilder
 	}
 	
 	/**
+	 * Get stored field data based on array key.
+	 *
+	 * @param string $key
+	 * @return string 
+	 */
+	public function getField($key)
+	{
+		return $this->_fields[$key];
+	}
+	
+	/**
 	 * Get the array property with all the stored fields.
 	 *
 	 * @return array All the fields for the form
 	 */
-	public function getFields()
+	public function getAllFields()
 	{
 		return $this->_fields;
 	}
@@ -387,7 +391,7 @@ class FormBuilder
 			$form_attributes .= $attribute . '="' . $$attribute . '" ';
 		}
 		
-		$built_form = '<form ' . $form_attributes . ' >' . $fields . '</form>';
+		$built_form = '<form ' . $form_attributes . '>' . $fields . '</form>';
 
 		return $built_form;
 	}
@@ -407,9 +411,13 @@ class FormBuilder
 			{
 				$is_email = (boolean)$field_data['is_email'];
 				
-				if ($is_email)
+				if ($is_email AND isset($submitted_data[$name]))
 				{
 					return $submitted_data[$name];
+				}
+				elseif ($is_email AND ! isset($submitted_data[$name]) )
+				{
+					return false;
 				}
 			}
 		}

@@ -19,7 +19,7 @@
 class JsonTest extends PHPUnit_Framework_TestCase
 {
 	const RELATIVE_PATH = '..\..';
-
+	
 	/**
 	 * Call settings and load the class we're testing.
 	 */	
@@ -27,7 +27,7 @@ class JsonTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 		
-		$class_name		= str_replace('Test', '', __CLASS__);
+		$class_name = str_replace('Test', '', __CLASS__);
 		
 		require_once self::RELATIVE_PATH . '\config\settings.php';
 		require_once self::RELATIVE_PATH . '\lib\\' . $class_name . '.php';
