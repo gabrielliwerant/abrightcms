@@ -48,16 +48,6 @@ Class Controller
 		$this->_model	= $model;
 		$this->_view	= $view;
 	}
-    
-	/**
-	 * Factory for key generator objects, allows us to decouple.
-	 *
-	 * @return object KeyGenerator
-	 */
-	public function _makeKeyGenerator()
-	{
-		return new KeyGenerator();
-	}
 	
 	/**
 	 * Allows us to force re-caching on included files like CSS and JS.
@@ -72,10 +62,9 @@ Class Controller
 		{
 			if (empty($preexisting_value))
 			{
-				$this->_model->setKeyGenerator($this->_makeKeyGenerator());
-			
-				$cache_buster = $this->_model->key_gen
-					->generateKeyFromStandard(10, array('digital'));
+				$cache_buster = $this->_model
+					->setKeyGenerator()
+					->createStandardKeyFromKeyGenerator(10, array('digital'));
 			}
 			else
 			{
@@ -102,6 +91,8 @@ Class Controller
 		{
 			$this->_view->$key = $value;
 		}
+		
+		return $this;
     }
 	
     /**
@@ -117,6 +108,8 @@ Class Controller
         {
             $this->_view->meta .= $this->_view->buildHeadMeta($type, $value);
         }
+		
+		return $this;
     }
     
 	/**
@@ -133,6 +126,8 @@ Class Controller
         {
             $this->_view->css .= $this->_view->buildHeadCss($name, $css_data, $cache_buster);
         }
+		
+		return $this;
 	}
 	
 	/**
@@ -143,7 +138,9 @@ Class Controller
 	 */
 	private function _setHeadIncludesFavicon($favicon_data, $cache_buster)
 	{
-		$this->_view->favicon = $this->_view->buildFavicon($favicon_data, $cache_buster);				
+		$this->_view->favicon = $this->_view->buildFavicon($favicon_data, $cache_buster);
+		
+		return $this;
 	}
 	
 	/**
@@ -160,6 +157,8 @@ Class Controller
 		{
 			$this->_view->head_js .= $this->_view->buildJs($js_data, $cache_buster);
 		}
+		
+		return $this;
 	}
 	
     /**
@@ -209,6 +208,8 @@ Class Controller
 
 			$i++;
         }
+		
+		return $this;
     }
 	
 	/**
@@ -236,6 +237,8 @@ Class Controller
 		{
 			$this->_view->tagline = $branding_data['tagline'];
 		}
+		
+		return $this;
 	}
     
 	/**
@@ -286,6 +289,8 @@ Class Controller
 			
 			$i++;
 		}
+		
+		return $this;
 	}
 	
     /**
@@ -302,6 +307,8 @@ Class Controller
 		{
 			$this->_view->footer_js .= $this->_view->buildJs($js_data, $cache_buster);
 		}
+		
+		return $this;
     }
     
 	/**
@@ -321,12 +328,12 @@ Class Controller
 		$cache_buster = $this->_cacheBuster(IS_MODE_CACHE_BUSTING, CACHE_BUSTING_VALUE);
 		
 		// Build out the basic view template pages with the JSON data
-		$this->_setHeadDoc($template['head']['head_doc']);
-		$this->_setHeadMeta($template['head']['head_meta']);
-		$this->_setHeadIncludesCss($template['head']['head_includes']['head_css'], $cache_buster);
-		$this->_setHeadIncludesFavicon($template['head']['head_includes']['favicon'], $cache_buster);
-		$this->_setHeadIncludesJs($template['head']['head_includes']['head_js'], $cache_buster);
-		$this->_setFooterJs($template['footer']['footer_js'], $cache_buster);
+		$this->_setHeadDoc($template['head']['head_doc'])
+			->_setHeadMeta($template['head']['head_meta'])
+			->_setHeadIncludesCss($template['head']['head_includes']['head_css'], $cache_buster)
+			->_setHeadIncludesFavicon($template['head']['head_includes']['favicon'], $cache_buster)
+			->_setHeadIncludesJs($template['head']['head_includes']['head_js'], $cache_buster)
+			->_setFooterJs($template['footer']['footer_js'], $cache_buster);
 
 		$this->_view->renderPage($page_name);
 	}

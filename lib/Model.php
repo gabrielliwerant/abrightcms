@@ -24,23 +24,23 @@ class Model
 	/**
 	 * Holds an instance of the storage object.
 	 *
-	 * @var object $storage
+	 * @var object $_storage
 	 */	
-	public $storage;
+	protected $_storage;
 	
 	/**
 	 * Holds an instance of the log object.
 	 *
-	 * @var object $log
+	 * @var object $_log
 	 */
-	public $log;
+	protected $_log;
 	
 	/**
 	 * Holds an instance of the key generator class.
 	 *
 	 * @var object $key_gen
 	 */
-	public $key_gen;
+	protected $_key_gen;
 	
 	/**
 	 * Upon instantiation, we pass all the objects we want our model object to
@@ -51,8 +51,8 @@ class Model
 	 */
 	public function __construct($storage_obj, $storage_type, $log_obj)
 	{
-		$this->storage	= $storage_obj;
-		$this->log		= $log_obj;		
+		$this->_storage	= $storage_obj;
+		$this->_log		= $log_obj;		
 
 		switch ($storage_type)
 		{
@@ -82,6 +82,16 @@ class Model
 	}
 	
 	/**
+	 * KeyGenerator factory
+	 *
+	 * @return object KeyGenerator
+	 */
+	private function _makeKeyGenerator()
+	{
+		return new KeyGenerator();
+	}
+	
+	/**
 	 * Adds a data file to the storage property.
 	 *
 	 * @param string $json_file Name of data file to set
@@ -89,7 +99,9 @@ class Model
 	 */
 	public function setDataFromStorage($data_file, $key)
 	{
-		$this->storage->setFileAsArray($data_file, $key);
+		$this->_storage->setFileAsArray($data_file, $key);
+		
+		return $this;
 	}
 	
 	/**
@@ -100,7 +112,7 @@ class Model
 	 */
 	public function getDataFromStorage($data_file)
 	{		
-		return $this->storage->getFileAsArray($data_file);
+		return $this->_storage->getFileAsArray($data_file);
 	}
 	
 	/**
@@ -110,22 +122,36 @@ class Model
 	 */
 	public function getAllDataFromStorage()
 	{
-		return $this->storage->getAllDataAsArray();
+		return $this->_storage->getAllDataAsArray();
 	}
 	
 	/**
-	 * Sets the key generator property with the appropriate object.
+	 * KeyGenerator setter
 	 *
-	 * @param object $key_gen Key Generator object to set
+	 * @return object Model
 	 */
-	public function setKeyGenerator($key_gen)
+	public function setKeyGenerator()
 	{
-		$this->key_gen = $key_gen;
+		$this->_key_gen = $this->_makeKeyGenerator();
+		
+		return $this;
+	}
+	
+	/**
+	 * Return a standard key from key generator object.
+	 *
+	 * @param integer $length Size of key
+	 * @param array $type_arr Kind of key to generate
+	 * @return string 
+	 */
+	public function createStandardKeyFromKeyGenerator($length, $type_arr)
+	{
+		return $this->_key_gen->generateKeyFromStandard($length, $type_arr);
 	}
 	
 	/**
 	 * Destroy the data after it is no longer needed. We may also want to log it 
-	 * in the future.
+	 * from here in the future.
 	 *
 	 * @param string &$data Data to destroy, passed by reference
 	 */
