@@ -31,6 +31,7 @@ class JsonTest extends PHPUnit_Framework_TestCase
 		
 		require_once self::RELATIVE_PATH . '\config\settings.php';
 		require_once self::RELATIVE_PATH . '\lib\\' . $class_name . '.php';
+		require_once self::RELATIVE_PATH . '\lib\MyException.php';
 		
 		$this->obj = new $class_name();
 	}
@@ -40,40 +41,59 @@ class JsonTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function tearDown()
 	{
-		unset($this->obj);
-		
 		parent::tearDown();
 	}
 	
 	/**
-	 * Decode function takes a JSON formatted string and converts to regular 
-	 * string, integer, array, mix.
+	 * @expectedException			MyException
+	 * @expectedExceptionMessage	1001
 	 */
-	public function testJsonDecode()
+	public function testJsonDecodeForBadInput()
 	{
-		$this->assertEquals('foo', $this->obj->getJsonDecode('"foo"'));
-		$this->assertEquals(array('foo' => 1), $this->obj->getJsonDecode('{"foo":1}'));
-		$this->assertEquals(array('foo', 'bar', 'baz'), $this->obj->getJsonDecode('["foo","bar","baz"]'));
+		$this->assertEquals('foo', $this->obj->getJsonDecode('foo'));
 	}
 	
 	/**
-	 * Encode function takes a string, integer, array, or mix and conerts to a
-	 * JSON encoded string.
+	 * @todo we'll assert exception thrown here eventually, when I figure out
+	 *		how to fail a json encoding.
 	 */
-	public function testJsonEncode()
+	public function testJsonEncodeForBadInput()
 	{
-		$this->assertEquals('"foo"', $this->obj->getJsonEncode('foo'));
-		$this->assertEquals('{"foo":1}', $this->obj->getJsonEncode(array('foo' => 1)));
-		$this->assertEquals('["foo","bar","baz"]', $this->obj->getJsonEncode(array('foo', 'bar', 'baz')));
+		//$this->assertEquals('"foo"', $this->obj->getJsonEncode('foo'));
 	}
 	
 	/**
-	 * Convert string versions of true and false to their boolean counterparts.
+	 * Convert string versions of true to boolean true.
 	 */
-	public function testStringValueConversionToBoolean()
+	public function testStringValueConversionToBooleanTrue()
 	{
 		$this->assertTrue($this->obj->getStringValueAsBoolean('true'));
+	}
+	
+	/**
+	 * Convert string version of false to boolean false.
+	 */
+	public function testStringValueConversionToBooleanFalse()
+	{
 		$this->assertFalse($this->obj->getStringValueAsBoolean('false'));
+	}
+	
+	/**
+	 * @expectedException			MyException
+	 * @expectedExceptionMessage	1002
+	 */
+	public function testStringValueConversionToBooleanTrueForBadInput()
+	{
+		$this->assertTrue($this->obj->getStringValueAsBoolean('foo'));
+	}
+	
+	/**
+	 * @expectedException			MyException
+	 * @expectedExceptionMessage	1002
+	 */
+	public function testStringValueConversionToBooleanFalseForBadInput()
+	{
+		$this->assertFalse($this->obj->getStringValueAsBoolean('foo'));
 	}
 }
 // End of JsonTest Class

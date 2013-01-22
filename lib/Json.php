@@ -70,7 +70,31 @@ class Json
 			}
 			else
 			{
-				throw make_exception_object('Json Exception (' . json_last_error() . ')', self::JSON_LAST_ERROR);
+				switch (json_last_error()) {
+					case JSON_ERROR_NONE:
+						$json_err = ' - No errors';
+						break;
+					case JSON_ERROR_DEPTH:
+						$json_err = ' - Maximum stack depth exceeded';
+						break;
+					case JSON_ERROR_STATE_MISMATCH:
+						$json_err = ' - Underflow or the modes mismatch';
+						break;
+					case JSON_ERROR_CTRL_CHAR:
+						$json_err = ' - Unexpected control character found';
+						break;
+					case JSON_ERROR_SYNTAX:
+						$json_err = ' - Syntax error, malformed JSON';
+						break;
+					case JSON_ERROR_UTF8:
+						$json_err = ' - Malformed UTF-8 characters, possibly incorrectly encoded';
+						break;
+					default:
+						$json_err = ' - Unknown error';
+						break;
+				}
+				
+				throw new MyException('Json Exception (' . $json_err . ')', self::JSON_LAST_ERROR);
 			}
 		}
 	}
@@ -99,7 +123,31 @@ class Json
 			}
 			else
 			{
-				throw make_exception_object('Json Exception (' . json_last_error() . ')', self::JSON_LAST_ERROR);
+				switch (json_last_error()) {
+					case JSON_ERROR_NONE:
+						$json_err = ' - No errors';
+						break;
+					case JSON_ERROR_DEPTH:
+						$json_err = ' - Maximum stack depth exceeded';
+						break;
+					case JSON_ERROR_STATE_MISMATCH:
+						$json_err = ' - Underflow or the modes mismatch';
+						break;
+					case JSON_ERROR_CTRL_CHAR:
+						$json_err = ' - Unexpected control character found';
+						break;
+					case JSON_ERROR_SYNTAX:
+						$json_err = ' - Syntax error, malformed JSON';
+						break;
+					case JSON_ERROR_UTF8:
+						$json_err = ' - Malformed UTF-8 characters, possibly incorrectly encoded';
+						break;
+					default:
+						$json_err = ' - Unknown error';
+						break;
+				}
+				
+				throw new MyException('Json Exception (' . $json_err . ')', self::JSON_LAST_ERROR);
 			}
 		}
 	}
@@ -158,7 +206,7 @@ class Json
 		}
 		else
 		{
-			throw make_exception_object('Json Exception', self::COULD_NOT_CONVERT_TO_BOOELAN);
+			throw new MyException('Json Exception', self::COULD_NOT_CONVERT_TO_BOOELAN);
 		}
 
 		return $true_boolean;

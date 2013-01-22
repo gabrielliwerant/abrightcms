@@ -65,8 +65,6 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
 			), 
 			$this->obj->getAllFieldMeta()
 		);
-		
-		$this->assertEquals(array(0 => 'bar'), $this->obj->getFieldMeta('foo'));
 	}
 	
 	/**
@@ -117,11 +115,19 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
 	
 	/**
 	 * After setting email meta data in setUp, check that we can retrieve it 
-	 * when we submit email information, and check that we get false if we can't.
+	 * when we submit email information.
 	 */
-	public function testFindUserEnteredEmailAfterSet()
+	public function testFindUserEnteredEmailAfterSetForCorrectData()
 	{
 		$this->assertEquals('foo@bar.baz', $this->obj->findUserEnteredEmail(array('email' => 'foo@bar.baz')));
+	}
+	
+	/**
+	 * After setting email meta data in setUp, check that that we get false if 
+	 * we can't find it for bad data.
+	 */
+	public function testFindUserEnteredEmailAfterSetForIncorrectData()
+	{
 		$this->assertFalse($this->obj->findUserEnteredEmail(array('name' => 'foo')));
 	}
 }

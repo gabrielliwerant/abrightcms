@@ -26,7 +26,7 @@ define('ABSOLUTE_ROOT_PATH', dirname(__FILE__));
 // Load the initial config files
 require_once ABSOLUTE_ROOT_PATH . '/config/settings.php';
 require_once ABSOLUTE_ROOT_PATH . '/config/paths.php';
-require_once ABSOLUTE_ROOT_PATH . '/config/database.php';
+//require_once ABSOLUTE_ROOT_PATH . '/config/database.php';
 require_once ABSOLUTE_ROOT_PATH . '/config/config.php';
 
 // Create the main application object which also loads the approprate 
@@ -34,9 +34,8 @@ require_once ABSOLUTE_ROOT_PATH . '/config/config.php';
 // in a try catch block to hide system exceptions in a production environment.
 try
 {
-	$application_factory = new ApplicationFactory(STORAGE_TYPE);
-	
-	new Bootstrap($application_factory, $_GET);
+	$app_factory = new ApplicationFactory(STORAGE_TYPE);	
+	new Bootstrap($app_factory, $_GET);
 }
 catch (MyException $e)
 {
