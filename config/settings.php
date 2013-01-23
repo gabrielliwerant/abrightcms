@@ -23,6 +23,9 @@
 // direct file access. The actual value used here is irrelevant.
 define('DENY_ACCESS', true);
 
+// Domain name defined here, used for pathing
+define('DOMAIN_NAME', 'abrightcms');
+
 // Sets the program environment, false is for development.
 define('IS_MODE_PRODUCTION', false);
 

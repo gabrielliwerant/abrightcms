@@ -18,7 +18,6 @@
  */
 
 // Set up the root paths
-define('DOMAIN_NAME', 'abrightcms');
 if (IS_MODE_PRODUCTION)
 {
 	define('FILE_ROOT_PATH', '../' . DOMAIN_NAME);
