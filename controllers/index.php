@@ -35,31 +35,36 @@ Class Index extends Controller
 	}
 	
 	/**
+	 * Call any methods necessary to build out page-specific elements and set
+	 * them as view properties for viewing.
+	 *
+	 * @param array $data From storage to build out page views
+	 * @param string $cache_buster Allows us to force re-caching
+	 * @return object Index Returned from parent method
+	 */
+	protected function _pageBuilder($data, $cache_buster = null)
+	{
+		$this->_setHeaderNav($data['header']['header']['header_nav'], $data['header']['header']['separator'])
+			->_setFooterNav($data['template']['footer']['footer_nav'], $data['template']['footer']['separator']);
+		
+		return parent::_pageBuilder($data['template'], $cache_buster);
+	}
+	
+	/**
 	 * Loads the index page view.
 	 * 
-	 * We can set whatever values we want to use in the template here, or we can
-	 * use the defaults in the base render method.
+	 * We retrieve data and call the page builder here, which should set up 
+	 * everything we need to display this page with the parent render method.
 	 * 
 	 * @param array $parameter_arr
 	 */
 	public function index($parameter_arr)
 	{
-		// Retrieve all JSON data into variables with the name of the file
-		$json_data = $this->_model->getAllDataFromStorage();
-		foreach ($json_data as $file_name => $content)
-		{
-			$$file_name = $content;
-		}
-
-		// Build page-specific elements
-		$this->_setHeaderNav($header['header']['header_nav'], $header['header']['separator']);
-		$this->_setFooterNav($template['footer']['footer_nav'], $template['footer']['separator']);
-
-		$page_name = 'index';
+		$data			= $this->_model->getAllDataFromStorage();
+		$cache_buster	= $this->_cacheBuster(IS_MODE_CACHE_BUSTING, CACHE_BUSTING_VALUE);
 		
-		$this->_view->page = $page_name;
-		
-		$this->render($page_name);
+		$this->_pageBuilder($data, $cache_buster)
+			->render(strtolower(__CLASS__), $data['template'], $cache_buster);
 	}
 }
 // End of Index Class

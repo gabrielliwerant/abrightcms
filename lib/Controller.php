@@ -45,8 +45,28 @@ Class Controller
 	 */
 	public function __construct($model, $view)
 	{
-		$this->_model	= $model;
-		$this->_view	= $view;
+		$this->_setModel($model);
+		$this->_setView($view);
+	}
+	
+	/**
+	 * Model setter
+	 *
+	 * @param object $model 
+	 */
+	protected function _setModel($model)
+	{
+		$this->_model = $model;
+	}
+	
+	/**
+	 * View setter
+	 *
+	 * @param object $view 
+	 */
+	protected function _setView($view)
+	{
+		$this->_view = $view;
 	}
 	
 	/**
@@ -84,6 +104,7 @@ Class Controller
      * information.
      * 
      * @param string array $head_data HTML document data for head section
+	 * @return object Controller
      */
     private function _setHeadDoc($head_data)
     {
@@ -99,6 +120,7 @@ Class Controller
      * Set the view property for the rendering of the head meta tags.
      * 
      * @param string array $head_meta Meta types and values for building
+	 * @return object Controller
      */
     private function _setHeadMeta($head_meta)
     {
@@ -117,6 +139,7 @@ Class Controller
 	 *
 	 * @param array $include_data Data with CSS file names and other info
 	 * @param string $cache_buster Optional random string to force re-caching
+	 * @return object Controller
 	 */
 	private function _setHeadIncludesCss($include_data, $cache_buster)
 	{
@@ -135,6 +158,7 @@ Class Controller
 	 *
 	 * @param array $favicon_data Data used to build favicon
 	 * @param string $cache_buster Optional random string to force re-caching
+	 * @return object Controller
 	 */
 	private function _setHeadIncludesFavicon($favicon_data, $cache_buster)
 	{
@@ -148,6 +172,7 @@ Class Controller
 	 *
 	 * @param array $include_data Data with JS file names and other info
 	 * @param string $cache_buster Optional random string to force re-caching
+	 * @return object Controller
 	 */
 	private function _setHeadIncludesJs($include_data, $cache_buster)
 	{
@@ -166,11 +191,11 @@ Class Controller
      * 
      * @param array $header_nav_data Name and other information for header nav
 	 * @param string $separator Optional separator in HTML for nav items
+	 * @return object Controller
      */
     protected function _setHeaderNav($header_nav_data, $separator = null)
     {
         $this->_view->header_nav	= null;
-		$nav_count					= count($header_nav_data);
 		$i							= 1;        
 		
 		foreach ($header_nav_data as $nav => $data)
@@ -179,7 +204,7 @@ Class Controller
 			{
 				$list_class = 'first';
 			}			
-			elseif ($i === $nav_count)
+			elseif ($i === count($header_nav_data))
 			{
 				$list_class = 'last';
 				$separator	= null;
@@ -218,6 +243,7 @@ Class Controller
 	 *
 	 * @param string prefix Prefix for view property name
 	 * @param array $branding_data Branding values for building HTML
+	 * @return object Controller
 	 */
 	protected function _setBranding($prefix, $branding_data)
 	{
@@ -249,10 +275,8 @@ Class Controller
 	 */
 	protected function _setFooterNav($footer_nav_data, $separator = null)
 	{
-		$this->_view->footer_nav = null;
-		
-		$nav_count	= count($footer_nav_data);
-		$i			= 1;
+		$this->_view->footer_nav	= null;		
+		$i							= 1;
 		
 		foreach ($footer_nav_data as $nav => $data)
 		{
@@ -275,7 +299,7 @@ Class Controller
 				}
 				
 				// If we use a separator, make the last one null
-				if ($i === $nav_count)
+				if ($i === count($footer_nav_data))
 				{
 					$separator = null;
 				}
@@ -298,8 +322,9 @@ Class Controller
      * 
      * @param string array $footer_js_data Names of JS files to load 
      * @param string $cache_buster Optional random string to force re-caching
+	 * @return object Controller
      */
-    private function _setFooterJs($footer_js_data, $cache_buster = null)
+    private function _setFooterJs($footer_js_data, $cache_buster)
     {
 		$this->_view->footer_js = null;
 		
@@ -312,30 +337,51 @@ Class Controller
     }
     
 	/**
+	 * Page name view property setter
+	 *
+	 * @param string $page_name 
+	 * @return object Index
+	 */
+	private function _setPage($page_name)
+	{
+		$this->_view->page = $page_name;
+		
+		return $this;
+	}
+	
+	/**
+	 * Call any methods necessary to build out basic page elements and set them 
+	 * as view properties for viewing.
+	 * 
+	 * @param array $data From storage to build out view properties
+	 * @param string $cache_buster Allows us to force re-caching
+	 * @return object Controller 
+	 */
+	protected function _pageBuilder($data, $cache_buster)
+	{
+		$this->_setHeadDoc($data['head']['head_doc'])
+			->_setHeadMeta($data['head']['head_meta'])
+			->_setHeadIncludesCss($data['head']['head_includes']['head_css'], $cache_buster)
+			->_setHeadIncludesFavicon($data['head']['head_includes']['favicon'], $cache_buster)
+			->_setHeadIncludesJs($data['head']['head_includes']['head_js'], $cache_buster)
+			->_setFooterJs($data['footer']['footer_js'], $cache_buster);
+
+		return $this;
+	}
+	
+	/**
 	 * Loads the views for our template from stored JSON data.
 	 * 
-	 * We call all the methods needed to construct our view here. Usually, only
-	 * the page will change, but we can optionally use arguments to override the
-	 * defaults in the individual methods. Loading a different set of views for
-	 * our page should be done by overriding this method in a child controller.
+	 * Call the page builder here to build out basic page elements into view
+	 * properties. Then call the view to render the page along with the basic
+	 * template pages.
 	 *  
 	 * @param string $page_name Name of the page we load as the view
+	 * @param array $data For building page views from template storage
 	 */
 	public function render($page_name)
 	{
-		$template = $this->_model->getDataFromStorage('template');
-		
-		$cache_buster = $this->_cacheBuster(IS_MODE_CACHE_BUSTING, CACHE_BUSTING_VALUE);
-		
-		// Build out the basic view template pages with the JSON data
-		$this->_setHeadDoc($template['head']['head_doc'])
-			->_setHeadMeta($template['head']['head_meta'])
-			->_setHeadIncludesCss($template['head']['head_includes']['head_css'], $cache_buster)
-			->_setHeadIncludesFavicon($template['head']['head_includes']['favicon'], $cache_buster)
-			->_setHeadIncludesJs($template['head']['head_includes']['head_js'], $cache_buster)
-			->_setFooterJs($template['footer']['footer_js'], $cache_buster);
-
-		$this->_view->renderPage($page_name);
+		$this->_setPage($page_name)->_view->renderPage($page_name);
 	}
 }
 // End of Controller Class
