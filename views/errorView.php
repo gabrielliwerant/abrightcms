@@ -31,23 +31,25 @@ class ErrorView extends View
 	}
 	
 	/**
-	 * Sets the error type for view output.
+	 * Builds the error type for view output.
 	 * 
 	 * @param string $type Error type
+	 * @return string
 	 */
-	public function setErrorType($type)
+	public function buildErrorType($type)
 	{
-		$this->error_type = $type;
+		return 'Oops! ' . $type . ':<br /><span>Page Not Found</span>';
 	}
 	
 	/**
-	 * Sets the error message for view output
+	 * Builds the error message for view output
 	 * 
 	 * @param string $msg Error message
+	 * @return string
 	 */
-	public function setErrorMsg($msg)
+	public function buildErrorMsg($msg)
 	{
-		$this->error_msg = $msg;
+		return $msg;
 	}
 }
 // End of ErrorView Class

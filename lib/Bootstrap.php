@@ -174,7 +174,6 @@ class Bootstrap
 		// controller
 		if (empty($url))
 		{
-			//$this->_controller = $this->_makeController('index');
 			$this->_controller = $this->_application_factory->makeController('index');
 		}	
 		else
@@ -198,7 +197,6 @@ class Bootstrap
 			// Set the URL if it passed the checks above and is not error
 			if ($is_controller AND $url !== 'error')
 			{
-				//$this->_controller = $this->_makeController($url);
 				$this->_controller = $this->_application_factory->makeController($url);
 			}
 			else
@@ -298,7 +296,6 @@ class Bootstrap
 	public function _error($type)
 	{
 		// Make sure to have an error controller and the proper page name.
-		//$this->_controller	= $this->_makeController('error');
 		$this->_controller	= $this->_application_factory->makeController('error');
 		$page				= $this->_getControllerName();
 
@@ -306,10 +303,7 @@ class Bootstrap
 		{
 			case '404'	: 
 				$this->_method      = 'index';
-				$this->_parameter   = array(
-					'Oops! 404:<br /><span>Page Not Found</span>',
-					'The page you are looking for does not exist. Maybe it\'s at one of the links below:'
-				);
+				$this->_parameter   = array($type);
 				break;
 		}
 		
