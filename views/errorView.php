@@ -44,12 +44,11 @@ class ErrorView extends View
 	/**
 	 * Builds the error message for view output
 	 * 
-	 * @param string $msg Error message
 	 * @return string
 	 */
-	public function buildErrorMsg($msg)
+	public function buildErrorMsg()
 	{
-		return $msg;
+		return 'The page you are looking for does not exist.';
 	}
 }
 // End of ErrorView Class

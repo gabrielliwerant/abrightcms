@@ -50,12 +50,11 @@ Class Error extends Controller
 	/**
 	 * Set the view property for the error page message.
 	 *
-	 * @param string $error_msg
 	 * @return object Error 
 	 */
-	private function _setErrorMsg($error_msg)
+	private function _setErrorMsg()
 	{
-		$this->_view->error_msg = $this->_view->buildErrorMsg($error_msg);
+		$this->_view->error_msg = $this->_view->buildErrorMsg();
 		
 		return $this;
 	}
@@ -73,7 +72,7 @@ Class Error extends Controller
 		$this->_setHeaderNav($data['header']['header']['header_nav'], $data['header']['header']['separator'])
 			->_setFooterNav($data['template']['footer']['footer_nav'], $data['template']['footer']['separator'])
 			->_setErrorType($data['error_header'])
-			->_setErrorMsg($data['error_msg']);
+			->_setErrorMsg();
 		
 		return parent::_pageBuilder($data['template'], $cache_buster);
 	}
@@ -90,7 +89,6 @@ Class Error extends Controller
 	{
 		$data					= $this->_model->getAllDataFromStorage();
 		$data['error_header']	= $parameter_arr[0];
-		$data['error_msg']		= 'The page you are looking for does not exist.';
 		$cache_buster			= $this->_cacheBuster(IS_MODE_CACHE_BUSTING, CACHE_BUSTING_VALUE);
 		
 		$this->_pageBuilder($data, $cache_buster)
