@@ -91,10 +91,10 @@ if ( ! IS_MODE_PRODUCTION)
 // Global factory for exception subclass, defined here for decoupling
 function make_exception_object($msg = null, $code = null, $previous = null)
 {
-	return new MyException(new Log(), $msg, $code, $previous);
+	return new MyException(ApplicationFactory::makeLogger(), $msg, $code, $previous);
 }
 // Set class and method for uncaught exceptions
-set_exception_handler(array(new MyException(new Log()), 'uncaughtException'));
+set_exception_handler(array(new MyException(ApplicationFactory::makeLogger()), 'uncaughtException'));
 
 // Error reporting levels
 if (IS_MODE_DEBUG)
@@ -108,7 +108,7 @@ else
 	// Because error reporting is off, we need a way to register errors
 	register_shutdown_function(array(
 		new ErrorHandler(
-			new Log(), 
+			ApplicationFactory::makeLogger(), 
 			new Email()
 		),
 		'showFatalErrorPage')

@@ -48,7 +48,7 @@ if (IS_MODE_PRODUCTION)
 else
 {
 	define('HTTP_ROOT_PATH', 'http://localhost/' . DOMAIN_NAME);
-	define('PUBLIC_PATH', HTTP_ROOT_PATH . '/public');
+	define('PUBLIC_PATH', HTTP_ROOT_PATH . '/dev');
 	define('DEVELOPMENT_PATH', FILE_ROOT_PATH . '/dev');
 	define('DEVELOPMENT_LIBRARY_PATH', DEVELOPMENT_PATH . '/lib');
 	define('TESTS_PATH', DEVELOPMENT_PATH . '/tests');

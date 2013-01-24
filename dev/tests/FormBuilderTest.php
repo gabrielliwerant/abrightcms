@@ -18,7 +18,7 @@
  */
 class FormBuilderTest extends PHPUnit_Framework_TestCase
 {
-	const RELATIVE_PATH = '..\..';
+	const RELATIVE_PATH = '..\\';
 
 	/**
 	 * Call settings and load the class we're testing.
@@ -29,8 +29,8 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
 		
 		$class_name		= str_replace('Test', '', __CLASS__);
 		
-		require_once self::RELATIVE_PATH . '\config\settings.php';
-		require_once self::RELATIVE_PATH . '\lib\\' . $class_name . '.php';
+		require_once self::RELATIVE_PATH . 'config\settings.php';
+		require_once self::RELATIVE_PATH . 'lib\\' . $class_name . '.php';
 		
 		$this->obj = new $class_name('foo', 'bar');
 		

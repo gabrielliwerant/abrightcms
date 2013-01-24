@@ -70,10 +70,10 @@
 			"copyright" : {
 				"is_anchor"		: "0",
 				"symbol"		: "Copyright &copy;",
-				"holder"		: "<a href=http://abrightcms.com target=_self>abrightcms.com</a>",
+				"holder"		: "yourcompany.com",
 				"start_date"	: "2013"
 			},
-			"Gabriel Liwerant"	: {
+			"Your Name"	: {
 				"is_anchor"		: "0"
 			},
 			"All Rights Reserved"	: {

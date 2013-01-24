@@ -8,16 +8,37 @@
  */
 
 header {
-	background-color: @header-color;
-	padding: 1em;
 	margin-bottom: 1em;
 
-	li {
-		display: inline-block;
-		margin-right: 1em;
+	#branding {
+		padding: 1em;
+		
+		h1 {
+			font-size: 2em;
+			margin-bottom: 0.5em;
+		}
+		
+		h2 {
+			font-size: 1.75em;
+			margin-bottom: 0.5em;
+		}
+		
+		h3 {
+			font-size: 1.5em;
+		}
 	}
 	
-	ul li:last-child {
-		margin-right: 0;
+	nav {
+		background-color: @header-color;
+		padding: 1em;
+	
+		li {
+			display: inline-block;
+			margin-right: 1em;
+		}
+		
+		ul li:last-child {
+			margin-right: 0;
+		}
 	}
 }

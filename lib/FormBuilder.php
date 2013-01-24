@@ -64,14 +64,15 @@ class FormBuilder
 	 */
 	public function __construct($form_action = null, $form_method = null)
 	{
-		$this->_setFormAction($form_action);
-		$this->_setFormMethod($form_method);
+		$this->_setFormAction($form_action)->_setFormMethod($form_method);
 	}
 	
 	/**
 	 * Form action setter
 	 *
 	 * @param string $form_action
+	 * 
+	 * @return object FormBuilder
 	 */
 	private function _setFormAction($form_action)
 	{
@@ -84,6 +85,8 @@ class FormBuilder
 	 * Form method setter
 	 *
 	 * @param string $form_method
+	 * 
+	 * @return object FormBuilder
 	 */
 	private function _setFormMethod($form_method)
 	{
@@ -97,6 +100,8 @@ class FormBuilder
 	 *
 	 * @param string $key Key to use as identifier for value
 	 * @param string $field The value to store
+	 * 
+	 * @return object FormBuilder
 	 */
 	private function _setField($key, $field)
 	{
@@ -110,6 +115,7 @@ class FormBuilder
 	 *
 	 * @param string $for For attribute for label
 	 * @param string $text Text portion of label
+	 * 
 	 * @return string 
 	 */
 	private function _buildLabel($for, $text)
@@ -126,6 +132,7 @@ class FormBuilder
 	 * @param boolean $is_required Tells us if field is required or not
 	 * @param string &$field The field we are currently building
 	 * @param string $icon_class Class name for icon or empty
+	 * 
 	 * @return string The required icon class
 	 */
 	private function _buildRequired($is_required, &$field, $icon_class = null)
@@ -160,6 +167,7 @@ class FormBuilder
 	 * @param string $type Type attribute
 	 * @param string $value Value attribute
 	 * @param string $size Size attribute
+	 * 
 	 * @return string Built form field with necessary attributes
 	 */
 	private function _buildField(
@@ -196,6 +204,8 @@ class FormBuilder
 	 *
 	 * @param string $key Key name for field array
 	 * @param array $meta_data Array with meta data for field
+	 * 
+	 * @return object FormBuilder
 	 */
 	public function setFieldMeta($key, $meta_data)
 	{
@@ -208,6 +218,7 @@ class FormBuilder
 	 * Get a specific field's meta data.
 	 *
 	 * @param string $key Field to return meta data for
+	 * 
 	 * @return array 
 	 */
 	public function getFieldMeta($key)
@@ -230,6 +241,7 @@ class FormBuilder
 	 *
 	 * @param string $for For value for label
 	 * @param string $text Text portion of label
+	 * 
 	 * @return object FormBuilder
 	 */
 	public function setLabel($for, $text)
@@ -252,6 +264,8 @@ class FormBuilder
 	 * @param string $size Size attrivute
 	 * @param boolean $is_required Tells us if field is required or not
 	 * @param string $icon_class Class name for icon or empty
+	 * 
+	 * @return object FormBuilder
 	 */
 	public function setInput(
 		$name, 
@@ -280,6 +294,8 @@ class FormBuilder
 	 * @param string $id Field id
 	 * @param boolean $is_required Tells us if field is required or not
 	 * @param string $icon_class Class name for icon or empty
+	 * 
+	 * @return object FormBuilder
 	 */
 	public function setTextArea(
 		$name, 
@@ -304,6 +320,8 @@ class FormBuilder
 	 * @param string $name Name attribute
 	 * @param array $option_data Data to use for building the select options
 	 * @param string $id Select id
+	 * 
+	 * @return object FormBuilder
 	 */
 	public function setSelect(
 		$name, 
@@ -333,6 +351,7 @@ class FormBuilder
 	 * Get stored field data based on array key.
 	 *
 	 * @param string $key
+	 * 
 	 * @return string 
 	 */
 	public function getField($key)
@@ -354,6 +373,7 @@ class FormBuilder
 	 * Find the matching label to connect to the correct field and return it.
 	 *
 	 * @param string $field_key Key of field to find matching label for
+	 * 
 	 * @return string Matching label
 	 */
 	public function getLabelMatchingFieldKey($field_key)
@@ -373,6 +393,7 @@ class FormBuilder
 	 *
 	 * @param string $fields HTML fields to enclose in form
 	 * @param string $id Form id
+	 * 
 	 * @return string Built HTML form
 	 */
 	public function getForm($fields, $name = null, $id = null)
@@ -401,6 +422,7 @@ class FormBuilder
 	 * submitted data in a field with the same name.
 	 *
 	 * @param array $submitted_data Form data to look through
+	 * 
 	 * @return string/boolean Either the submitted email address or false
 	 */
 	public function findUserEnteredEmail($submitted_data)

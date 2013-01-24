@@ -45,14 +45,57 @@ class Concatenate
 	/**
 	 * Our constructor sets all the parameters we'll need to run the 
 	 * concatenator.
+	 * 
+	 * @param string $header
+	 * @param string $path
+	 * @param array $file_arr
 	 */
 	public function __construct($header, $path, $file_arr)
 	{
-		$this->_header		= $header;
-		$this->_path		= $path;
-		$this->_file_arr	= $file_arr;
+		$this->_setHeader($header)
+			->_setPath($path)
+			->_setFileArr($file_arr);
 	}
 
+	/**
+	 * Setter for header
+	 *
+	 * @param string $header Tells us how to load files on the page
+	 * @return object Concatenate
+	 */
+	private function _setHeader($header)
+	{
+		$this->_header = $header;
+		
+		return $this;
+	}
+	
+	/**
+	 * Setter for path
+	 *
+	 * @param string $path Path for loading files to concatenate
+	 * @return object Concatenate 
+	 */
+	private function _setPath($path)
+	{
+		$this->_path = $path;
+		
+		return $this;
+	}
+	
+	/**
+	 * Setter for file array
+	 *
+	 * @param array $file_arr
+	 * @return object Concatenate 
+	 */
+	private function _setFileArr($file_arr)
+	{
+		$this->_file_arr = $file_arr;
+		
+		return $this;
+	}
+	
 	/**
 	 * Loads the page with the appropriate header and all the files we're 
 	 * concatenating, then exit.

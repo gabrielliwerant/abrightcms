@@ -23,20 +23,21 @@ class MyException extends Exception
 	/**
 	 * Holds an instance of the log class for error logging
 	 *
-	 * @var object $_log 
+	 * @var object $_logger 
 	 */
-	private $_log;
+	private $_logger;
 	
 	/**
 	 * Call the parent constructor when we throw a new exception.
 	 *
+	 * @param object $logger_obj
 	 * @param string $msg Exception message
 	 * @param integer $code Reference code for exception
 	 * @param object $previous Previous exception, if one exists
 	 */
-	public function __construct($log, $msg = null, $code = null, $previous = null)
+	public function __construct($logger_obj, $msg = null, $code = null, $previous = null)
 	{
-		$this->_log = $log;
+		$this->_setLogger($logger_obj);
 		
 		if (PHP_VERSION < 5.3)
 		{
@@ -49,10 +50,26 @@ class MyException extends Exception
 	}
 	
 	/**
+	 * Logger Setter
+	 *
+	 * @param object $logger_obj
+	 * 
+	 * @return object MyException 
+	 */
+	private function _setLogger($logger_obj)
+	{
+		$this->_logger = $logger_obj;
+		
+		return $this;
+	}
+	
+	/**
 	 * Create error logs for exceptions.
 	 *
 	 * @param object $log Log object
 	 * @param object $exception Exception object to use for logging
+	 * 
+	 * @return object MyException
 	 */
 	private function _createLog($log, $exception)
 	{
@@ -71,6 +88,8 @@ class MyException extends Exception
 		$log_message = rtrim($log_message, ', ');
 
 		$log->writeLogToFile($log_message, 'exception', 'exceptionLog');
+		
+		return $this;
 	}
 	
 	/**
@@ -80,7 +99,7 @@ class MyException extends Exception
 	{				
 		if (IS_MODE_LOGGING)
 		{
-			$this->_createLog($this->_log, $this);
+			$this->_createLog($this->_logger, $this);
 		}
 	
 		$this->exception_msg = 'Caught ' . $this->getMessage() . '. Exception code: #' . $this->getCode();
@@ -97,7 +116,7 @@ class MyException extends Exception
 	{
 		if (IS_MODE_LOGGING)
 		{
-			$this->_createLog($this->_log, $e);
+			$this->_createLog($this->_logger, $e);
 		}
 		
 		$this->exception_msg = 'Uncaught ' . $e->getMessage() . '. Exception code: #' . $e->getCode();

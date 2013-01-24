@@ -22,7 +22,7 @@
 class Json
 {
 	/**
-	 * Error codes for Json class.
+	 * Error codes for Json
 	 */
 	const JSON_LAST_ERROR				= 1001;
 	const COULD_NOT_CONVERT_TO_BOOELAN	= 1002;
@@ -48,6 +48,7 @@ class Json
 	 * @param string $json_encoded Encoded JSON contents
 	 * @param boolean $make_assoc_arr Return as associative array or not
 	 * @param integer $depth How many nested layers deep to search
+	 * 
 	 * @return array/obj Decoded JSON contents in format chosen
 	 */
 	public function getJsonDecode(
@@ -70,31 +71,32 @@ class Json
 			}
 			else
 			{
-				switch (json_last_error()) {
+				switch (json_last_error())
+				{
 					case JSON_ERROR_NONE:
-						$json_err = ' - No errors';
+						$json_err = 'No errors';
 						break;
 					case JSON_ERROR_DEPTH:
-						$json_err = ' - Maximum stack depth exceeded';
+						$json_err = 'Maximum stack depth exceeded';
 						break;
 					case JSON_ERROR_STATE_MISMATCH:
-						$json_err = ' - Underflow or the modes mismatch';
+						$json_err = 'Underflow or the modes mismatch';
 						break;
 					case JSON_ERROR_CTRL_CHAR:
-						$json_err = ' - Unexpected control character found';
+						$json_err = 'Unexpected control character found';
 						break;
 					case JSON_ERROR_SYNTAX:
-						$json_err = ' - Syntax error, malformed JSON';
+						$json_err = 'Syntax error, malformed JSON';
 						break;
 					case JSON_ERROR_UTF8:
-						$json_err = ' - Malformed UTF-8 characters, possibly incorrectly encoded';
+						$json_err = 'Malformed UTF-8 characters, possibly incorrectly encoded';
 						break;
 					default:
-						$json_err = ' - Unknown error';
+						$json_err = 'Unknown error';
 						break;
 				}
 				
-				throw new MyException('Json Exception (' . $json_err . ')', self::JSON_LAST_ERROR);
+				throw new MyException(ApplicationFactory::makeLogger(), 'Json Exception (' . $json_err . ')', self::JSON_LAST_ERROR);
 			}
 		}
 	}
@@ -103,6 +105,7 @@ class Json
 	 * Handles JSON encoding.
 	 *
 	 * @param string, array, integer $value Contents to be encoded as JSON
+	 * 
 	 * @return string Encoded JSON contents
 	 */
 	public function getJsonEncode($value)
@@ -123,31 +126,32 @@ class Json
 			}
 			else
 			{
-				switch (json_last_error()) {
+				switch (json_last_error())
+				{
 					case JSON_ERROR_NONE:
-						$json_err = ' - No errors';
+						$json_err = 'No errors';
 						break;
 					case JSON_ERROR_DEPTH:
-						$json_err = ' - Maximum stack depth exceeded';
+						$json_err = 'Maximum stack depth exceeded';
 						break;
 					case JSON_ERROR_STATE_MISMATCH:
-						$json_err = ' - Underflow or the modes mismatch';
+						$json_err = 'Underflow or the modes mismatch';
 						break;
 					case JSON_ERROR_CTRL_CHAR:
-						$json_err = ' - Unexpected control character found';
+						$json_err = 'Unexpected control character found';
 						break;
 					case JSON_ERROR_SYNTAX:
-						$json_err = ' - Syntax error, malformed JSON';
+						$json_err = 'Syntax error, malformed JSON';
 						break;
 					case JSON_ERROR_UTF8:
-						$json_err = ' - Malformed UTF-8 characters, possibly incorrectly encoded';
+						$json_err = 'Malformed UTF-8 characters, possibly incorrectly encoded';
 						break;
 					default:
-						$json_err = ' - Unknown error';
+						$json_err = 'Unknown error';
 						break;
 				}
 				
-				throw new MyException('Json Exception (' . $json_err . ')', self::JSON_LAST_ERROR);
+				throw new MyException(ApplicationFactory::makeLogger(), 'Json Exception (' . $json_err . ')', self::JSON_LAST_ERROR);
 			}
 		}
 	}
@@ -157,18 +161,23 @@ class Json
 	 * 
 	 * @param string $file_name Is the name of the JSON file we want data from
 	 * @param string $key Allows us to set a name for the JSON array
+	 * 
+	 * @return object Json
 	 */
 	public function setFileAsArray($file_name, $key)
 	{
 		$json_encoded = file_get_contents(JSON_PATH . '/' . $file_name . '.json');
 		
 		$this->_json[$key] = $this->getJsonDecode($json_encoded);
+		
+		return $this;
 	}
 	
 	/**
 	 * Returns a JSON file as an array from our property.
 	 * 
 	 * @param string $json_key Is the name of the JSON file
+	 * 
 	 * @return array Gets us the specific array we want 
 	 */
 	public function getFileAsArray($json_key)
@@ -192,24 +201,25 @@ class Json
 	 * their intended boolean. Use with care.
 	 *
 	 * @param string $psuedo_boolean String we attempt to convert to boolean
+	 * 
 	 * @return boolean Successfully converted boolean value
 	 */
 	public function getStringValueAsBoolean($psuedo_boolean)
 	{       
 		if ($psuedo_boolean === 'true')
 		{
-			$true_boolean = true;
+			$real_boolean = true;
 		}
 		elseif ($psuedo_boolean === 'false')
 		{
-			$true_boolean = false;
+			$real_boolean = false;
 		}
 		else
 		{
-			throw new MyException('Json Exception', self::COULD_NOT_CONVERT_TO_BOOELAN);
+			throw new MyException(ApplicationFactory::makeLogger(), 'Json Exception', self::COULD_NOT_CONVERT_TO_BOOELAN);
 		}
 
-		return $true_boolean;
+		return $real_boolean;
 	}
 }
 // End of Json Class

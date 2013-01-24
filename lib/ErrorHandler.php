@@ -38,19 +38,48 @@ class ErrorHandler
 	/**
 	 * Upon construction, pass in dependencies
 	 *
-	 * @param type $log 
-	 * @param type $email 
+	 * @param object $log 
+	 * @param object $email 
 	 */
 	public function __construct($log, $email)
 	{
-		$this->_log		= $log;
-		$this->_email	= $email;
+		$this->_setLog($log)->_setEmail($email);
 	}
 
+	/**
+	 * Setter for log
+	 *
+	 * @param object $log
+	 * 
+	 * @return object ErrorHandler 
+	 */
+	private function _setLog($log)
+	{
+		$this->_log = $log;
+		
+		return $this;
+	}
+	
+	/**
+	 * Setter for email
+	 *
+	 * @param object $email
+	 * 
+	 * @return object ErrorHandler 
+	 */
+	private function _setEmail($email)
+	{
+		$this->_email = $email;
+		
+		return $this;
+	}
+	
 	/**
 	 * Allows us to log our fatal errors.
 	 *
 	 * @param string $msg Message to prepend to log message
+	 * 
+	 * @return object ErrorHandler
 	 */
 	private function _createLog($msg)
 	{
@@ -64,6 +93,8 @@ class ErrorHandler
 		$log_message = rtrim($log_message, ', ');
 		
 		$this->_log->writeLogToFile($log_message, 'error', 'errorLog');
+		
+		return $this;
 	}
 	
 	/**
@@ -71,6 +102,8 @@ class ErrorHandler
 	 *
 	 * @param string $subject Subject line for email
 	 * @param string $msg Message to prepend to email message
+	 * 
+	 * @return object ErrorHandler
 	 */
 	private function _sendEmail($subject, $msg)
 	{
@@ -81,22 +114,21 @@ class ErrorHandler
 			$email_message .= $key . ' => ' . $value . '<br />';
 		}
 		
-		$this->_email->setEmailAddress(EMAIL_ADDRESS);
-		$this->_email->setSubject($subject);
-		$this->_email->setMessage($email_message);
-		$this->_email->setReplyTo(EMAIL_ADDRESS);
-		
-		$this->_email->sendMessage(EMAIL_HEADERS);
+		$this->_email
+			->setEmailAddress(EMAIL_ADDRESS)
+			->setSubject($subject)
+			->setMessage($email_message)
+			->setReplyTo(EMAIL_ADDRESS)			
+			->sendMessage(EMAIL_HEADERS);
+
+		return $this;
 	}
 	
 	/**
-	 * We use this function to display a friendly page upon fatal error when we
-	 * are hiding normal error reporting.
+	 * Display a friendly page upon fatal error.
 	 * 
-	 * We look to see if constant is defined from the end of our script. If the
-	 * constant is defined, the script executed successfully, so we do nothing.
-	 * If it is not defined, we encountered a fatal error, so we log, email, and
-	 * load our error page.
+	 * Useful when we are hiding normal error reporting. If we have an error, we 
+	 * log it, email it, and load our error page.
 	 */
 	public function showFatalErrorPage()
 	{
@@ -104,8 +136,8 @@ class ErrorHandler
 		
 		if ( ! empty($error_last) )
 		{
-			$this->_createLog('Encountered fatal error: ');
-			$this->_sendEmail('A Bright Concept Fatal Error', 'Encountered fatal error: ');
+			$this->_createLog('Encountered fatal error: ')
+				->_sendEmail('A Bright CMS Fatal Error', 'Encountered fatal error: ');
 			
 			header('Location:' . ERROR_HANDLER_PAGE_PATH);
 		}

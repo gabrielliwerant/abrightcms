@@ -53,31 +53,43 @@ class Bootstrap
 	 * Holds the parameters for methods.
 	 *
 	 * @var array $_parameter
+	 * 
 	 * @todo consider using a different way of passing parameters to methods
 	 */
 	private $_parameter = array();
 	
 	/**
 	 * We are sad if new bootstrap object doesn't load the application, so we
-	 * make sure it does what it must to find the controller and load 
+	 * make sure it does what it must to find the controller and set and load 
 	 * dependencies.
 	 * 
-	 * Upon construction, we set the URL, controller, method, and parameters.
-	 * Then we send them to the router.
+	 * Upon construction, we ultimately set the URL, controller, method, and 
+	 * parameters. Then we send them to the router.
 	 * 
 	 * @param object $application_factory Application factory object
 	 * @param array $get_data Loads data from the URL query string
 	 */
 	public function __construct($application_factory, $get_data)
 	{
+		$this->_setApplicationFactory($application_factory)
+			->_setUrl($get_data)
+			->_setController($this->_getUrl(0))
+			->_setMethod($this->_controller, $this->_getUrl(1))
+			->_setParameter($this->_getUrl(), $this->_method)
+			->_router($this->_controller, $this->_method, $this->_parameter);
+	}
+	
+	/**
+	 * Setter for ApplicationFactory
+	 *
+	 * @param object $application_factory
+	 * @return object Bootstrap 
+	 */
+	private function _setApplicationFactory($application_factory)
+	{
 		$this->_application_factory = $application_factory;
 		
-		$this->_setUrl($get_data);
-		$this->_setController($this->_getUrl(0));
-		$this->_setMethod($this->_controller, $this->_getUrl(1));
-		$this->_setParameter($this->_getUrl(), $this->_method);
-        
-		$this->_router($this->_controller, $this->_method, $this->_parameter);
+		return $this;
 	}
 	
 	/**
@@ -86,6 +98,8 @@ class Bootstrap
 	 * If we have a URL GET request, send it for sanitization and set it. 
 	 * Otherwise, initialize it as an empty value. Then we create an array of 
 	 * slash-separated values to store in the URL property.
+	 * 
+	 * @return object Bootstrap
 	 */
 	private function _setUrl($get_data)
 	{
@@ -95,10 +109,12 @@ class Bootstrap
 		}
 		else
 		{
-			$url = '';
+			$url = null;
 		}
 		
 		$this->_url = explode('/', $url);
+		
+		return $this;
 	}
 	
 	/**
@@ -106,11 +122,12 @@ class Bootstrap
 	 * entire URL array if no key is specified.
 	 * 
 	 * @param int $key Array index to return
+	 * 
 	 * @return string URL value for the given index or entire array
 	 */
 	private function _getUrl($key = null)
 	{
-		//Must use null because empty will be true for 0
+		// Must use is_null because !empty will be true for 0
 		if (is_null($key))
 		{
 			return $this->_url;
@@ -147,6 +164,7 @@ class Bootstrap
 	 * later. We also kill the URL GET value.
 	 * 
 	 * @param string $url URL string to check
+	 * 
 	 * @return string The sanitized URL
 	 */
 	private function _sanitizeUrl($url)
@@ -167,6 +185,8 @@ class Bootstrap
 	 * to an error page. Otherwise return the URL as given.
 	 * 
 	 * @param string $url User-entered URL to check
+	 * 
+	 * @return object Bootstrap
 	 */
 	private function _setController($url)
 	{
@@ -204,6 +224,8 @@ class Bootstrap
 				$this->_error('404');
 			}
 		}
+		
+		return $this;
 	}
 	
 	/**
@@ -213,14 +235,7 @@ class Bootstrap
 	 */
 	private function _getControllerName()
 	{
-		if (PHP_VERSION < 5.3)
-		{
-			return strtolower(get_class($this->_controller));
-		}
-		else
-		{
-			return lcfirst(get_class($this->_controller));
-		}
+		return strtolower(get_class($this->_controller));
 	}
 	
 	/**
@@ -230,6 +245,8 @@ class Bootstrap
 	 * 
 	 * @param object $controller Used to check for existing methods
 	 * @param string $method Possible secondary URL value (method)
+	 * 
+	 * @return object Bootstrap
 	 */
 	private function _setMethod($controller, $method)
 	{
@@ -245,6 +262,8 @@ class Bootstrap
 		{
 			$this->_error('404');
 		}
+		
+		return $this;
 	}
 	
 	/**
@@ -256,6 +275,8 @@ class Bootstrap
 	 * 
 	 * @param string/integer $url
 	 * @param string $method
+	 * 
+	 * @return object Bootstrap
 	 */
 	private function _setParameter($url, $method)
 	{
@@ -282,6 +303,8 @@ class Bootstrap
 				}
 			}
 		}
+		
+		return $this;
 	}
 	
 	/**
@@ -297,13 +320,16 @@ class Bootstrap
 	{
 		// Make sure to have an error controller and the proper page name.
 		$this->_controller	= $this->_application_factory->makeController('error');
-		$page				= $this->_getControllerName();
 
 		switch ($type)
 		{
-			case '404'	: 
+			case '404' : 
 				$this->_method      = 'index';
 				$this->_parameter   = array($type);
+				break;
+			default :
+				$this->_method      = 'index';
+				$this->_parameter   = array('Unknown Error');
 				break;
 		}
 		

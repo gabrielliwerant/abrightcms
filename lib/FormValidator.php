@@ -38,6 +38,7 @@ class FormValidator
 	 *
 	 * @param string $key
 	 * @param string $message 
+	 * 
 	 * @return object FormValidator
 	 */
 	public function setFormValidatorMessage($key, $message)
@@ -51,6 +52,7 @@ class FormValidator
 	 * Form validation messages getter
 	 *
 	 * @param string $key
+	 * 
 	 * @return string 
 	 */
 	public function getFormValidatorMessage($key)
@@ -64,6 +66,8 @@ class FormValidator
 	 *
 	 * @param string $field_name The field that was left empty
 	 * @param string $old_message_key Key to get old message for overwriting
+	 * 
+	 * @return object FormValidator
 	 */
 	public function appendRequiredFieldNameToFormMessage($field_name, $old_message_key)
 	{
@@ -76,6 +80,8 @@ class FormValidator
 			. $old_message;
 		
 		$this->setFormValidatorMessage($old_message_key, $new_message);
+		
+		return $this;
 	}
 	
 	/**
@@ -87,6 +93,7 @@ class FormValidator
 	 * can handle the form as such.
 	 *
 	 * @param string $value Value to check
+	 * 
 	 * @return boolean Result of check
 	 */
 	public function isValidAgainstHoneypot($value)
@@ -110,6 +117,7 @@ class FormValidator
 	 *
 	 * @param array $spam_check_answer_data List of acceptable spam answers
 	 * @param string $submitted_answer User-submitted answer
+	 * 
 	 * @return boolean 
 	 */
 	public function isValidAgainstSpamCheck($spam_check_answer_data, $submitted_answer)
@@ -132,6 +140,7 @@ class FormValidator
 	 * pass the check.
 	 *
 	 * @param string $submitted_data To check for any data
+	 * 
 	 * @return boolean 
 	 */
 	public function isValidAgainstRequiredField($submitted_data)

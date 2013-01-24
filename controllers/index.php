@@ -21,7 +21,7 @@
  * 
  * @uses Controller
  */
-Class Index extends Controller
+class Index extends Controller
 {
 	/**
 	 * Construct the parent class.
@@ -45,6 +45,9 @@ Class Index extends Controller
 	protected function _pageBuilder($data, $cache_buster = null)
 	{
 		$this->_setHeaderNav($data['header']['header']['header_nav'], $data['header']['header']['separator'])
+			->_setLogoInAnchorTag('header_', $data['header']['header']['branding'])
+			->_setSiteName($data['header']['header']['branding']['logo']['text'])
+			->_setTagline($data['header']['header']['branding']['tagline'])
 			->_setFooterNav($data['template']['footer']['footer_nav'], $data['template']['footer']['separator']);
 		
 		return parent::_pageBuilder($data['template'], $cache_buster);

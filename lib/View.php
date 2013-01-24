@@ -22,6 +22,11 @@
 class View
 {
 	/**
+	 * Error codes for View
+	 */
+	const INCORRECT_DATA_TYPE_FOR_META_TAG	= 1001;
+	
+	/**
 	 * Nothing to see here...
 	 */
 	public function __construct()
@@ -34,6 +39,7 @@ class View
 	 *
 	 * @param string $conditional The conditional statement to use
 	 * @param string $embed Any code to embed in the statement
+	 * 
 	 * @return string Built IE conditional with embeded code
 	 */
 	private function _buildIeConditional($conditional, $embed)
@@ -44,10 +50,33 @@ class View
 	}
 	
 	/**
+	 * Take an array of key => values and build a list of attributes out of it.
+	 *
+	 * @param array $attribute_data
+	 * 
+	 * @return string 
+	 */
+	private function _buildAttributeList($attribute_data)
+	{
+		$attribute_list = null;
+		foreach ($attribute_data as $key => $value)
+		{
+			if ( ! empty($value))
+			{
+				$attribute		= $key . '="' . $value . '"';
+				$attribute_list	.= $attribute . ' ';
+			}
+		}
+		
+		return $attribute_list;
+	}
+	
+	/**
 	 * Builds the meta tags for the head view.
 	 * 
 	 * @param string $type Type section of meta tag
      * @param string $value Content section of meta tag
+	 * 
      * @return string Completed meta tag or error message
 	 */
 	public function buildHeadMeta($type, $value)
@@ -58,7 +87,7 @@ class View
 		}
 		else
 		{	
-			throw new MyException('Incorrect data type for meta tag with method: ' . __METHOD__ . ' in ' . __CLASS__);
+			throw new MyException(ApplicationFactory::makeLogger(), 'View Exception', self::INCORRECT_DATA_TYPE_FOR_META_TAG);
 		}
         
         return $meta;
@@ -69,6 +98,7 @@ class View
 	 *
 	 * @param array $favicon_data Data used to build favicon
 	 * @param string $cache_buster Optional random string to force re-caching
+	 * 
 	 * @return string Built HTML for favicon
 	 */
 	public function buildFavicon($favicon_data, $cache_buster = null)
@@ -96,6 +126,7 @@ class View
 	 * @param string $name CSS file name
 	 * @param array $css_data CSS file associated data
 	 * @param string $cache_buster Appends query string to bust cache
+	 * 
 	 * @return string Built CSS link tag
 	 */
 	public function buildHeadCss($name, $css_data, $cache_buster = null)
@@ -122,6 +153,7 @@ class View
 	 *
 	 * @param array $js_data JS file associated data
 	 * @param string $cache_buster Appends query string to bust cache
+	 * 
 	 * @return string Built script tag for JS file
 	 */
 	public function buildJs($js_data, $cache_buster = null)
@@ -184,6 +216,7 @@ class View
 	 * @param string $title Anchor tag title element
 	 * @param string $class Anchor tag class
 	 * @param string $id Anchor tag id
+	 * 
 	 * @return string Built HTML anchor tag
 	 */
 	public function buildAnchorTag(
@@ -205,23 +238,15 @@ class View
 			$href = $path;
 		}
 		
-		$anchor_data['href']	= null;
-		$anchor_data['target']	= null;
-		$anchor_data['title']	= null;
-		$anchor_data['id']		= null;
-		$anchor_data['class']	= null;
+		// Array to loop through in attribute builder method
+		$anchor_data['href']	= $href;
+		$anchor_data['target']	= $target;
+		$anchor_data['title']	= $title;
+		$anchor_data['class']	= $class;
+		$anchor_data['id']		= $id;
 		
-		$attribute_list = null;
-		foreach ($anchor_data as $key => $val)
-		{
-			if ( ! empty($$key))
-			{
-				$attribute		= $key . '="' . $$key . '"';
-				$attribute_list	.= $attribute . ' ';
-			}
-		}
-		
-		$anchor = '<a ' . $attribute_list . '>' . $text . '</a>';
+		$attribute_list	= $this->_buildAttributeList($anchor_data);		
+		$anchor			= '<a ' . $attribute_list . '>' . $text . '</a>';
 		
 		return $anchor;
 	}
@@ -232,6 +257,7 @@ class View
 	 * @param string $nav The HTML for the navigation item
 	 * @param string $list_class CSS class to use with list item 
 	 * @param string $separator_string Separating HTML between items
+	 * 
 	 * @return string Built navigation item or error message
 	 */
 	public function buildNav($nav, $list_class, $separator_string = null)
@@ -256,6 +282,7 @@ class View
 	 * @param array $copyright_data Data pertaining to copyright information
 	 * @param string $separator Optional separator string to append
 	 * @param boolean $show_current_date Whether or not we show the current date
+	 * 
 	 * @return string Built HTML copyright from data
 	 */
 	public function buildCopyright($copyright_data, $separator = null, $show_current_date = true)
@@ -272,8 +299,7 @@ class View
 			}
 		}
 		
-		$separator	= '<span class="separator">' . $separator . '</span>';
-		
+		$separator	= '<span class="separator">' . $separator . '</span>';		
 		$copyright	= '<li>' . $copyright . $separator . '</li>';
 		
 		return $copyright;
@@ -284,51 +310,23 @@ class View
 	 *
 	 * @param string $src Img tag src attribute
 	 * @param string $alt Img tag alt attribute
-	 * @param string $text Text to nest in branding anchor
-	 * @param string $path Used to build the href attribute
-	 * @param boolean $is_internal If href is local or remote
-	 * @param string $target Anchor tag target attribute
-	 * @param string $title Anchor tag title attribute
 	 * @param string $id Img tag id
+	 * 
 	 * @return string Prepared HTML for logo with anchor tag
 	 */
-	public function buildBrandingLogo(
-		$src, 
-		$alt,
-		$text,
-		$path, 
-		$is_internal, 
-		$target, 
-		$title,
-		$id = null
-	)
+	public function buildBrandingLogo($src, $alt, $id = null)
 	{
-		$img_data['src']	= null;
-		$img_data['alt']	= null;
-		$img_data['id']		= null;
-		
 		$src = IMAGES_PATH . '/' . $src;
 		
-		$attribute_list = null;
-		foreach ($img_data as $key => $val)
-		{
-			if ( ! empty($$key))
-			{
-				$attribute		= $key . '="' . $$key . '"';
-				$attribute_list	.= $attribute . ' ';
-			}
-		}
+		// Array to loop through in attribute builder method
+		$img_data['src']	= $src;
+		$img_data['alt']	= $alt;
+		$img_data['id']		= $id;
 		
-		$logo = '<img ' . $attribute_list . '/>';	
+		$attribute_list	= $this->_buildAttributeList($img_data);		
+		$logo			= '<img ' . $attribute_list . '/>';	
 		
-		$logo_anchor	= $this->buildAnchorTag($logo, $path, $is_internal, $target, $title);
-		
-		if ( ! empty($text))
-		{
-			$this->site_name = $text;
-		}
-		
-		return $logo_anchor;
+		return $logo;
 	}
 	
 	/**

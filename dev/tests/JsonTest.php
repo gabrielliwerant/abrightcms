@@ -18,7 +18,7 @@
  */
 class JsonTest extends PHPUnit_Framework_TestCase
 {
-	const RELATIVE_PATH = '..\..';
+	const RELATIVE_PATH = '..\\';
 	
 	/**
 	 * Call settings and load the class we're testing.
@@ -29,9 +29,11 @@ class JsonTest extends PHPUnit_Framework_TestCase
 		
 		$class_name = str_replace('Test', '', __CLASS__);
 		
-		require_once self::RELATIVE_PATH . '\config\settings.php';
-		require_once self::RELATIVE_PATH . '\lib\\' . $class_name . '.php';
-		require_once self::RELATIVE_PATH . '\lib\MyException.php';
+		require_once self::RELATIVE_PATH . 'config\settings.php';
+		require_once self::RELATIVE_PATH . 'lib\\' . $class_name . '.php';
+		require_once self::RELATIVE_PATH . 'lib\MyException.php';
+		require_once self::RELATIVE_PATH . 'lib\ApplicationFactory.php';
+		require_once self::RELATIVE_PATH . 'lib\Logger.php';
 		
 		$this->obj = new $class_name();
 	}
@@ -46,7 +48,7 @@ class JsonTest extends PHPUnit_Framework_TestCase
 	
 	/**
 	 * @expectedException			MyException
-	 * @expectedExceptionMessage	1001
+	 * @expectedExceptionMessage	Json Exception (Syntax error, malformed JSON)
 	 */
 	public function testJsonDecodeForBadInput()
 	{
@@ -80,7 +82,7 @@ class JsonTest extends PHPUnit_Framework_TestCase
 	
 	/**
 	 * @expectedException			MyException
-	 * @expectedExceptionMessage	1002
+	 * @expectedExceptionMessage	Json Exception
 	 */
 	public function testStringValueConversionToBooleanTrueForBadInput()
 	{
@@ -89,7 +91,7 @@ class JsonTest extends PHPUnit_Framework_TestCase
 	
 	/**
 	 * @expectedException			MyException
-	 * @expectedExceptionMessage	1002
+	 * @expectedExceptionMessage	Json Exception
 	 */
 	public function testStringValueConversionToBooleanFalseForBadInput()
 	{

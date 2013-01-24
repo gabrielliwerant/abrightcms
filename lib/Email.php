@@ -58,44 +58,60 @@ class Email
 	 * Set email address property
 	 *
 	 * @param string $email_address
+	 * 
+	 * @return object Email
 	 */
 	public function setEmailAddress($email_address)
 	{
 		$this->_email_address = $email_address;
+		
+		return $this;
 	}
 	
 	/**
 	 * Set subject property
 	 *
 	 * @param string $subject 
+	 * 
+	 * @return object Email
 	 */
 	public function setSubject($subject)
 	{
 		$this->_subject = $subject;
+		
+		return $this;
 	}
 	
 	/**
 	 * Set message property
 	 *
 	 * @param string $message 
+	 * 
+	 * @return object Email
 	 */
 	public function setMessage($message)
 	{
 		$this->_message = $message;
+		
+		return $this;
 	}
 	
 	/**
 	 * Set reply to property
 	 *
 	 * @param string $reply_to 
+	 * 
+	 * @return object Email
 	 */
 	public function setReplyTo($reply_to)
 	{
 		$this->_reply_to = $reply_to;
+		
+		return $this;
 	}
 	
 	/**
-	 * Sends an email with the properties and any headers and then return a
+	 * Sends an email with the properties and any headers which then returns a
 	 * boolean to indicate success or failure.
 	 *
 	 * @return boolean 
@@ -123,6 +139,7 @@ class Email
 	 * @link http://www.linuxjournal.com/article/9585?page=0,3
 	 * 
 	 * @param string $email_address Email address to check for validity
+	 * 
 	 * @return boolean Result of the validity checks on the email address
 	 */
 	public function validateEmailAddress($email_address)

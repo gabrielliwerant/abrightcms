@@ -21,7 +21,7 @@
  * 
  * @uses Controller
  */
-Class Error extends Controller
+class Error extends Controller
 {
 	/**
 	 * Construct the parent class.
@@ -70,6 +70,9 @@ Class Error extends Controller
 	protected function _pageBuilder($data, $cache_buster)
 	{
 		$this->_setHeaderNav($data['header']['header']['header_nav'], $data['header']['header']['separator'])
+			->_setLogoInAnchorTag('header_', $data['header']['header']['branding'])
+			->_setSiteName($data['header']['header']['branding']['logo']['text'])
+			->_setTagline($data['header']['header']['branding']['tagline'])
 			->_setFooterNav($data['template']['footer']['footer_nav'], $data['template']['footer']['separator'])
 			->_setErrorType($data['error_header'])
 			->_setErrorMsg();

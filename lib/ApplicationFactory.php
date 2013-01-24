@@ -52,7 +52,7 @@ class ApplicationFactory
 	 */
 	public static function makeLogger()
 	{
-		return new Log();
+		return new Logger();
 	}
 	
 	/**
@@ -64,6 +64,7 @@ class ApplicationFactory
 	 * 
 	 * @param string $controller_name Allows us to make the correct model
 	 * @param string $storage_type Type of storage object to make for model
+	 * 
 	 * @return object model_name The model object for the controller
 	 */
 	private function _makeModel($controller_name, $storage_type)
@@ -81,6 +82,7 @@ class ApplicationFactory
 	 * Handles the creation of new view objects based upon the controller.
 	 * 
 	 * @param string $controller_name Allows us to make the correct view
+	 * 
 	 * @return object view_name The view object for the controller
 	 */
 	private function _makeView($controller_name)
@@ -99,6 +101,7 @@ class ApplicationFactory
 	 * controller constructor.
 	 * 
 	 * @param string $controller_name To construct the correct controller
+	 * 
 	 * @return object The controller with the name that matches the given URL.
 	 */
 	public function makeController($controller_name)

@@ -11,14 +11,14 @@
  */
 
 /**
- * App Class
+ * Contact Class
  * 
  * @subpackage controllers
  * @author Gabriel Liwerant
  * 
  * @uses Controller
  */
-class App extends Controller
+class Contact extends Controller
 {
 	/**
 	 * Construct the parent class.
@@ -67,6 +67,6 @@ class App extends Controller
 			->render(strtolower(__CLASS__), $data['template'], $cache_buster);
 	}
 }
-// End of App Class
+// End of Contact Class
 
-/* EOF controllers/app.php */
+/* EOF controllers/contact.php */

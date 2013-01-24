@@ -43,16 +43,26 @@ a:hover, a.section-nav { text-decoration:none; }
   border-top:2px solid red;
   border-bottom:2px solid red;
 }
-header {
+header { margin-bottom:1em; }
+header #branding { padding:1em; }
+header #branding h1 {
+  font-size:2em;
+  margin-bottom:0.5em;
+}
+header #branding h2 {
+  font-size:1.75em;
+  margin-bottom:0.5em;
+}
+header #branding h3 { font-size:1.5em; }
+header nav {
   background-color:#dddddd;
   padding:1em;
-  margin-bottom:1em;
 }
-header li {
+header nav li {
   display:inline-block;
   margin-right:1em;
 }
-header ul li:last-child { margin-right:0; }
+header nav ul li:last-child { margin-right:0; }
 #container { padding:1em; }
 footer {
   background-color:#dddddd;

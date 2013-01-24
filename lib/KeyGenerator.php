@@ -24,6 +24,11 @@
 class KeyGenerator
 {
 	/**
+	 * Error codes for KeyGenerator
+	 */
+	const EXPECTED_STRING	= 1001;
+	
+	/**
 	 * Standard strings for use in composing a new key.
 	 *
 	 * @var array $_standard_key_type 
@@ -51,51 +56,36 @@ class KeyGenerator
 	 * 
 	 * @param integer $size Length of the key to generate
 	 * @param string $generator_string Values to use in composing the key
+	 * 
 	 * @return string Generated key
 	 */
 	private function _generateKey($size, $generator_string)
 	{
-        $key = null;		
-
-		if (is_int($size))
-		{		
-			// Choose a random position in the generator string and build with 
-			// that single character, repeating until we reach the maximum size.
-			for ($i = 0; $i <= $size; $i++)
-			{
-				$key .= substr(
-					$generator_string, 
-					mt_rand(1, strlen($generator_string)), 
-					1
-				);
-			}
-
-			return $key;
-		}
-		else
+        // Choose a random position in the generator string and build with 
+		// that single character, repeating until we reach the maximum size.
+		$key = null;
+		for ($i = 0; $i <= $size; $i++)
 		{
-			throw new MyException('Expected Integer for Size of Generated Key.');
+			$key .= substr(
+				$generator_string, 
+				mt_rand(1, strlen($generator_string)), 
+				1
+			);
 		}
+
+		return $key;
 	}
 	
 	/**
 	 * Gets the key type from our array of standard key strings.
 	 *
 	 * @param string $type Array index to search for in standard key types
+	 * 
 	 * @return string Generator string for key making
 	 */
 	private function _getStandardKeyType($type)
 	{
-		if (array_key_exists($type, $this->_standard_key_type))
-		{
-			$generator_string = $this->_standard_key_type[$type];
-		}
-		else
-		{
-			/* throw error incorrect type for standard key generation */
-		}
-		
-		return $generator_string;
+		return $this->_standard_key_type[$type];
 	}
 	
 	/**
@@ -103,13 +93,16 @@ class KeyGenerator
 	 *
 	 * @param integer $size Length of the key to generate
 	 * @param array $type_arr Array indexes to use in composing the key
+	 * 
 	 * @return string Generated key
 	 */
-	public function generateKeyFromStandard($size, $type_arr = array(
-		'digital', 
-		'alpha_lower', 
-		'alpha_upper', 
-		'symbol'
+	public function generateKeyFromStandard(
+		$size, 
+		$type_arr = array(
+			'digital', 
+			'alpha_lower', 
+			'alpha_upper', 
+			'symbol'
 		)
 	)
 	{
@@ -135,6 +128,7 @@ class KeyGenerator
 	 *
 	 * @param integer $size Length of the key to generate
 	 * @param string $key_string Values to use in composing the key
+	 * 
 	 * @return string Generated key
 	 */
 	public function generateKeyFromArgument($size, $key_string)
@@ -147,7 +141,7 @@ class KeyGenerator
 		}
 		else
 		{
-			throw new MyException('Expected String Key Generation.');
+			throw new MyException(ApplicationFactory::makeLogger(), 'KeyGenerator Exception', self::EXPECTED_STRING);
 		}
 	}
 }

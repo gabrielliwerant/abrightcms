@@ -11,14 +11,14 @@
  */
 
 /**
- * App Class
+ * About Class
  * 
  * @subpackage controllers
  * @author Gabriel Liwerant
  * 
  * @uses Controller
  */
-class App extends Controller
+class About extends Controller
 {
 	/**
 	 * Construct the parent class.
@@ -37,7 +37,7 @@ class App extends Controller
 	 *
 	 * @param array $data From storage to build out page views
 	 * @param string $cache_buster Allows us to force re-caching
-	 * @return object App Returned from parent method
+	 * @return object About Returned from parent method
 	 */
 	protected function _pageBuilder($data, $cache_buster = null)
 	{
@@ -67,6 +67,6 @@ class App extends Controller
 			->render(strtolower(__CLASS__), $data['template'], $cache_buster);
 	}
 }
-// End of App Class
+// End of About Class
 
-/* EOF controllers/app.php */
+/* EOF controllers/About.php */

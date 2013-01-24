@@ -8,29 +8,53 @@
 				"is_internal"	: "1",
 				"path"			: "",
 				"target"		: "_self",
-				"title"			: ""
+				"title"			: "",
+				"id"			: "",
+				"class"			: ""
+			},
+			"About"	: {
+				"is_anchor"		: "1",
+				"is_internal"	: "1",
+				"path"			: "about",
+				"target"		: "_self",
+				"title"			: "",
+				"id"			: "",
+				"class"			: ""
+			},
+			"Contact"	: {
+				"is_anchor"		: "1",
+				"is_internal"	: "1",
+				"path"			: "contact",
+				"target"		: "_self",
+				"title"			: "",
+				"id"			: "",
+				"class"			: ""
 			},
 			"App"	: {
 				"is_anchor"		: "1",
 				"is_internal"	: "1",
 				"path"			: "app",
 				"target"		: "_self",
-				"title"			: ""
+				"title"			: "",
+				"id"			: "",
+				"class"			: ""
 			}
 		},
 		"separator"	: "",
 		"branding"	: {
 			"logo"	: {
-				"src"			: "logo.svg",
-				"alt"			: "A Bright CMS Logo",
-				"text"			: "A Bright CMS",
+				"src"			: "logo.png",
+				"alt"			: "Your Logo Here",
+				"text"			: "Site Name Here",
 				"is_anchor"		: "1",
 				"path"			: "",
 				"target"		: "_self",
 				"title"			: "",
-				"is_internal"	: "1"
+				"is_internal"	: "1",
+				"id"			: "",
+				"class"			: ""
 			},
-			"tagline"	: "A Bright CMS"
+			"tagline"	: "Tagline here"
 		}
 	}
 }

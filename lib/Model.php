@@ -31,9 +31,9 @@ class Model
 	/**
 	 * Holds an instance of the log object.
 	 *
-	 * @var object $_log
+	 * @var object $_logger
 	 */
-	protected $_log;
+	protected $_logger;
 	
 	/**
 	 * Holds an instance of the key generator class.
@@ -48,11 +48,11 @@ class Model
 	 * 
 	 * @param object $storage_obj Data storage object
 	 * @param string $storage_type The way data is stored and retrieved
+	 * @param object $logger_obj
 	 */
-	public function __construct($storage_obj, $storage_type, $log_obj)
+	public function __construct($storage_obj, $storage_type, $logger_obj)
 	{
-		$this->_storage	= $storage_obj;
-		$this->_log		= $log_obj;		
+		$this->_setStorageObject($storage_obj)->_setLogger($logger_obj);
 
 		switch ($storage_type)
 		{
@@ -82,6 +82,34 @@ class Model
 	}
 	
 	/**
+	 * Setter for storage object
+	 *
+	 * @param object $storage_obj
+	 * 
+	 * @return object Model 
+	 */
+	private function _setStorageObject($storage_obj)
+	{
+		$this->_storage	= $storage_obj;
+		
+		return $this;
+	}
+
+	/**
+	 * Setter for Log object
+	 *
+	 * @param object $logger_obj
+	 * 
+	 * @return object Model 
+	 */
+	private function _setLogger($logger_obj)
+	{
+		$this->_logger = $logger_obj;
+		
+		return $this;
+	}
+	
+	/**
 	 * KeyGenerator factory
 	 *
 	 * @return object KeyGenerator
@@ -96,6 +124,8 @@ class Model
 	 *
 	 * @param string $json_file Name of data file to set
 	 * @param string $key Name of key to reference data file in array
+	 * 
+	 * @return object Model
 	 */
 	public function setDataFromStorage($data_file, $key)
 	{
@@ -108,6 +138,7 @@ class Model
 	 * We grab the data from a data file, using our storage object.
 	 *
 	 * @param string $json_file Name of the file to load as view data
+	 * 
 	 * @return array Data from storage file
 	 */
 	public function getDataFromStorage($data_file)
@@ -142,6 +173,7 @@ class Model
 	 *
 	 * @param integer $length Size of key
 	 * @param array $type_arr Kind of key to generate
+	 * 
 	 * @return string 
 	 */
 	public function createStandardKeyFromKeyGenerator($length, $type_arr)
@@ -153,7 +185,7 @@ class Model
 	 * Destroy the data after it is no longer needed. We may also want to log it 
 	 * from here in the future.
 	 *
-	 * @param string &$data Data to destroy, passed by reference
+	 * @param string &$data Data to destroy
 	 */
 	public function destroyData(&$data)
 	{

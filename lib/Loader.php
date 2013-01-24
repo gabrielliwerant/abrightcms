@@ -34,6 +34,16 @@ class Loader
 	 */
 	public function __construct($path_arr)
 	{
+		self::_setInitialPaths($path_arr);
+	}
+	
+	/**
+	 * Setter for inial paths
+	 *
+	 * @param array $path_arr 
+	 */
+	private function _setInitialPaths($path_arr)
+	{
 		self::$path = $path_arr;
 	}
 	

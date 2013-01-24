@@ -16,7 +16,7 @@
  * @subpackage lib
  * @author Gabriel Liwerant
  */
-class Log
+class Logger
 {
 	/**
 	 * Nothing to see here...
@@ -32,6 +32,7 @@ class Log
 	 * @param string $msg Message to write to log file
 	 * @param string $type Type of message logged
 	 * @param string $file_name Name of file to write log to
+	 * 
 	 * @return boolean Return true or false to indicate success of logging
 	 */
 	public function writeLogToFile($msg, $type, $file_name)
