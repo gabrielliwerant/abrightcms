@@ -32,7 +32,25 @@ class ApplicationFactory
 	 */
 	public function __construct($storage_type)
 	{
+		$this->_setStorageType($storage_type);
+	}
+
+	/**
+	 * Setter for storage type.
+	 * 
+	 * Make sure to capitalize correctly to match class name.
+	 *
+	 * @param string $storage_type
+	 * @return object ApplicationFactory 
+	 */
+	private function _setStorageType($storage_type)
+	{
+		// Some environments care about case when creating objects
+		$storage_type = ucfirst(strtolower($storage_type));
+		
 		$this->_storage_type = $storage_type;
+		
+		return $this;
 	}
 
 	/**
@@ -41,7 +59,7 @@ class ApplicationFactory
 	 * @return object $storage_type Storage object
 	 */
 	private function _makeTemplateStorage($storage_type)
-	{
+	{		
 		return new $storage_type();
 	}
 	
@@ -69,9 +87,8 @@ class ApplicationFactory
 	 */
 	private function _makeModel($controller_name, $storage_type)
 	{
-		$model_name		= $controller_name . 'Model';
-		$storage_type	= strtolower($storage_type);
-		
+		$model_name	= $controller_name . 'Model';
+				
 		$storage	= $this->_makeTemplateStorage($storage_type);
 		$log		= $this->makeLogger();		
 		

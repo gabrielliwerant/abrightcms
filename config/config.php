@@ -88,11 +88,6 @@ if ( ! IS_MODE_PRODUCTION)
 	}
 }
 
-// Global factory for exception subclass, defined here for decoupling
-function make_exception_object($msg = null, $code = null, $previous = null)
-{
-	return new MyException(ApplicationFactory::makeLogger(), $msg, $code, $previous);
-}
 // Set class and method for uncaught exceptions
 set_exception_handler(array(new MyException(ApplicationFactory::makeLogger()), 'uncaughtException'));
 

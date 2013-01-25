@@ -20,6 +20,7 @@
  * of the bootstrap class.
  * 
  * @todo Write unit tests for each library class
+ * @todo Create Xml class and test for xml files
  */
 
 // Define the full absolute directory file path

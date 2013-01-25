@@ -6,8 +6,14 @@
 			"doctype"	: "",
 			"html_dir"	: "ltr",
 			"html_lang"	: "en-US",
-			"title"		: "A Bright CMS",
-			"title_page": "App"
+			"title"		: "A Bright CMS"
+		},
+		"title_page": {
+			"index"		: "Home",
+			"app"		: "App",
+			"about"		: "About",
+			"contact"	: "Contact",
+			"error"		: "Error"
 		},
 		"head_meta"	: {
 			"name=description"			: "",

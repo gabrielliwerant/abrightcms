@@ -54,7 +54,7 @@ class Model
 	{
 		$this->_setStorageObject($storage_obj)->_setLogger($logger_obj);
 
-		switch ($storage_type)
+		switch (strtolower($storage_type))
 		{
 			case 'json' :
 				$file_arr = scandir(JSON_PATH);

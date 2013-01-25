@@ -201,6 +201,21 @@ Class Controller
 		
 		return $this;
 	}
+
+	/**
+	 * Setter for the title page view property
+	 *
+	 * @param array $title_page_arr Map of pages with titles
+	 * @param string $key To map to the page controllers
+	 * 
+	 * @return object Controller 
+	 */
+	protected function _setHeadTitlePage($title_page_arr, $key)
+	{
+		$this->_view->title_page = $title_page_arr[$key];
+		
+		return $this;
+	}
 	
 	/**
 	 * Allows us to force re-caching on included files like CSS and JS.

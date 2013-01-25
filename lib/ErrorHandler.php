@@ -137,7 +137,7 @@ class ErrorHandler
 		if ( ! empty($error_last) )
 		{
 			$this->_createLog('Encountered fatal error: ')
-				->_sendEmail('A Bright CMS Fatal Error', 'Encountered fatal error: ');
+				->_sendEmail(DOMAIN_NAME . ' Fatal Error', 'Encountered fatal error: ');
 			
 			header('Location:' . ERROR_HANDLER_PAGE_PATH);
 		}
