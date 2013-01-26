@@ -56,8 +56,8 @@
 				"ie_conditional": ""
 			},
 			"head_js"	: {
-				"paths"	: {
-					"src"			: "paths",
+				"paths_development"	: {
+					"src"			: "paths_development",
 					"is_internal"	: "1",
 					"code"			: "",
 					"ie_conditional": ""
