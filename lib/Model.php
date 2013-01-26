@@ -186,10 +186,33 @@ class Model
 	 * from here in the future.
 	 *
 	 * @param string &$data Data to destroy
+	 * 
+	 * @return object Model
 	 */
 	public function destroyData(&$data)
 	{
 		$data = null;
+		
+		return $this;
+	}
+	
+	/**
+	 * Take data from URL that was passed as serialized string through AJAX and
+	 * make it into a properly-formatted POST array.
+	 *
+	 * @param string $url_data
+	 * 
+	 * @return array
+	 */
+	public function getDataAsPostArrayFromSerializedUrlString($url_data)
+	{
+		foreach($url_data as $value)
+		{
+			$get_arr			= explode('=', $value);
+			$post[$get_arr[0]]	= $get_arr[1];
+		}
+		
+		return $post;
 	}
 }
 // End of Model Class
