@@ -1,1 +1,4 @@
 *.log
+
+dev/misc
+dev/obsolete
