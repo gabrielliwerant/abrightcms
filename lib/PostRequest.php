@@ -20,12 +20,18 @@
 class PostRequest
 {
 	/**
+	 * Error codes for PostRequest Class
+	 */
+	const INCORRECT_PORT_FOR_SSL		= 1001;
+	const INCORRECT_PORT_FOR_NOT_SSL	= 1002;
+	
+	/**
 	 * Tells us whether or not we're using SSL to send data. Apache must have
 	 * ssl_module and PHP must have php_openssl extension enabled if true.
 	 *
-	 * @var boolean $use_ssl
+	 * @var boolean $_use_ssl
 	 */
-	public $use_ssl;
+	private $_use_ssl;
 	
 	/**
 	 * We must set whether or not we expect SSL values.
@@ -34,70 +40,75 @@ class PostRequest
 	 */
 	public function __construct($use_ssl = false)
 	{
-		$this->use_ssl = $use_ssl;
+		$this->_setUseSsl($use_ssl);
 	}
 
+	/**
+	 * Setter for use ssl property
+	 *
+	 * @param boolean $use_ssl 
+	 * 
+	 * @return object PostRequest
+	 */
+	private function _setUseSsl($use_ssl)
+	{
+		$this->_use_ssl = $use_ssl;
+		
+		return $this;
+	}
+	
 	/**
 	 * Get the correct port number based upon URL scheme.
 	 *
 	 * @param string $url_scheme URL scheme to return port for
-	 * @return integer Port number
 	 * 
-	 * @todo use proper error reporting
+	 * @return integer Port number
 	 */
 	private function _getPortNumber($url_scheme)
 	{
-		if ($this->use_ssl)
+		if ($this->_use_ssl)
 		{
 			if ( ($url_scheme === 'http') OR ($url_scheme === 'https') )
 			{
-				return 443;
+				$port = 443;
 			}
 			else
 			{
-				throw new MyException('Error: Only HTTP requests are supported!');
+				throw ApplicationFactory::makeException('PostRequest Exception', self::INCORRECT_PORT_FOR_SSL);
+				//throw new Exception('PostRequest Exception', self::INCORRECT_PORT_FOR_SSL);
 			}
 		}
 		else
 		{
 			if ( ($url_scheme === 'http') OR ($url_scheme === 'https') )
 			{
-				return 80;
+				$port = 80;
 			}
 			else
 			{
-				throw new MyException('Error: Only HTTP requests are supported!');
+				throw ApplicationFactory::makeException('PostRequest Exception', self::INCORRECT_PORT_FOR_NOT_SSL);
+				//throw new Exception('PostRequest Exception', self::INCORRECT_PORT_FOR_NOT_SSL);
 			}
 		}
+		
+		return $port;
 	}
 	
 	/**
 	 * Get the host value depending on whether or not we are using SSL.
 	 *
 	 * @param string $url_host Host value to alter or return
+	 * 
 	 * @return string Proper host if using SSL
 	 */
 	private function _getHostIfSsl($url_host)
 	{
-		if ($this->use_ssl)
+		if ($this->_use_ssl)
 		{
-			return 'ssl://' . $url_host;
+			$url_host = 'ssl://' . $url_host;
 		}
-		else
-		{
-			return $url_host;
-		}
-	}
-	
-	/**
-	 * Destroy the data from the Post request after it is no longer needed. We
-	 * may also want to log it from here in the future.
-	 *
-	 * @param string &$post_data Post data, passed by reference
-	 */
-	private function _destroyPostData(&$post_data)
-	{
-		$post_data = null;
+		
+		return $url_host;
 	}
 	
 	/**
@@ -107,7 +118,8 @@ class PostRequest
 	 * @param string $url URL that is sending the request
 	 * @param string &$data Post data being sent
 	 * @param integer $timeout Timeout in seconds
-	 * @param type $referer
+	 * @param string $referer
+	 * 
 	 * @return array Information about request success
 	 */
 	public function postRequest($url, &$data, $timeout = 30, $referer = null)
@@ -150,8 +162,6 @@ class PostRequest
 		}
 		else
 		{
-			$this->_destroyPostData($data);
-			
 			return array(
 				'is_successful'	=> 'false', 
 				'error'			=> $err_string . '(' . $err_number . ')'
@@ -166,8 +176,6 @@ class PostRequest
 
 		$header		= isset($result[0]) ? $result[0] : null;
 		$content	= isset($result[1]) ? $result[1] : null;
-		
-		$this->_destroyPostData($data);
 		
 		return array(
 			'is_successful'	=> 'true',

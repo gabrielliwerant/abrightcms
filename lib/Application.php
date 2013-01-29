@@ -11,15 +11,15 @@
  */
 
 /**
- * Bootstrap Class
+ * Application Class
  * 
- * Acts as a controller factory and loader. As the application object, we use it
- * to find our first controller to run the application.
+ * Acts as front controller which we use to find other controllers and run the 
+ * application.
  * 
  * @subpackage lib
  * @author Gabriel Liwerant
  */
-class Bootstrap
+class Application
 {
 	/**
 	 * Holds an instance of the application factory object.
@@ -83,7 +83,8 @@ class Bootstrap
 	 * Setter for ApplicationFactory
 	 *
 	 * @param object $application_factory
-	 * @return object Bootstrap 
+	 * 
+	 * @return object Application 
 	 */
 	private function _setApplicationFactory($application_factory)
 	{
@@ -99,7 +100,7 @@ class Bootstrap
 	 * Otherwise, initialize it as an empty value. Then we create an array of 
 	 * slash-separated values to store in the URL property.
 	 * 
-	 * @return object Bootstrap
+	 * @return object Application
 	 */
 	private function _setUrl($get_data)
 	{
@@ -186,7 +187,7 @@ class Bootstrap
 	 * 
 	 * @param string $url User-entered URL to check
 	 * 
-	 * @return object Bootstrap
+	 * @return object Application
 	 */
 	private function _setController($url)
 	{
@@ -221,7 +222,8 @@ class Bootstrap
 			}
 			else
 			{
-				$this->_error('404');
+				$this->_errorControllerHandler('404')
+					->_router($this->_controller, $this->_method, $this->_parameter);
 			}
 		}
 		
@@ -246,7 +248,7 @@ class Bootstrap
 	 * @param object $controller Used to check for existing methods
 	 * @param string $method Possible secondary URL value (method)
 	 * 
-	 * @return object Bootstrap
+	 * @return object Application
 	 */
 	private function _setMethod($controller, $method)
 	{
@@ -260,7 +262,8 @@ class Bootstrap
 		}
 		else
 		{
-			$this->_error('404');
+			$this->_errorControllerHandler('404', $method)
+				->_router($this->_controller, $this->_method, $this->_parameter);
 		}
 		
 		return $this;
@@ -276,7 +279,7 @@ class Bootstrap
 	 * @param string/integer $url
 	 * @param string $method
 	 * 
-	 * @return object Bootstrap
+	 * @return object Application
 	 */
 	private function _setParameter($url, $method)
 	{
@@ -308,34 +311,40 @@ class Bootstrap
 	}
 	
 	/**
-	 * Handles the error controller, method, parameters.
+	 * Handle controller loading errors here.
 	 * 
-	 * Error pages are always loaded from the error controller and index method.
-	 * The parameters then decide what messages to display. Finally, we call the
-	 * router method to send us immediately to the error page.
+	 * We can set specific controllers, methods, and parameters to load error
+	 * pages based upon the errors we encounter.
 	 * 
 	 * @param string $type Name of the error to display.
+	 * 
+	 * @return object Application
 	 */
-	public function _error($type)
+	private function _errorControllerHandler($type)
 	{
-		// Make sure to have an error controller and the proper page name.
-		$this->_controller	= $this->_application_factory->makeController('error');
+		// Prepare to log error
+		$logger	= $this->_application_factory->makeLogger();
+		$url	= implode('/', $this->_getUrl());
 
 		switch ($type)
 		{
 			case '404' : 
+				$logger->writeLogToFile('User entered => ' . $url, '404', 'pageNotFoundLog');
+				$this->_controller	= $this->_application_factory->makeController('error');
 				$this->_method      = 'index';
 				$this->_parameter   = array($type);
 				break;
 			default :
+				$logger->writeLogToFile('User entered => ' . $url, 'unknown', 'pageNotFoundLog');
+				$this->_controller	= $this->_application_factory->makeController('error');
 				$this->_method      = 'index';
 				$this->_parameter   = array('Unknown Error');
 				break;
 		}
 		
-		$this->_router($this->_controller, $this->_method, $this->_parameter);
+		return $this;
 	}
 }
-// End of Bootstrap Class
+// End of Application Class
 
-/* EOF lib/Bootstrap.php */
+/* EOF lib/Application.php */

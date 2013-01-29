@@ -24,8 +24,9 @@ class Json
 	/**
 	 * Error codes for Json
 	 */
-	const JSON_LAST_ERROR				= 1001;
-	const COULD_NOT_CONVERT_TO_BOOELAN	= 1002;
+	const JSON_LAST_ERROR_DECODE		= 1001;
+	const JSON_LAST_ERROR_ENCODE		= 1002;
+	const COULD_NOT_CONVERT_TO_BOOELAN	= 1003;
 	
 	/**
 	 * Stores array of arrays for JSON files with their associated data.
@@ -96,7 +97,8 @@ class Json
 						break;
 				}
 				
-				throw new MyException(ApplicationFactory::makeLogger(), 'Json Exception (' . $json_err . ')', self::JSON_LAST_ERROR);
+				throw ApplicationFactory::makeException('Json Exception (' . $json_err . ')', self::JSON_LAST_ERROR_DECODE);
+				//throw new Exception('Json Exception (' . $json_err . ')', self::JSON_LAST_ERROR_DECODE);
 			}
 		}
 	}
@@ -151,7 +153,8 @@ class Json
 						break;
 				}
 				
-				throw new MyException(ApplicationFactory::makeLogger(), 'Json Exception (' . $json_err . ')', self::JSON_LAST_ERROR);
+				throw ApplicationFactory::makeException('Json Exception (' . $json_err . ')', self::JSON_LAST_ERROR_ENCODE);
+				//throw new Exception('Json Exception (' . $json_err . ')', self::JSON_LAST_ERROR_ENCODE);
 			}
 		}
 	}
@@ -216,7 +219,8 @@ class Json
 		}
 		else
 		{
-			throw new MyException(ApplicationFactory::makeLogger(), 'Json Exception', self::COULD_NOT_CONVERT_TO_BOOELAN);
+			throw ApplicationFactory::makeException('Json Exception', self::COULD_NOT_CONVERT_TO_BOOELAN);
+			//throw new Exception('Json Exception', self::COULD_NOT_CONVERT_TO_BOOELAN);
 		}
 
 		return $real_boolean;

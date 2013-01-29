@@ -87,7 +87,8 @@ class View
 		}
 		else
 		{	
-			throw new MyException(ApplicationFactory::makeLogger(), 'View Exception', self::INCORRECT_DATA_TYPE_FOR_META_TAG);
+			throw ApplicationFactory::makeException('View Exception', self::INCORRECT_DATA_TYPE_FOR_META_TAG);
+			//throw new Exception('View Exception', self::INCORRECT_DATA_TYPE_FOR_META_TAG);
 		}
         
         return $meta;

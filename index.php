@@ -19,8 +19,9 @@
  * Once that step is completed, the program will run as an object instantiation
  * of the bootstrap class.
  * 
- * @todo Write unit tests for each library class
- * @todo Create Xml class and test for xml files
+ * @todo write unit tests for each library class
+ * @todo create Xml class and test for xml files
+ * @todo also catch exceptions deeper in the code
  */
 
 // Define the full absolute directory file path
@@ -37,7 +38,7 @@ require_once ABSOLUTE_ROOT_PATH . '/config/config.php';
 try
 {
 	$app_factory = new ApplicationFactory(STORAGE_TYPE);	
-	new Bootstrap($app_factory, $_GET);
+	new Application($app_factory, $_GET);
 }
 catch (MyException $e)
 {

@@ -89,7 +89,7 @@ if ( ! IS_MODE_PRODUCTION)
 }
 
 // Set class and method for uncaught exceptions
-set_exception_handler(array(new MyException(ApplicationFactory::makeLogger()), 'uncaughtException'));
+set_exception_handler(array(ApplicationFactory::makeException(), 'uncaughtException'));
 
 // Error reporting levels
 if (IS_MODE_DEBUG)

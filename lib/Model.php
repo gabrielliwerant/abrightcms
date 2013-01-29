@@ -120,6 +120,41 @@ class Model
 	}
 	
 	/**
+	 * Builds log message from data and sends to log for writing.
+	 *
+	 * @param string $msg
+	 * @param string $type
+	 * @param string $file_name
+	 * 
+	 * @return boolean Success or failure of log writing
+	 */
+	protected function _writeLog($msg, $type, $file_name)
+	{
+		return $this->_logger->writeLogToFile($msg, $type, $file_name);
+	}
+	
+	/**
+	 * Create a log message from an array of data.
+	 *
+	 * @param array $data_to_log
+	 * 
+	 * @return string 
+	 */
+	protected function _buildLogMessageFromArray($data_to_log)
+	{
+		$log_msg = null;
+		
+		foreach ($data_to_log as $key => $value)
+		{
+			$log_msg .= $key . ' => ' . $value . ', ';
+		}
+
+		$log_msg = rtrim($log_msg, ', ');
+		
+		return $log_msg;
+	}
+	
+	/**
 	 * Adds a data file to the storage property.
 	 *
 	 * @param string $json_file Name of data file to set
@@ -194,6 +229,30 @@ class Model
 		$data = null;
 		
 		return $this;
+	}
+	
+	/**
+	 * Sanitize data
+	 *
+	 * @param string/array $data
+	 * 
+	 * @return string/array
+	 */
+	public function sanitizeData($data)
+	{
+		if (is_array($data))
+		{
+			foreach ($data as $key => $value)
+			{
+				$clean_data[$key] = strip_tags($value);
+			}
+		}
+		else
+		{
+			$clean_data = strip_tags($data);
+		}
+		
+		return $clean_data;
 	}
 	
 	/**

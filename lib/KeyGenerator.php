@@ -141,7 +141,8 @@ class KeyGenerator
 		}
 		else
 		{
-			throw new MyException(ApplicationFactory::makeLogger(), 'KeyGenerator Exception', self::EXPECTED_STRING);
+			throw ApplicationFactory::makeException('KeyGenerator Exception', self::EXPECTED_STRING);
+			//throw new Exception('KeyGenerator Exception', self::EXPECTED_STRING);
 		}
 	}
 }

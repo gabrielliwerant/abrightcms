@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('DENY_ACCESS')) exit('403: No direct file access allowed');
 
 /**
  * A Bright CMS
@@ -34,7 +34,32 @@ class ApplicationFactory
 	{
 		$this->_setStorageType($storage_type);
 	}
-
+	
+	/**
+	 * Exception factory
+	 *
+	 * @param string $msg
+	 * @param string $code
+	 * 
+	 * @return object MyException 
+	 */
+	public static function makeException($msg = null, $code = null)
+	{
+		$logger = self::makeLogger();
+		
+		return new MyException($logger, $msg, $code);
+	}
+	
+	/**
+	 * Makes the log object our model has access to.
+	 *
+	 * @return object Log
+	 */
+	public static function makeLogger()
+	{
+		return new Logger(IS_MODE_LOGGING);
+	}
+	
 	/**
 	 * Setter for storage type.
 	 * 
@@ -61,16 +86,6 @@ class ApplicationFactory
 	private function _makeTemplateStorage($storage_type)
 	{		
 		return new $storage_type();
-	}
-	
-	/**
-	 * Makes the log object our model has access to.
-	 *
-	 * @return object Log
-	 */
-	public static function makeLogger()
-	{
-		return new Logger();
 	}
 	
 	/**
