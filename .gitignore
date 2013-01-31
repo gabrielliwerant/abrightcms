@@ -1,4 +1,5 @@
 *.log
 
-dev/misc
-dev/obsolete
+application/dev/misc
+application/dev/obsolete
+application/dev/tests
