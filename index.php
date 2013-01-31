@@ -17,7 +17,7 @@
  * constants and initial conditions which are necessary for the program.
  * 
  * Once that step is completed, the program will run as an object instantiation
- * of the bootstrap class.
+ * of the application class/front controller.
  * 
  * @todo write unit tests for each library class
  * @todo create Xml class and test for xml files
@@ -32,13 +32,12 @@ require_once ABSOLUTE_ROOT_PATH . '/config/settings.php';
 require_once ABSOLUTE_ROOT_PATH . '/config/paths.php';
 require_once ABSOLUTE_ROOT_PATH . '/config/config.php';
 
-// Create the main application object which also loads the approprate 
-// controller and calls the appropriate method (with any parameters). We wrap 
-// in a try catch block to hide system exceptions in a production environment.
+// Create the main application object with its dependencies. We wrap in a 
+// try/catch block to hide system exceptions in a production environment.
 try
 {
-	$app_factory = new ApplicationFactory(STORAGE_TYPE);	
-	new Application($app_factory, $_GET);
+	$app_factory	= new ApplicationFactory(STORAGE_TYPE);
+	$app			= new Application($app_factory, $_GET);
 }
 catch (MyException $e)
 {
