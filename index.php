@@ -29,7 +29,7 @@ define('ABSOLUTE_ROOT_PATH', dirname(__FILE__));
 // Define the configuration path based on the absolute path
 define('CONFIG_PATH', ABSOLUTE_ROOT_PATH . '/system/config');
 
-// Load the initial config files
+// Load the initial configuration files
 require_once CONFIG_PATH . '/settings.php';
 require_once CONFIG_PATH . '/paths.php';
 require_once CONFIG_PATH . '/config.php';
