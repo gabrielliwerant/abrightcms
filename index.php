@@ -26,11 +26,13 @@
 
 // Define the full absolute directory file path
 define('ABSOLUTE_ROOT_PATH', dirname(__FILE__));
+// Define the configuration path based on the absolute path
+define('CONFIG_PATH', ABSOLUTE_ROOT_PATH . '/system/config');
 
 // Load the initial config files
-require_once ABSOLUTE_ROOT_PATH . '/config/settings.php';
-require_once ABSOLUTE_ROOT_PATH . '/config/paths.php';
-require_once ABSOLUTE_ROOT_PATH . '/config/config.php';
+require_once CONFIG_PATH . '/settings.php';
+require_once CONFIG_PATH . '/paths.php';
+require_once CONFIG_PATH . '/config.php';
 
 // Create the main application object with its dependencies. We wrap in a 
 // try/catch block to hide system exceptions in a production environment.

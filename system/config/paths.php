@@ -31,7 +31,7 @@ else
 define('MODEL_PATH', FILE_ROOT_PATH . '/models');
 define('VIEW_PATH', FILE_ROOT_PATH . '/views');
 define('CONTROLLER_PATH', FILE_ROOT_PATH . '/controllers');
-define('CORE_PATH', FILE_ROOT_PATH . '/core');
+define('CORE_PATH', FILE_ROOT_PATH . '/system/core');
 define('LIBRARY_PATH', FILE_ROOT_PATH . '/lib');
 define('LOGS_PATH', FILE_ROOT_PATH . '/logs');
 
