@@ -101,7 +101,7 @@
 		},
 		"footer_js"	: {
 			"jquery"	: {
-				"src"			: "jquery-1.8.3.min",
+				"src"			: "jquery-1.8.3.min.js",
 				"is_internal"	: "1",
 				"code"			: "",
 				"ie_conditional": ""

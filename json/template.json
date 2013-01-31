@@ -6,8 +6,14 @@
 			"doctype"	: "",
 			"html_dir"	: "ltr",
 			"html_lang"	: "en-US",
-			"title"		: "A Bright CMS",
-			"title_page": "App"
+			"title"		: "A Bright CMS"
+		},
+		"title_page": {
+			"index"		: "Home",
+			"app"		: "App",
+			"about"		: "About",
+			"contact"	: "Contact",
+			"error"		: "Error"
 		},
 		"head_meta"	: {
 			"name=description"			: "",
@@ -84,8 +90,8 @@
 		},
 		"footer_js"	: {
 			"jquery"	: {
-				"src"			: "jquery-1.8.3.min",
-				"is_internal"	: "1",
+				"src"			: "http://code.jquery.com/jquery-1.8.3.min.js",
+				"is_internal"	: "0",
 				"code"			: "",
 				"ie_conditional": ""
 			},
