@@ -1,3 +1,0 @@
-[submodule "system/lib"]
-	path = system/lib
-	url = git://github.com/gabrielliwerant/lib.git
