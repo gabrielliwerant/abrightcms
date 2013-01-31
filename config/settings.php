@@ -27,11 +27,11 @@ define('DENY_ACCESS', true);
 define('DOMAIN_NAME', 'abrightcms');
 
 // Sets the program environment, false is for development.
-define('IS_MODE_PRODUCTION', false);
+define('IS_MODE_PRODUCTION', true);
 
 // Set to true to allow debugging messages to show with the Debug class and PDO.
 // Also affects our level of error reporting.
-define('IS_MODE_DEBUG', true);
+define('IS_MODE_DEBUG', false);
 
 // Set to true to force re-caching on external files.
 // An empty value forces creation of a random string if we're set to cache bust,
