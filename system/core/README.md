@@ -1,7 +1,7 @@
-# System Submodule for A Bright CMS
+# Core Submodule for A Bright CMS
 
 Intended for use with the A Bright CMS web application framework. Contains the
-core classes, config files, and lib submodule.
+core classes and dependencies necessary to run the framework.
 
 ## Requirements
 
