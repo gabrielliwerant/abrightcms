@@ -1,6 +1,6 @@
-[submodule "lib"]
-	path = lib
-	url = git://github.com/gabrielliwerant/lib.git
 [submodule "system/core"]
 	path = system/core
 	url = git://github.com/gabrielliwerant/core.git
+[submodule "system/utils"]
+	path = system/utils
+	url = git://github.com/gabrielliwerant/abrightcms_utils.git
