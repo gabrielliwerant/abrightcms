@@ -1,9 +1,6 @@
 [submodule "system/core"]
 	path = system/core
 	url = git://github.com/gabrielliwerant/abrightcms_core.git
-[submodule "system/utils"]
-	path = system/utils
-	url = git://github.com/gabrielliwerant/abrightcms_utils.git
 [submodule "application/utils/form"]
 	path = application/utils/form
 	url = git://github.com/gabrielliwerant/form.git
