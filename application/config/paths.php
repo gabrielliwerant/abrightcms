@@ -55,8 +55,8 @@ else
 	define('HTTP_ROOT_PATH', 'http://localhost/' . DOMAIN_NAME);
 	define('HTTP_APPLICATION_PATH', HTTP_ROOT_PATH . '/application');
 	
-	define('PUBLIC_PATH', HTTP_APPLICATION_PATH . '/dev');
-	define('DEVELOPMENT_PATH', APPLICATION_PATH . '/dev');
+	define('PUBLIC_PATH', HTTP_ROOT_PATH . '/dev');
+	define('DEVELOPMENT_PATH', FILE_ROOT_PATH . '/dev');
 	define('DEVELOPMENT_LIBRARY_PATH', DEVELOPMENT_PATH . '/lib');
 	define('TESTS_PATH', DEVELOPMENT_PATH . '/tests');
 	define('JSON_PATH', DEVELOPMENT_PATH . '/json');
@@ -64,8 +64,8 @@ else
 	define('LESS_IN_PATH', DEVELOPMENT_PATH . '/less');
 	define('LESS_OUT_PATH', DEVELOPMENT_PATH . '/css');
 	
-	define('JS_PATH', HTTP_APPLICATION_PATH . '/dev/js');
-	define('CSS_PATH', HTTP_APPLICATION_PATH . '/dev/css');
+	define('JS_PATH', HTTP_ROOT_PATH . '/dev/js');
+	define('CSS_PATH', HTTP_ROOT_PATH . '/dev/css');
 }
 
 // Set up other paths
