@@ -20,8 +20,7 @@
  * of the application class/front controller.
  * 
  * @todo write unit tests for each library class
- * @todo create Xml class and test for xml files
- * @todo also catch exceptions deeper in the code
+ * @todo catch exceptions deeper in the code
  */
 
 // Define the full absolute directory file path
