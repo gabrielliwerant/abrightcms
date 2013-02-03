@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+
+	<title>Template</title>
+	<description>Stores template content and metadata for our html document</description>
+	
+	<head>
+		<head_doc>
+			<doctype></doctype>
+			<html_dir>ltr</html_dir>
+			<html_lang>en-US</html_lang>
+			<title>A Bright CMS</title>
+		</head_doc>
+		
+		<title_page>
+			<index></index>
+			<app></app>
+			<about></about>
+			<contact></contact>
+			<error></error>
+		</title_page>
+		
+		<head_meta>
+			<name>
+				<description></description>
+				<keywords></keywords>
+				<author>Gabriel Liwerant</author>
+				<viewport>width=device-width; maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0</viewport>
+			</name>
+			
+			<http-equiv>
+				<Content-Type>text/html; charset=utf-8</Content-Type>
+			</http-equiv>
+		</head_meta>
+		
+		<head_includes>
+			<head_css>
+				<style-min>
+					<href></href>
+					<is_internal>1</is_internal>
+					<ie_conditional></ie_conditional>
+				</style-min>
+				<ie9>
+					<href></href>
+					<is_internal>1</is_internal>
+					<ie_conditional>IE 9</ie_conditional>
+				</ie9>
+				<ie8>
+					<href></href>
+					<is_internal>1</is_internal>
+					<ie_conditional>IE 8</ie_conditional>
+				</ie8>
+				<ie7>
+					<href></href>
+					<is_internal>1</is_internal>
+					<ie_conditional>lte IE 7</ie_conditional>
+				</ie7>
+			</head_css>
+			
+			<favicon>
+				<href></href>
+				<is_internal>1</is_internal>
+				<ie_conditional></ie_conditional>
+			</favicon>
+			
+			<head_js>
+				<application-head-min>
+					<src>html5shiv</src>
+					<is_internal>1</is_internal>
+					<code></code>
+					<ie_conditional>lte IE 8</ie_conditional>
+				</application-head-min>
+			</head_js>
+		</head_includes>
+	</head>
+
+	<footer>
+		<footer_nav>
+			<copyright>
+				<is_anchor>0</is_anchor>
+				<symbol>Copyright &#169;</symbol>
+				<holder>yourcompany.com</holder>
+				<start_date>2013</start_date>
+			</copyright>
+			
+			<name>
+				<text>Your Name</text>
+				<is_anchor>0</is_anchor>
+				<is_internal></is_internal>
+				<path></path>
+				<target></target>
+				<title></title>
+				<id></id>
+				<class></class>
+			</name>
+			
+			<rights>
+				<text>All Rights Reserved</text>
+				<is_anchor>0</is_anchor>
+				<is_internal></is_internal>
+				<path></path>
+				<target></target>
+				<title></title>
+				<id></id>
+				<class></class>
+			</rights>
+		</footer_nav>
+		
+		<separator>&#x2022;</separator>
+		
+		<branding>
+			<logo>
+				<src></src>
+				<alt>A Bright CMS Logo</alt>
+				<text></text>
+				<is_anchor>1</is_anchor>
+				<path></path>
+				<target>_self</target>
+				<title></title>
+				<is_internal>1</is_internal>
+				<id></id>
+				<class></class>
+			</logo>
+		</branding>
+		
+		<footer_js>
+			<jquery>
+				<src>http://code.jquery.com/jquery-1.8.3.min.js</src>
+				<is_internal>0</is_internal>
+				<code></code>
+				<ie_conditional></ie_conditional>
+			</jquery>
+			
+			<application>
+				<src>application-footer-min</src>
+				<is_internal>1</is_internal>
+				<code></code>
+				<ie_conditional></ie_conditional>
+			</application>
+		</footer_js>
+	</footer>
+
+</root>

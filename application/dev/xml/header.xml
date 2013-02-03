@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+	
+	<title>Header</title>
+	<description>Stores header content and metadata for our html document</description>
+	
+	<header>
+		<header_nav>
+			<Home>
+				<is_anchor>1</is_anchor>
+				<is_internal>1</is_internal>
+				<path></path>
+				<target>_self</target>
+				<title></title>
+				<id></id>
+				<class></class>				
+			</Home>
+			
+			<About>
+				<is_anchor>1</is_anchor>
+				<is_internal>1</is_internal>
+				<path>about</path>
+				<target>_self</target>
+				<title></title>
+				<id></id>
+				<class></class>				
+			</About>
+			
+			<Contact>
+				<is_anchor>1</is_anchor>
+				<is_internal>1</is_internal>
+				<path>contact</path>
+				<target>_self</target>
+				<title></title>
+				<id></id>
+				<class></class>				
+			</Contact>
+			
+			<App>
+				<is_anchor>1</is_anchor>
+				<is_internal>1</is_internal>
+				<path>app</path>
+				<target>_self</target>
+				<title></title>
+				<id></id>
+				<class></class>				
+			</App>
+		</header_nav>
+		
+		<separator></separator>
+		
+		<branding>
+			<logo>
+				<src>logo.png</src>
+				<alt>A Bright CMS Logo</alt>
+				<text>Site Name Here</text>
+				<is_anchor>1</is_anchor>
+				<path></path>
+				<target>_self</target>
+				<title></title>
+				<is_internal>1</is_internal>
+				<id></id>
+				<class></class>
+			</logo>
+			
+			<tagline>Tagline here</tagline>
+		</branding>
+		
+	</header>
+	
+</root>
