@@ -27,11 +27,11 @@ if (PHP_VERSION < 5.3)
 // Create the loader with our valid paths.
 require_once CORE_PATH . '/Loader.php';
 $loader = new Loader(array(
-	'core_path'				=> CORE_PATH,
-	'library_path'			=> UTILS_PATH,
-	'model_path'			=> MODEL_PATH,
-	'view_path'				=> VIEW_PATH,
-	'controller_path'		=> CONTROLLER_PATH
+	'core'			=> array('path' => CORE_PATH, 'search_sub_dir' => true),
+	'utils'			=> array('path'	=> UTILS_PATH, 'search_sub_dir' => false),
+	'models'		=> array('path'	=> MODEL_PATH, 'search_sub_dir' => true),
+	'views'			=> array('path'	=> VIEW_PATH, 'search_sub_dir' => false),
+	'controllers'	=> array('path'	=> CONTROLLER_PATH, 'search_sub_dir' => true)
 ));
 spl_autoload_register(array($loader, 'autoload'));
 
@@ -39,7 +39,10 @@ spl_autoload_register(array($loader, 'autoload'));
 if ( ! IS_MODE_PRODUCTION)
 {
 	// Since we're in development mode, add development path to loader.
-	$loader->setAdditionalPath(DEVELOPMENT_LIBRARY_PATH);
+	$loader->setAdditionalPath(
+		'dev_lib', 
+		array('path' => DEVELOPMENT_LIBRARY_PATH, 'search_sub_dir' => true)
+	);
 	
 	// Compile our LESS code!
 	$less_file_input = 'all.less';
