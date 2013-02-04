@@ -29,11 +29,11 @@ class JsonTest extends PHPUnit_Framework_TestCase
 		
 		$class_name = str_replace('Test', '', __CLASS__);
 		
-		require_once self::RELATIVE_PATH . 'config\settings.php';
-		require_once self::RELATIVE_PATH . 'lib\\' . $class_name . '.php';
-		require_once self::RELATIVE_PATH . 'lib\MyException.php';
-		require_once self::RELATIVE_PATH . 'lib\ApplicationFactory.php';
-		require_once self::RELATIVE_PATH . 'lib\Logger.php';
+		require_once self::RELATIVE_PATH . 'application\config\settings.php';
+		require_once self::RELATIVE_PATH . 'system\core\\' . $class_name . '.php';
+		require_once self::RELATIVE_PATH . 'system\core\MyException.php';
+		require_once self::RELATIVE_PATH . 'system\core\ApplicationFactory.php';
+		require_once self::RELATIVE_PATH . 'system\core\Logger.php';
 		
 		$this->obj = new $class_name();
 	}
