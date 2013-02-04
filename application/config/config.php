@@ -28,7 +28,7 @@ if (PHP_VERSION < 5.3)
 require_once CORE_PATH . '/Loader.php';
 $loader = new Loader(array(
 	'core_path'				=> CORE_PATH,
-	'library_path'			=> LIBRARY_PATH,
+	'library_path'			=> UTILS_PATH,
 	'model_path'			=> MODEL_PATH,
 	'view_path'				=> VIEW_PATH,
 	'controller_path'		=> CONTROLLER_PATH

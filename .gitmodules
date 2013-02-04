@@ -1,3 +1,4 @@
 [submodule "system/core"]
 	path = system/core
 	url = git://github.com/gabrielliwerant/abrightcms_core.git
+	
