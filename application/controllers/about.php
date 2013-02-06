@@ -37,6 +37,7 @@ class About extends Controller
 	 *
 	 * @param array $data From storage to build out page views
 	 * @param string $cache_buster Allows us to force re-caching
+	 * 
 	 * @return object About Returned from parent method
 	 */
 	protected function _pageBuilder($data, $cache_buster = null)
@@ -64,8 +65,7 @@ class About extends Controller
 		$data			= $this->_model->getAllDataFromStorage();
 		$cache_buster	= $this->_cacheBuster(IS_MODE_CACHE_BUSTING, CACHE_BUSTING_VALUE);
 		
-		$this->_pageBuilder($data, $cache_buster)
-			->render(strtolower(__CLASS__), $data['template'], $cache_buster);
+		$this->_pageBuilder($data, $cache_buster)->render(strtolower(__CLASS__));
 	}
 }
 // End of About Class

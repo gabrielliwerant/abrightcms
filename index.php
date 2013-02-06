@@ -21,6 +21,7 @@
  * 
  * @todo write unit tests for each library class
  * @todo catch exceptions deeper in the code
+ * @todo add index.html to empty image, fonts folder?
  */
 
 // Define the full absolute directory file path
@@ -37,7 +38,7 @@ require_once CONFIG_PATH . '/config.php';
 // try/catch block to hide system exceptions in a production environment.
 try
 {
-	$app_factory	= new ApplicationFactory(STORAGE_TYPE);
+	$app_factory	= new ApplicationFactory(STORAGE_TYPE, HAS_DATABASE);
 	$app			= new Application($app_factory, $_GET);
 }
 catch (MyException $e)

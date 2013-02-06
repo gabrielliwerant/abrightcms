@@ -46,6 +46,9 @@ define('IS_MODE_LOGGING', true);
 // The name set here must also be the name of our storage class.
 define('STORAGE_TYPE', 'json');			// json | xml
 
+// Will determine whether we load a database object into our model or null.
+define('HAS_DATABASE', false);
+
 // Sets whether or not we run concatenator for files we're combining in config.
 define('DOES_CONCATENATE', false);
 define('CONCATENATE_TYPE', 'js');		// css | js

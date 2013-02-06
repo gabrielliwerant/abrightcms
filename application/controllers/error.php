@@ -38,6 +38,7 @@ class Error extends Controller
 	 * Set the view property for the error page type (header).
 	 *
 	 * @param string $error_header
+	 * 
 	 * @return object Error 
 	 */
 	private function _setErrorType($error_header)
@@ -65,6 +66,7 @@ class Error extends Controller
 	 * 
 	 * @param array $data From storage to build out view properties
 	 * @param string $cache_buster Allows us to force re-caching
+	 * 
 	 * @return object Error Returned from parent method 
 	 */
 	protected function _pageBuilder($data, $cache_buster)
@@ -94,9 +96,8 @@ class Error extends Controller
 		$data					= $this->_model->getAllDataFromStorage();
 		$data['error_header']	= $parameter_arr[0];
 		$cache_buster			= $this->_cacheBuster(IS_MODE_CACHE_BUSTING, CACHE_BUSTING_VALUE);
-		
-		$this->_pageBuilder($data, $cache_buster)
-			->render(strtolower(__CLASS__), $data['template'], $cache_buster);
+
+		$this->_pageBuilder($data, $cache_buster)->render(strtolower(__CLASS__));
 	}
 }
 // End of Error Class
