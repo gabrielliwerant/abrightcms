@@ -47,8 +47,8 @@ if (IS_MODE_PRODUCTION)
 	define('JSON_PATH', APPLICATION_PATH . '/json');
 	define('XML_PATH', APPLICATION_PATH . '/xml');
 	
-	define('JS_PATH', HTTP_APPLICATION_PATH . '/js');
-	define('CSS_PATH', HTTP_APPLICATION_PATH . '/css');
+	define('JS_PATH', PUBLIC_PATH . '/js');
+	define('CSS_PATH', PUBLIC_PATH . '/css');
 }
 else
 {
