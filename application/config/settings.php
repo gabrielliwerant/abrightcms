@@ -60,4 +60,4 @@ $headers	= "MIME-Version: 1.0\r\n"
 			. "charset=iso-8859-1\r\n";
 define("EMAIL_HEADERS", $headers);
 
-/* EOF config/settings.php */
+/* EOF application/config/settings.php */

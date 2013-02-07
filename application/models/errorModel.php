@@ -15,7 +15,7 @@
  * 
  * Allows us to manipulate persistent data for the view.
  * 
- * @subpackage models
+ * @subpackage application/models
  * @author Gabriel Liwerant
  * 
  * @uses Model
@@ -23,17 +23,18 @@
 class ErrorModel extends Model
 {
 	/**
-	 * Call the parent constructor and pass it a database object.
+	 * Call the parent constructor and pass it objects.
 	 * 
      * @param object $storage Data storage object
 	 * @param string $storage_type The way data is stored and retrieved
 	 * @param object $log Log object for errors, other
+	 * @param $db
 	 */
-	public function __construct($storage_obj, $storage_type, $log)
+	public function __construct($storage_obj, $storage_type, $log, $db = null)
 	{
-		parent::__construct($storage_obj, $storage_type, $log);
+		parent::__construct($storage_obj, $storage_type, $log, $db);
 	}
 }
 // End of ErrorModel Class
 
-/* EOF models/errorModel.php */
+/* EOF application/models/errorModel.php */

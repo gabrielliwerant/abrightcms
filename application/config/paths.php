@@ -34,7 +34,7 @@ define('MODEL_PATH', APPLICATION_PATH . '/models');
 define('VIEW_PATH', APPLICATION_PATH . '/views');
 define('CONTROLLER_PATH', APPLICATION_PATH . '/controllers');
 define('CORE_PATH', SYSTEM_PATH . '/core');
-define('UTILS_PATH', SYSTEM_PATH . '/utils');
+define('UTILS_PATH', APPLICATION_PATH . '/utils');
 define('LOGS_PATH', APPLICATION_PATH . '/logs');
 
 // Set up paths that depend upon development environment mode
@@ -73,4 +73,4 @@ define('TEMPLATE_PATH', VIEW_PATH . '/_template');
 define('IMAGES_PATH', PUBLIC_PATH . '/images');
 define('ERROR_HANDLER_PAGE_PATH', HTTP_APPLICATION_PATH . '/views/_template/error.html');
 
-/* EOF config/paths.php */
+/* EOF application/config/paths.php */

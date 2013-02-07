@@ -114,4 +114,4 @@ else
 	);
 }
 
-/* EOF config/config.php */
+/* EOF application/config/config.php */
