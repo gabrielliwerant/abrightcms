@@ -46,11 +46,12 @@ class Index extends Controller
 	protected function _pageBuilder($data, $cache_buster = null)
 	{
 		$this->_setHeadTitlePage($data['template']['head']['title_page'], strtolower(__CLASS__))
-			->_setHeaderNav($data['header']['header']['header_nav'], $data['header']['header']['separator'])
+			->_setNav('header_nav', $data['header']['header']['header_nav'], $data['header']['header']['separator'])
 			->_setLogoInAnchorTag('header_', $data['header']['header']['branding'])
 			->_setViewProperty('site_name', $data['header']['header']['branding']['logo']['text'])
 			->_setViewProperty('tagline', $data['header']['header']['branding']['tagline'])
-			->_setFooterNav($data['template']['footer']['footer_nav'], $data['template']['footer']['separator']);
+			->_setFinePrint($data['template']['footer']['fine_print'], $data['template']['footer']['separator'])
+			->_setNav('footer_nav', $data['template']['footer']['footer_nav'], $data['template']['footer']['separator']);
 		
 		return parent::_pageBuilder($data['template'], $cache_buster);
 	}

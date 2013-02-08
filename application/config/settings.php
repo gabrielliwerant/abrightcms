@@ -60,7 +60,7 @@ $headers	= "MIME-Version: 1.0\r\n"
 			. "charset=iso-8859-1\r\n";
 define("EMAIL_HEADERS", $headers);
 
-// Set the default time zone for PHP date functionsf
+// Set the default time zone for PHP date functions
 define('DEFAULT_TIME_ZONE', 'America/New_York');
 
 /* EOF application/config/settings.php */
