@@ -35,6 +35,9 @@ $loader = new Loader(array(
 ));
 spl_autoload_register(array($loader, 'autoload'));
 
+// Set default time zone for PHP date functions
+date_default_timezone_set(DEFAULT_TIME_ZONE);
+
 // Development-only aspects are dealt with here.
 if ( ! IS_MODE_PRODUCTION)
 {

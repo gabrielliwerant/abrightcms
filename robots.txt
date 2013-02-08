@@ -2,10 +2,6 @@
 
 User-agent: *
 
-Disallow: /config/
-Disallow: /controllers/
-Disallow: /models/
-Disallow: /lib/
-Disallow: /logs/
+Disallow: application/logs/
 
 Sitemap: http://abrightcms.com/sitemap.xml
