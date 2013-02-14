@@ -76,35 +76,62 @@
 	</head>
 
 	<footer>
-		<footer_nav>
+		<fine_print>
 			<copyright>
 				<is_anchor>0</is_anchor>
 				<symbol>Copyright &#169;</symbol>
 				<holder>yourcompany.com</holder>
 				<start_date>2013</start_date>
+				<show_current_date>1</show_current_date>
 			</copyright>
-			
-			<name>
-				<text>Your Name</text>
-				<is_anchor>0</is_anchor>
-				<is_internal></is_internal>
+			<name>Your Name</name>
+			<rights>All Rights Reserved</rights>
+		</fine_print>
+		
+		<footer_nav>
+			<home>
+				<text>Home</text>
+				<is_anchor>1</is_anchor>
+				<is_internal>1</is_internal>
 				<path></path>
-				<target></target>
+				<target>_self</target>
 				<title></title>
 				<id></id>
-				<class></class>
-			</name>
+				<class></class>				
+			</home>
 			
-			<rights>
-				<text>All Rights Reserved</text>
-				<is_anchor>0</is_anchor>
-				<is_internal></is_internal>
-				<path></path>
-				<target></target>
+			<about>
+				<text>About</text>
+				<is_anchor>1</is_anchor>
+				<is_internal>1</is_internal>
+				<path>about</path>
+				<target>_self</target>
 				<title></title>
 				<id></id>
-				<class></class>
-			</rights>
+				<class></class>				
+			</about>
+			
+			<contact>
+				<text>Contact</text>
+				<is_anchor>1</is_anchor>
+				<is_internal>1</is_internal>
+				<path>contact</path>
+				<target>_self</target>
+				<title></title>
+				<id></id>
+				<class></class>				
+			</contact>
+			
+			<app>
+				<text>App</text>
+				<is_anchor>1</is_anchor>
+				<is_internal>1</is_internal>
+				<path>app</path>
+				<target>_self</target>
+				<title></title>
+				<id></id>
+				<class></class>				
+			</app>
 		</footer_nav>
 		
 		<separator>&#x2022;</separator>
@@ -112,7 +139,7 @@
 		<branding>
 			<logo>
 				<src></src>
-				<alt>A Bright CMS Logo</alt>
+				<alt>Your Logo Here</alt>
 				<text></text>
 				<is_anchor>1</is_anchor>
 				<path></path>

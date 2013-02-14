@@ -83,7 +83,7 @@
 		"branding"	: {
 			"logo"	: {
 				"src"			: "logo-footer.svg",
-				"alt"			: "A Bright CMS Logo",
+				"alt"			: "Your Logo Here",
 				"text"			: "",
 				"is_anchor"		: "1",
 				"path"			: "",

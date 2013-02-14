@@ -48,7 +48,7 @@
 		"branding"	: {
 			"logo"	: {
 				"src"			: "logo.png",
-				"alt"			: "A Bright CMS Logo",
+				"alt"			: "Your Logo Here",
 				"text"			: "Site Name Here",
 				"is_anchor"		: "1",
 				"path"			: "",

@@ -59,7 +59,7 @@ else
 	define('JSON_PATH', DEVELOPMENT_PATH . '/json');
 	define('XML_PATH', DEVELOPMENT_PATH . '/xml');
 	define('LESS_IN_PATH', DEVELOPMENT_PATH . '/less');
-	define('LESS_OUT_PATH', PUBLIC_PATH . '/css');
+	define('LESS_OUT_PATH', DEVELOPMENT_PATH . '/public/css');
 }
 
 // Set up other paths
