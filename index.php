@@ -21,7 +21,6 @@
  * 
  * @todo write unit tests for each library class
  * @todo catch exceptions deeper in the code
- * @todo add README.md to other folders, refine wording throughout
  */
 
 // Define the full absolute directory file path

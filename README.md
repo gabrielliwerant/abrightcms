@@ -1,8 +1,11 @@
 # A Bright CMS
 
-Lightweight website and web application framework inspired by Code Igniter. It 
-uses an MVC pattern in which the model and view are completely decoupled and 
-require the controller to mediate between them.
+A lightweight website and web application framework and content management 
+system in PHP. It uses an MVC pattern in which the model and view are completely 
+decoupled and require the controller to mediate between them.
+
+Content is stored in JSON or XML files and websites are built through the use of
+these files and custom methods which retrieve and display that data.
 
 ## Requirements
 

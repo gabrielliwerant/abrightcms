@@ -46,31 +46,27 @@ if (IS_MODE_PRODUCTION)
 	define('PUBLIC_PATH', HTTP_APPLICATION_PATH . '/public');
 	define('JSON_PATH', APPLICATION_PATH . '/json');
 	define('XML_PATH', APPLICATION_PATH . '/xml');
-	
-	define('JS_PATH', PUBLIC_PATH . '/js');
-	define('CSS_PATH', PUBLIC_PATH . '/css');
 }
 else
 {
 	define('HTTP_ROOT_PATH', 'http://localhost/' . DOMAIN_NAME);
 	define('HTTP_APPLICATION_PATH', HTTP_ROOT_PATH . '/application');
 	
-	define('PUBLIC_PATH', HTTP_ROOT_PATH . '/dev');
+	define('PUBLIC_PATH', HTTP_ROOT_PATH . '/dev/public');
 	define('DEVELOPMENT_PATH', FILE_ROOT_PATH . '/dev');
 	define('DEVELOPMENT_LIBRARY_PATH', DEVELOPMENT_PATH . '/lib');
 	define('TESTS_PATH', DEVELOPMENT_PATH . '/tests');
 	define('JSON_PATH', DEVELOPMENT_PATH . '/json');
 	define('XML_PATH', DEVELOPMENT_PATH . '/xml');
 	define('LESS_IN_PATH', DEVELOPMENT_PATH . '/less');
-	define('LESS_OUT_PATH', DEVELOPMENT_PATH . '/css');
-	
-	define('JS_PATH', HTTP_ROOT_PATH . '/dev/js');
-	define('CSS_PATH', HTTP_ROOT_PATH . '/dev/css');
+	define('LESS_OUT_PATH', PUBLIC_PATH . '/css');
 }
 
 // Set up other paths
-define('TEMPLATE_PATH', VIEW_PATH . '/_template');
+define('JS_PATH', PUBLIC_PATH . '/js');
+define('CSS_PATH', PUBLIC_PATH . '/css');
 define('IMAGES_PATH', PUBLIC_PATH . '/images');
+define('TEMPLATE_PATH', VIEW_PATH . '/_template');
 define('ERROR_HANDLER_PAGE_PATH', HTTP_APPLICATION_PATH . '/views/_template/error.html');
 
 /* EOF application/config/paths.php */
