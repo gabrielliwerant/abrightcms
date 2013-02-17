@@ -44,7 +44,7 @@ class App extends Controller
 	{
 		$this->_setHeadTitlePage($data['template']['head']['title_page'], strtolower(__CLASS__))
 			->_setNav('header_nav', $data['header']['header']['header_nav'], $data['header']['header']['separator'])
-			->_setLogoInAnchorTag('header_', $data['header']['header']['branding'])
+			->_setLogo('header_logo', $data['header']['header']['branding']['logo'])
 			->_setViewProperty('site_name', $data['header']['header']['branding']['logo']['text'])
 			->_setViewProperty('tagline', $data['header']['header']['branding']['tagline'])
 			->_setFinePrint($data['template']['footer']['fine_print'], $data['template']['footer']['separator'])
