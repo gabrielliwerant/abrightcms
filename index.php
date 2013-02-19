@@ -3,8 +3,8 @@
 /**
  * A Bright CMS
  * 
- * Core MVC/CMS framework used in TaskVolt and created for lightweight, custom
- * web applications.
+ * Open source, lightweight, web application framework and content management 
+ * system in PHP.
  * 
  * @package A Bright CMS
  * @author Gabriel Liwerant
@@ -21,7 +21,10 @@
  * 
  * @todo write unit tests for each library class
  * @todo catch exceptions deeper in the code
+ * 
  * @todo make re-usable form/contact controller
+ * @todo make a way for us to build an anchor out of copyright holder automatically
+ * @todo add void to param documentation throughout
  */
 
 // Define the full absolute directory file path

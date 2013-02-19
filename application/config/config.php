@@ -3,8 +3,8 @@
 /**
  * A Bright CMS
  * 
- * Core MVC/CMS framework used in TaskVolt and created for lightweight, custom
- * web applications.
+ * Open source, lightweight, web application framework and content management 
+ * system in PHP.
  * 
  * @package A Bright CMS
  * @author Gabriel Liwerant
@@ -74,7 +74,7 @@ if ( ! IS_MODE_PRODUCTION)
 			case 'js':
 				$js_concat = new Concatenate(
 					'Content-type: application/javascript', 
-					FILE_ROOT_PATH . '/dev/js/', 
+					FILE_ROOT_PATH . '/dev/public/js/', 
 					$js_files
 				);
 				
@@ -84,7 +84,7 @@ if ( ! IS_MODE_PRODUCTION)
 			case 'css':
 				$css_concat = new Concatenate(
 					'Content-type: text/css', 
-					FILE_ROOT_PATH . '/dev/css/', 
+					FILE_ROOT_PATH . '/dev/public/css/', 
 					$css_files
 				);
 				
