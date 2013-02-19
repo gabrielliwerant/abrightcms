@@ -3,8 +3,8 @@
 /**
  * A Bright CMS
  * 
- * Core MVC/CMS framework used in TaskVolt and created for lightweight, custom
- * web applications.
+ * Open source, lightweight, web application framework and content management 
+ * system in PHP.
  * 
  * @package A Bright CMS
  * @author Gabriel Liwerant
@@ -65,11 +65,11 @@ class Error extends Controller
 	 * as view properties for viewing.
 	 * 
 	 * @param array $data From storage to build out view properties
-	 * @param string $cache_buster Allows us to force re-caching
+	 * @param string|void $cache_buster Allows us to force re-caching
 	 * 
 	 * @return object Error Returned from parent method 
 	 */
-	protected function _pageBuilder($data, $cache_buster)
+	protected function _pageBuilder($data, $cache_buster = null)
 	{
 		$this->_setHeadTitlePage($data['template']['head']['title_page'], strtolower(__CLASS__))
 			->_setNav('header_nav', $data['header']['header']['header_nav'], $data['header']['header']['separator'])
@@ -103,4 +103,4 @@ class Error extends Controller
 }
 // End of Error Class
 
-/* EOF controllers/error.php */
+/* EOF application/controllers/error.php */

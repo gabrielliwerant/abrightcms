@@ -24,7 +24,7 @@
  * 
  * @todo make re-usable form/contact controller
  * @todo make a way for us to build an anchor out of copyright holder automatically
- * @todo add void to param documentation throughout
+ * @todo make better placeholders for content in the pages
  */
 
 // Define the full absolute directory file path

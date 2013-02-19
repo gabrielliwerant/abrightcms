@@ -3,8 +3,8 @@
 /**
  * A Bright CMS
  * 
- * Core MVC/CMS framework used in TaskVolt and created for lightweight, custom
- * web applications.
+ * Open source, lightweight, web application framework and content management 
+ * system in PHP.
  * 
  * @package A Bright CMS
  * @author Gabriel Liwerant
@@ -36,7 +36,7 @@ class Contact extends Controller
 	 * them as view properties for viewing.
 	 *
 	 * @param array $data From storage to build out page views
-	 * @param string $cache_buster Allows us to force re-caching
+	 * @param string|void $cache_buster Allows us to force re-caching
 	 * 
 	 * @return object App Returned from parent method
 	 */
@@ -71,4 +71,4 @@ class Contact extends Controller
 }
 // End of Contact Class
 
-/* EOF controllers/contact.php */
+/* EOF application/controllers/contact.php */

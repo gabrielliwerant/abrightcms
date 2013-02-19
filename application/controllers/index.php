@@ -3,8 +3,8 @@
 /**
  * A Bright CMS
  * 
- * Core MVC/CMS framework used in TaskVolt and created for lightweight, custom
- * web applications.
+ * Open source, lightweight, web application framework and content management 
+ * system in PHP.
  * 
  * @package A Bright CMS
  * @author Gabriel Liwerant
@@ -39,7 +39,7 @@ class Index extends Controller
 	 * them as view properties for viewing.
 	 *
 	 * @param array $data From storage to build out page views
-	 * @param string $cache_buster Allows us to force re-caching
+	 * @param string|void $cache_buster Allows us to force re-caching
 	 * 
 	 * @return object Index Returned from parent method
 	 */

@@ -3,8 +3,8 @@
 /**
  * A Bright CMS
  * 
- * Core MVC/CMS framework used in TaskVolt and created for lightweight, custom
- * web applications.
+ * Open source, lightweight, web application framework and content management 
+ * system in PHP.
  * 
  * @package A Bright CMS
  * @author Gabriel Liwerant
@@ -30,4 +30,4 @@ class AboutView extends View
 }
 // End of AboutView Class
 
-/* EOF views/aboutView.php */
+/* EOF application/views/aboutView.php */

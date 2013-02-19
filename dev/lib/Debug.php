@@ -1,14 +1,13 @@
 <?php
 
 /**
- * TaskVolt
+ * A Bright CMS
  * 
- * Project management, todo list, collaboration, and social web application tool
- * for consumers.
+ * Open source, lightweight, web application framework and content management 
+ * system in PHP.
  * 
- * @package TaskVolt
+ * @package A Bright CMS
  * @author Gabriel Liwerant
- * @link http://taskvolt.com
  */
 
 /**

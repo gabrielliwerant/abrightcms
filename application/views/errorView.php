@@ -3,8 +3,8 @@
 /**
  * A Bright CMS
  * 
- * Core MVC/CMS framework used in TaskVolt and created for lightweight, custom
- * web applications.
+ * Open source, lightweight, web application framework and content management 
+ * system in PHP.
  * 
  * @package A Bright CMS
  * @author Gabriel Liwerant
@@ -12,8 +12,6 @@
 
 /**
  * ErrorView Class
- * 
- * Allows us to create dynamic display elements.
  * 
  * @subpackage views
  * @author Gabriel Liwerant
@@ -34,6 +32,7 @@ class ErrorView extends View
 	 * Builds the error type for view output.
 	 * 
 	 * @param string $type Error type
+	 * 
 	 * @return string
 	 */
 	public function buildErrorType($type)
@@ -53,4 +52,4 @@ class ErrorView extends View
 }
 // End of ErrorView Class
 
-/* EOF views/errorView.php */
+/* EOF application/views/errorView.php */

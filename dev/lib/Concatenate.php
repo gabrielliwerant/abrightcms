@@ -3,8 +3,8 @@
 /**
  * A Bright CMS
  * 
- * Core MVC/CMS framework used in TaskVolt and created for lightweight, custom
- * web applications.
+ * Open source, lightweight, web application framework and content management 
+ * system in PHP.
  * 
  * @package A Bright CMS
  * @author Gabriel Liwerant
@@ -16,7 +16,7 @@
  * Allows us to load many files back-to-back in a single page for concatenation
  * purposes.
  * 
- * @subpackage
+ * @subpackage dev/lib
  * @author Gabriel Liwerant
  */
 class Concatenate
