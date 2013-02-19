@@ -9,10 +9,11 @@ these files and custom methods which retrieve and display that data.
 
 ## Requirements
 
-* PHP 5 >= 5.2, PHP 5.3 recommended
-* Apache 2 >= 2.2.17
+* PHP 5 >= 5.2, Tested up to 5.4.3.
+* Apache 2 >= 2.2, Tested up to 2.2.22.
 
 ## Contact
 
 * Email: gabriel@abrightconcept.com
 * Twitter: @gabrielliwerant
+* Website: http://abrightcms.com
