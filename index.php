@@ -21,10 +21,13 @@
  * 
  * @todo write unit tests for each library class
  * @todo catch exceptions deeper in the code
+ * @todo determine what to put for @package docblock comments and how to change
+ *		it everywhere with regex.
  * 
  * @todo make re-usable form/contact controller
  * @todo make a way for us to build an anchor out of copyright holder automatically
  * @todo make better placeholders for content in the pages
+ * @todo allow settings constant to change default page controller in Application class
  */
 
 // Define the full absolute directory file path

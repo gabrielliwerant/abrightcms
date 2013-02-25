@@ -9,11 +9,11 @@
 		</ul>
 	</div>
 	
-	<div id="footer-nav">
+	<nav>
 		<ul>
 			<?php echo $this->footer_nav; ?>
 		</ul>
-	</div>
+	</nav>
 </footer>
 
 </div> <!-- End outer wrapper here -->

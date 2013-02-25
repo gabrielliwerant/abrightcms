@@ -111,7 +111,7 @@ else
 	register_shutdown_function(array(
 		new ErrorHandler(
 			ApplicationFactory::makeLogger(), 
-			new Email()
+			ApplicationFactory::makeEmail()
 		),
 		'showFatalErrorPage')
 	);
