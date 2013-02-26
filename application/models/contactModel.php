@@ -16,9 +16,9 @@
  * @subpackage models
  * @author Gabriel Liwerant
  * 
- * @uses Model
+ * @uses TemplateModel
  */
-class ContactModel extends Model
+class ContactModel extends TemplateModel
 {
 	/**
 	 * Call the parent constructor and pass it objects.

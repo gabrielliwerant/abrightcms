@@ -16,9 +16,9 @@
  * @subpackage views
  * @author Gabriel Liwerant
  * 
- * @uses View
+ * @uses TemplateView
  */
-class IndexView extends View
+class IndexView extends TemplateView
 {
 	/**
 	 * Construct the parent class.

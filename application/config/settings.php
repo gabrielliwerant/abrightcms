@@ -49,6 +49,10 @@ define('STORAGE_TYPE', 'json');			// json | xml
 // Will determine whether we load a database object into our model or null.
 define('HAS_DATABASE', false);
 
+// We will skip this directory when looking for page contollers to load, forcing
+// a 404 error if we're trying to load a controller from it.
+define('EXCLUDE_CONTROLLER_DIRECTORY', 'includes');
+
 // Sets whether or not we run concatenator for files we're combining in config.
 define('DOES_CONCATENATE', false);
 define('CONCATENATE_TYPE', 'js');		// css | js

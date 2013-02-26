@@ -11,17 +11,17 @@
  */
 
 /**
- * Index Class
+ * Template Class
  * 
- * The index controller inherits from the template and can override methods and 
- * set customer values for properties as desired.
+ * Creates default page so that child classes do not need to duplicate code.
+ * Contains no index method because we are not meant to call this class directly.
  * 
- * @subpackage application/controllers
+ * @subpackage controllers/includes
  * @author Gabriel Liwerant
  * 
- * @uses Template
+ * @uses Controller
  */
-class Index extends Template implements PageControllerInterface
+class Template extends Controller
 {
 	/**
 	 * Construct the parent class.
@@ -46,27 +46,16 @@ class Index extends Template implements PageControllerInterface
 	protected function _pageBuilder($data, $cache_buster = null)
 	{
 		$this
-			->_setHeadTitlePage($data['template']['head']['title_page'], strtolower(__CLASS__));
+			->_setNav('header_nav', $data['header']['header']['header_nav'], $data['header']['header']['separator'])
+			->_setLogo('header_logo', $data['header']['header']['branding']['logo'])
+			->_setViewProperty('site_name', $data['header']['header']['branding']['logo']['text'])
+			->_setViewProperty('tagline', $data['header']['header']['branding']['tagline'])
+			->_setFinePrint($data['template']['footer']['fine_print'], $data['template']['footer']['separator'])
+			->_setNav('footer_nav', $data['template']['footer']['footer_nav'], $data['template']['footer']['separator']);
 		
-		return parent::_pageBuilder($data, $cache_buster);
-	}
-	
-	/**
-	 * Loads the index page view.
-	 * 
-	 * We retrieve data and call the page builder here, which should set up 
-	 * everything we need to display this page with the parent render method.
-	 * 
-	 * @param array $parameter_arr
-	 */
-	public function index($parameter_arr)
-	{
-		$data			= $this->_model->getAllDataFromStorage();
-		$cache_buster	= $this->_cacheBuster(IS_MODE_CACHE_BUSTING, CACHE_BUSTING_VALUE);
-		
-		$this->_pageBuilder($data, $cache_buster)->render(strtolower(__CLASS__));
+		return parent::_pageBuilder($data['template'], $cache_buster);
 	}
 }
-// End of Index Class
+// End of Template Class
 
-/* EOF application/controllers/index.php */
+/* EOF application/controllers/includes/template.php */

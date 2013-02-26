@@ -16,9 +16,9 @@
  * @subpackage views
  * @author Gabriel Liwerant
  * 
- * @uses View
+ * @uses TemplateView
  */
-class AboutView extends View
+class AboutView extends TemplateView
 {
 	/**
 	 * Construct the parent class.

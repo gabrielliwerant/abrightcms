@@ -28,6 +28,9 @@
  * @todo make a way for us to build an anchor out of copyright holder automatically
  * @todo make better placeholders for content in the pages
  * @todo allow settings constant to change default page controller in Application class
+ * @todo deal with views subfolders, which are wonky
+ * @todo flip fine print and menu in footer
+ * @todo www and query string do not redirect properly in .htaccess
  */
 
 // Define the full absolute directory file path

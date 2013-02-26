@@ -16,9 +16,9 @@
  * @subpackage controllers
  * @author Gabriel Liwerant
  * 
- * @uses Controller
+ * @uses Template
  */
-class Contact extends Controller
+class Contact extends Template implements PageControllerInterface
 {
 	/**
 	 * Construct the parent class.
@@ -42,15 +42,10 @@ class Contact extends Controller
 	 */
 	protected function _pageBuilder($data, $cache_buster = null)
 	{
-		$this->_setHeadTitlePage($data['template']['head']['title_page'], strtolower(__CLASS__))
-			->_setNav('header_nav', $data['header']['header']['header_nav'], $data['header']['header']['separator'])
-			->_setLogo('header_logo', $data['header']['header']['branding']['logo'])
-			->_setViewProperty('site_name', $data['header']['header']['branding']['logo']['text'])
-			->_setViewProperty('tagline', $data['header']['header']['branding']['tagline'])
-			->_setFinePrint($data['template']['footer']['fine_print'], $data['template']['footer']['separator'])
-			->_setNav('footer_nav', $data['template']['footer']['footer_nav'], $data['template']['footer']['separator']);
+		$this
+			->_setHeadTitlePage($data['template']['head']['title_page'], strtolower(__CLASS__));
 		
-		return parent::_pageBuilder($data['template'], $cache_buster);
+		return parent::_pageBuilder($data, $cache_buster);
 	}
 	
 	/**

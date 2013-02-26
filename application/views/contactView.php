@@ -16,9 +16,9 @@
  * @subpackage views
  * @author Gabriel Liwerant
  * 
- * @uses View
+ * @uses TemplateView
  */
-class ContactView extends View
+class ContactView extends TemplateView
 {
 	/**
 	 * Construct the parent class.

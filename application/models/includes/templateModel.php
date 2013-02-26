@@ -11,14 +11,16 @@
  */
 
 /**
- * AboutModel Class
+ * TemplateModel Class
  * 
- * @subpackage models
+ * Use this to provide child classes with shared page model methods.
+ * 
+ * @subpackage models/includes
  * @author Gabriel Liwerant
  * 
- * @uses TemplateModel
+ * @uses Model
  */
-class AboutModel extends TemplateModel
+class TemplateModel extends Model
 {
 	/**
 	 * Call the parent constructor and pass it objects.
@@ -33,6 +35,6 @@ class AboutModel extends TemplateModel
 		parent::__construct($storage_obj, $storage_type, $log, $db);
 	}
 }
-// End of AboutModel Class
+// End of TemplateModel Class
 
-/* EOF application/models/aboutModel.php */
+/* EOF application/models/includes/templateModel.php */

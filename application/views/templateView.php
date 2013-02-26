@@ -11,14 +11,16 @@
  */
 
 /**
- * AppView Class
+ * TemplateView Class
  * 
- * @subpackage views
+ * Use this to provide child classes with shared page view methods.
+ * 
+ * @subpackage views/includes
  * @author Gabriel Liwerant
  * 
- * @uses TemplateView
+ * @uses View
  */
-class AppView extends TemplateView
+class TemplateView extends View
 {
 	/**
 	 * Construct the parent class.
@@ -28,6 +30,6 @@ class AppView extends TemplateView
 		parent::__construct();
 	}
 }
-// End of AppView Class
+// End of TemplateView Class
 
-/* EOF application/views/appView.php */
+/* EOF application/views/includes/templateView.php */

@@ -16,9 +16,9 @@
  * @subpackage models
  * @author Gabriel Liwerant
  * 
- * @uses Model
+ * @uses TemplateModel
  */
-class ErrorModel extends Model
+class ErrorModel extends TemplateModel
 {
 	/**
 	 * Call the parent constructor and pass it objects.

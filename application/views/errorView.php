@@ -16,9 +16,9 @@
  * @subpackage views
  * @author Gabriel Liwerant
  * 
- * @uses View
+ * @uses TemplateView
  */
-class ErrorView extends View
+class ErrorView extends TemplateView
 {
 	/**
 	 * Construct the parent class.
