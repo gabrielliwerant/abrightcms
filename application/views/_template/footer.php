@@ -3,17 +3,17 @@
 </div> <!-- End the inner wrapper to make footer 100% screen width -->
 
 <footer>
+	<nav>
+		<ul>
+			<?php echo $this->footer_nav; ?>
+		</ul>
+	</nav>	
+	
 	<div id="fine-print">
 		<ul>
 			<?php echo $this->fine_print; ?>
 		</ul>
 	</div>
-	
-	<nav>
-		<ul>
-			<?php echo $this->footer_nav; ?>
-		</ul>
-	</nav>
 </footer>
 
 </div> <!-- End outer wrapper here -->
