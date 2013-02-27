@@ -11,6 +11,8 @@ these files and custom methods which retrieve and display that data.
 
 * PHP 5 >= 5.2, Tested up to 5.4.3.
 * Apache 2 >= 2.2, Tested up to 2.2.22.
+* Project contains a dependent submodule: abrightcms_core. Use the --recursive
+function when you clone to make sure you get it. You may yell at me for this.
 
 ## Contact
 
