@@ -16,9 +16,9 @@
  * @subpackage views
  * @author Gabriel Liwerant
  * 
- * @uses TemplateView
+ * @uses DefaultPageView
  */
-class AboutView extends TemplateView
+class AboutView extends DefaultPageView implements PageViewInterface
 {
 	/**
 	 * Construct the parent class.

@@ -16,9 +16,9 @@
  * @subpackage views
  * @author Gabriel Liwerant
  * 
- * @uses TemplateView
+ * @uses DefaultPageView
  */
-class ContactView extends TemplateView
+class ContactView extends DefaultPageView implements PageViewInterface
 {
 	/**
 	 * Construct the parent class.

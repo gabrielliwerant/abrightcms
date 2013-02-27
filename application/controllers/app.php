@@ -16,9 +16,9 @@
  * @subpackage controllers
  * @author Gabriel Liwerant
  * 
- * @uses Template
+ * @uses DefaultPage
  */
-class App extends Template implements PageControllerInterface
+class App extends DefaultPage implements PageControllerInterface
 {
 	/**
 	 * Construct the parent class.

@@ -11,14 +11,16 @@
  */
 
 /**
- * AppView Class
+ * DefaultPageView Class
  * 
- * @subpackage views
+ * Use this to provide child classes with shared page view methods.
+ * 
+ * @subpackage views/includes
  * @author Gabriel Liwerant
  * 
- * @uses DefaultPageView
+ * @uses View
  */
-class AppView extends DefaultPageView implements PageViewInterface
+class DefaultPageView extends View
 {
 	/**
 	 * Construct the parent class.
@@ -28,6 +30,6 @@ class AppView extends DefaultPageView implements PageViewInterface
 		parent::__construct();
 	}
 }
-// End of AppView Class
+// End of DefaultPageView Class
 
-/* EOF application/views/appView.php */
+/* EOF application/views/includes/defaultPageView.php */

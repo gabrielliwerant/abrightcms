@@ -16,9 +16,9 @@
  * @subpackage models
  * @author Gabriel Liwerant
  * 
- * @uses TemplateModel
+ * @uses DefaultPageModel
  */
-class ContactModel extends TemplateModel
+class ContactModel extends DefaultPageModel implements PageModelInterface
 {
 	/**
 	 * Call the parent constructor and pass it objects.

@@ -11,7 +11,7 @@
  */
 
 /**
- * Template Class
+ * DefaultPage Class
  * 
  * Creates default page so that child classes do not need to duplicate code.
  * Contains no index method because we are not meant to call this class directly.
@@ -21,7 +21,7 @@
  * 
  * @uses Controller
  */
-class Template extends Controller
+class DefaultPage extends Controller
 {
 	/**
 	 * Construct the parent class.
@@ -56,6 +56,6 @@ class Template extends Controller
 		return parent::_pageBuilder($data['template'], $cache_buster);
 	}
 }
-// End of Template Class
+// End of DefaultPage Class
 
-/* EOF application/controllers/includes/template.php */
+/* EOF application/controllers/includes/defaultPage.php */

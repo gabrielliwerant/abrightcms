@@ -31,6 +31,7 @@ $loader = new Loader(array(
 	'utils'			=> array('path'	=> UTILS_PATH, 'search_sub_dir' => false),
 	'models'		=> array('path'	=> MODEL_PATH, 'search_sub_dir' => true),
 	'views'			=> array('path'	=> VIEW_PATH, 'search_sub_dir' => false),
+	'view_includes'	=> array('path'	=> VIEW_INCLUDES_PATH, 'search_sub_dir' => true),
 	'controllers'	=> array('path'	=> CONTROLLER_PATH, 'search_sub_dir' => true)
 ));
 spl_autoload_register(array($loader, 'autoload'));

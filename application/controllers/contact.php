@@ -16,9 +16,9 @@
  * @subpackage controllers
  * @author Gabriel Liwerant
  * 
- * @uses Template
+ * @uses DefaultPage
  */
-class Contact extends Template implements PageControllerInterface
+class Contact extends DefaultPage implements PageControllerInterface
 {
 	/**
 	 * Construct the parent class.

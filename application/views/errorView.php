@@ -16,9 +16,9 @@
  * @subpackage views
  * @author Gabriel Liwerant
  * 
- * @uses TemplateView
+ * @uses DefaultPageView
  */
-class ErrorView extends TemplateView
+class ErrorView extends DefaultPageView implements PageViewInterface
 {
 	/**
 	 * Construct the parent class.

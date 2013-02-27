@@ -19,9 +19,9 @@
  * @subpackage application/controllers
  * @author Gabriel Liwerant
  * 
- * @uses Template
+ * @uses DefaultPage
  */
-class Index extends Template implements PageControllerInterface
+class Index extends DefaultPage implements PageControllerInterface
 {
 	/**
 	 * Construct the parent class.

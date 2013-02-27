@@ -11,7 +11,7 @@
  */
 
 /**
- * TemplateModel Class
+ * DefaultPageModel Class
  * 
  * Use this to provide child classes with shared page model methods.
  * 
@@ -20,7 +20,7 @@
  * 
  * @uses Model
  */
-class TemplateModel extends Model
+class DefaultPageModel extends Model
 {
 	/**
 	 * Call the parent constructor and pass it objects.
@@ -35,6 +35,6 @@ class TemplateModel extends Model
 		parent::__construct($storage_obj, $storage_type, $log, $db);
 	}
 }
-// End of TemplateModel Class
+// End of DefaultPageModel Class
 
-/* EOF application/models/includes/templateModel.php */
+/* EOF application/models/includes/defaultPageModel.php */

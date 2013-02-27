@@ -32,6 +32,7 @@ define('APPLICATION_PATH', FILE_ROOT_PATH . '/application');
 define('SYSTEM_PATH', FILE_ROOT_PATH . '/system');
 define('MODEL_PATH', APPLICATION_PATH . '/models');
 define('VIEW_PATH', APPLICATION_PATH . '/views');
+define('VIEW_INCLUDES_PATH', VIEW_PATH . '/_includes');
 define('CONTROLLER_PATH', APPLICATION_PATH . '/controllers');
 define('CORE_PATH', SYSTEM_PATH . '/core');
 define('UTILS_PATH', SYSTEM_PATH . '/utils');

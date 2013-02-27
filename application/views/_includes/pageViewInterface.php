@@ -11,25 +11,20 @@
  */
 
 /**
- * TemplateView Class
+ * PageViewInterface Interface
  * 
- * Use this to provide child classes with shared page view methods.
+ * Forces essential methods onto page views.
  * 
  * @subpackage views/includes
  * @author Gabriel Liwerant
- * 
- * @uses View
  */
-class TemplateView extends View
+interface PageViewInterface
 {
 	/**
-	 * Construct the parent class.
+	 * Page views must construct parent view.
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+	public function __construct();
 }
-// End of TemplateView Class
+// End of PageViewInterface Interface
 
-/* EOF application/views/includes/templateView.php */
+/* EOF application/views/_includes/pageViewInterface.php */
