@@ -24,10 +24,10 @@
  * @todo determine what to put for @package docblock comments and how to change
  *		it everywhere with regex.
  * 
+ * @todo consider removing page builder implementation details from parent Controller
  * @todo make re-usable form/contact controller
  * @todo make a way for us to build an anchor out of copyright holder automatically
  * @todo make better placeholders for content in the pages and make example pages like example1
- * @todo allow settings constant to change default page controller in Application class
  * @todo www and query string do not redirect properly in .htaccess
  */
 
@@ -50,14 +50,13 @@ try
 }
 catch (MyException $e)
 {
-	if (IS_MODE_PRODUCTION)
-	{
-		exit($e->caughtException());
-	}
-	else
-	{
-		$e->caughtException();
-	}
+	IS_MODE_PRODUCTION ? exit($e->caughtException()) : $e->caughtException();
+}
+catch (Exception $e)
+{
+	$msg = $e->getMessage() . '. Exception code: #' . $e->getCode();
+	
+	IS_MODE_PRODUCTION ? exit($msg) : print($msg);
 }
 
 /* EOF index.php */

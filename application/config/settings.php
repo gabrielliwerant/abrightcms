@@ -8,6 +8,7 @@
  * 
  * @package A Bright CMS
  * @author Gabriel Liwerant
+ * @link http://abrightcms.com
  */
 
 /**
@@ -25,6 +26,11 @@ define('DENY_ACCESS', true);
 
 // Domain name defined here, used for pathing
 define('DOMAIN_NAME', 'abrightcms');
+
+// Allows us to change the controller that will be loaded by default when no
+// page is specified in the URL. This is useful for avoiding problems with 
+// GoDaddy, because they reserve certain words from incomming GET requests.
+define('DEFAULT_PAGE_CONTROLLER', 'index');
 
 // Sets the program environment, false is for development.
 define('IS_MODE_PRODUCTION', false);
@@ -46,7 +52,7 @@ define('IS_MODE_LOGGING', true);
 // The name set here must also be the name of our storage class.
 define('STORAGE_TYPE', 'json');			// json | xml
 
-// Will determine whether we load a database object into our model or null.
+// Will determine whether we load a database object or void into our model.
 define('HAS_DATABASE', false);
 
 // We will skip this directory when looking for page contollers to load, forcing
@@ -64,7 +70,7 @@ $headers	= "MIME-Version: 1.0\r\n"
 			. "charset=iso-8859-1\r\n";
 define("EMAIL_HEADERS", $headers);
 
-// Set the default time zone for PHP date functions
+// Set the default time zone for date functions (PHP will complain if not set).
 define('DEFAULT_TIME_ZONE', 'America/New_York');
 
 /* EOF application/config/settings.php */
