@@ -13,8 +13,7 @@
 /**
  * Error Class
  * 
- * The error controller allows us to inherit from the template, override 
- * methods, and set customer values for properties as desired.
+ * Routing errors use this page controller.
  *
  * @subpackage controllers 
  * @author Gabriel Liwerant
@@ -72,7 +71,7 @@ class Error extends DefaultPage implements PageControllerInterface
 	protected function _pageBuilder($data, $cache_buster = null)
 	{
 		$this
-			->_setHeadTitlePage($data['template']['head']['title_page'], strtolower(__CLASS__))
+			->_setViewProperty('title_page', $data['template']['head']['title_page'][strtolower(__CLASS__)]['text'])
 			->_setErrorType($data['error_header'])
 			->_setErrorMsg();
 		

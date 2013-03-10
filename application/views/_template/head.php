@@ -6,7 +6,7 @@
 
 <head>
 
-    <title><?php echo $this->title; ?> | <?php echo $this->title_page; ?></title>
+    <title><?php echo $this->title; ?> | <?php echo $this->title_page; ?><?php if (isset($this->title_subpage)): echo $this->title_subpage; endif;?></title>
 
 	<?php echo $this->meta; ?>
 

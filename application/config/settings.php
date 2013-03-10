@@ -30,7 +30,7 @@ define('DOMAIN_NAME', 'abrightcms');
 // Allows us to change the controller that will be loaded by default when no
 // page is specified in the URL. This is useful for avoiding problems with 
 // GoDaddy, because they reserve certain words from incomming GET requests.
-define('DEFAULT_PAGE_CONTROLLER', 'index');
+define('DEFAULT_PAGE_CONTROLLER', 'welcome');
 
 // Sets the program environment, false is for development.
 define('IS_MODE_PRODUCTION', false);

@@ -24,11 +24,10 @@
  * @todo determine what to put for @package docblock comments and how to change
  *		it everywhere with regex.
  * 
- * @todo consider removing page builder implementation details from parent Controller
  * @todo make re-usable form/contact controller
  * @todo make a way for us to build an anchor out of copyright holder automatically
- * @todo make better placeholders for content in the pages and make example pages like example1
  * @todo www and query string do not redirect properly in .htaccess
+ * @todo make RESTful by using request method to predict API (index in the case of GET)
  */
 
 // Define the full absolute directory file path
@@ -45,6 +44,8 @@ require_once CONFIG_PATH . '/config.php';
 // try/catch block to hide system exceptions in a production environment.
 try
 {
+	//Debug::printArray($_SERVER['REQUEST_URI']);
+	//Debug::printArray($_GET);
 	$app_factory	= new ApplicationFactory(STORAGE_TYPE, HAS_DATABASE);
 	$app			= new Application($app_factory, $_GET);
 }

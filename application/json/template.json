@@ -9,11 +9,18 @@
 			"title"		: "A Bright CMS"
 		},
 		"title_page": {
-			"index"		: "Home",
-			"app"		: "App",
-			"about"		: "About",
-			"contact"	: "Contact",
-			"error"		: "Error"
+			"welcome"		: {
+				"text"		: "Welcome",
+				"submenu"	: ""
+			},
+			"example"		: {
+				"text"		: "Example",
+				"submenu"	: ""
+			},
+			"error"		: {
+				"text"		: "Error",
+				"submenu"	: ""
+			}
 		},
 		"head_meta"	: {
 			"name"	: {
@@ -65,18 +72,37 @@
 		}
 	},
 	"footer"	: {
-		"footer_nav"	: {
+		"fine_print"	: {
 			"copyright" : {
-				"is_anchor"		: "0",
-				"symbol"		: "Copyright &copy;",
-				"holder"		: "<a href=http://abrightcms.com target=_self>abrightcms.com</a>",
-				"start_date"	: "2013"
+				"is_anchor"			: "0",
+				"symbol"			: "Copyright &#169;",
+				"holder"			: "yourcompany.com",
+				"start_date"		: "2013",
+				"show_current_date"	: "1"
 			},
-			"Gabriel Liwerant"	: {
-				"is_anchor"		: "0"
+			"name"		: "Your Name",
+			"rights"	: "All Rights Reserved"
+		},
+		"footer_nav"	: {
+			"welcome"	: {
+				"text"			: "Welcome",
+				"is_anchor"		: "1",
+				"is_internal"	: "1",
+				"path"			: "",
+				"target"		: "_self",
+				"title"			: "",
+				"id"			: "",
+				"class"			: ""
 			},
-			"All Rights Reserved"	: {
-				"is_anchor"		: "0"
+			"example"	: {
+				"text"			: "Example",
+				"is_anchor"		: "1",
+				"is_internal"	: "1",
+				"path"			: "app",
+				"target"		: "_self",
+				"title"			: "",
+				"id"			: "",
+				"class"			: ""
 			}
 		},
 		"separator" : "&bull;",

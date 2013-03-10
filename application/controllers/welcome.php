@@ -11,14 +11,18 @@
  */
 
 /**
- * About Class
+ * Welcome Class
+ * 
+ * Sample home page controller. Can change the name to home or index and all the
+ * corresponding views and models, and set the default controller name in 
+ * settings.php.
  * 
  * @subpackage controllers
  * @author Gabriel Liwerant
  * 
  * @uses DefaultPage
  */
-class About extends DefaultPage implements PageControllerInterface
+class Welcome extends DefaultPage implements PageControllerInterface
 {
 	/**
 	 * Construct the parent class.
@@ -38,12 +42,13 @@ class About extends DefaultPage implements PageControllerInterface
 	 * @param array $data From storage to build out page views
 	 * @param string|void $cache_buster Allows us to force re-caching
 	 * 
-	 * @return object About Returned from parent method
+	 * @return object Index Returned from parent method
 	 */
 	protected function _pageBuilder($data, $cache_buster = null)
 	{
 		$this
-			->_setHeadTitlePage($data['template']['head']['title_page'], strtolower(__CLASS__));
+			->_setViewProperty('title_page', $data['template']['head']['title_page'][strtolower(__CLASS__)]['text'])
+			->_setViewProperty('welcome_content', $data['welcome']['content']);
 		
 		return parent::_pageBuilder($data, $cache_buster);
 	}
@@ -64,6 +69,6 @@ class About extends DefaultPage implements PageControllerInterface
 		$this->_pageBuilder($data, $cache_buster)->render(strtolower(__CLASS__));
 	}
 }
-// End of About Class
+// End of Welcome Class
 
-/* EOF application/controllers/about.php */
+/* EOF application/controllers/welcome.php */

@@ -14,11 +14,18 @@
 		</head_doc>
 		
 		<title_page>
-			<index></index>
-			<app></app>
-			<about></about>
-			<contact></contact>
-			<error></error>
+			<welcome>
+				<text>Welcome</text>
+				<submenu></submenu>
+			</welcome>
+			<example>
+				<text>Example</text>
+				<submenu></submenu>
+			</example>
+			<error>
+				<text>Error</text>
+				<submenu></submenu>
+			</error>
 		</title_page>
 		
 		<head_meta>
@@ -100,8 +107,8 @@
 		</fine_print>
 		
 		<footer_nav>
-			<home>
-				<text>Home</text>
+			<welcome>
+				<text>Welcome</text>
 				<is_anchor>1</is_anchor>
 				<is_internal>1</is_internal>
 				<path></path>
@@ -109,43 +116,21 @@
 				<title></title>
 				<id></id>
 				<class></class>				
-			</home>
+			</welcome>
 			
-			<about>
-				<text>About</text>
+			<example>
+				<text>Example</text>
 				<is_anchor>1</is_anchor>
 				<is_internal>1</is_internal>
-				<path>about</path>
+				<path>example</path>
 				<target>_self</target>
 				<title></title>
 				<id></id>
 				<class></class>				
-			</about>
-			
-			<contact>
-				<text>Contact</text>
-				<is_anchor>1</is_anchor>
-				<is_internal>1</is_internal>
-				<path>contact</path>
-				<target>_self</target>
-				<title></title>
-				<id></id>
-				<class></class>				
-			</contact>
-			
-			<app>
-				<text>App</text>
-				<is_anchor>1</is_anchor>
-				<is_internal>1</is_internal>
-				<path>app</path>
-				<target>_self</target>
-				<title></title>
-				<id></id>
-				<class></class>				
-			</app>
+			</example>
 		</footer_nav>
 		
-		<separator>&#x2022;</separator>
+		<separator>|</separator>
 		
 		<branding>
 			<logo>

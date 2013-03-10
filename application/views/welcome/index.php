@@ -2,6 +2,6 @@
 
 <div id="container">
 
-	<h1>We are in About.</h1>
+	<h1><?php echo $this->welcome_content; ?></h1>
 
 </div>

@@ -3,8 +3,8 @@
 	"description"	: "Stores header content and metadata for our html document",
 	"header" : {
 		"header_nav" : {
-			"home"	: {
-				"text"			: "Home",
+			"welcome"	: {
+				"text"			: "Welcome",
 				"is_anchor"		: "1",
 				"is_internal"	: "1",
 				"path"			: "",
@@ -13,31 +13,11 @@
 				"id"			: "",
 				"class"			: ""
 			},
-			"about"	: {
-				"text"			: "About",
+			"example"	: {
+				"text"			: "Example",
 				"is_anchor"		: "1",
 				"is_internal"	: "1",
-				"path"			: "about",
-				"target"		: "_self",
-				"title"			: "",
-				"id"			: "",
-				"class"			: ""
-			},
-			"contact"	: {
-				"text"			: "Contact",
-				"is_anchor"		: "1",
-				"is_internal"	: "1",
-				"path"			: "contact",
-				"target"		: "_self",
-				"title"			: "",
-				"id"			: "",
-				"class"			: ""
-			},
-			"app"	: {
-				"text"			: "App",
-				"is_anchor"		: "1",
-				"is_internal"	: "1",
-				"path"			: "app",
+				"path"			: "example",
 				"target"		: "_self",
 				"title"			: "",
 				"id"			: "",

@@ -11,17 +11,16 @@
  */
 
 /**
- * Index Class
+ * Example Class
  * 
- * The index controller inherits from the template and can override methods and 
- * set customer values for properties as desired.
+ * An simple implementation of a typical page controller.
  * 
- * @subpackage application/controllers
+ * @subpackage controllers
  * @author Gabriel Liwerant
  * 
  * @uses DefaultPage
  */
-class Index extends DefaultPage implements PageControllerInterface
+class Example extends DefaultPage implements PageControllerInterface
 {
 	/**
 	 * Construct the parent class.
@@ -41,12 +40,13 @@ class Index extends DefaultPage implements PageControllerInterface
 	 * @param array $data From storage to build out page views
 	 * @param string|void $cache_buster Allows us to force re-caching
 	 * 
-	 * @return object Index Returned from parent method
+	 * @return object App Returned from parent method
 	 */
 	protected function _pageBuilder($data, $cache_buster = null)
 	{
 		$this
-			->_setHeadTitlePage($data['template']['head']['title_page'], strtolower(__CLASS__));
+			->_setViewProperty('title_page', $data['template']['head']['title_page'][strtolower(__CLASS__)]['text'])
+			->_setViewProperty('example_content', $data['example']['content']);
 		
 		return parent::_pageBuilder($data, $cache_buster);
 	}
@@ -67,6 +67,6 @@ class Index extends DefaultPage implements PageControllerInterface
 		$this->_pageBuilder($data, $cache_buster)->render(strtolower(__CLASS__));
 	}
 }
-// End of Index Class
+// End of Example Class
 
-/* EOF application/controllers/index.php */
+/* EOF application/controllers/example.php */

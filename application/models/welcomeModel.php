@@ -11,14 +11,14 @@
  */
 
 /**
- * ContactModel Class
+ * WelcomeModel Class
  * 
  * @subpackage models
  * @author Gabriel Liwerant
  * 
  * @uses DefaultPageModel
  */
-class ContactModel extends DefaultPageModel implements PageModelInterface
+class WelcomeModel extends DefaultPageModel implements PageModelInterface
 {
 	/**
 	 * Call the parent constructor and pass it objects.
@@ -33,6 +33,6 @@ class ContactModel extends DefaultPageModel implements PageModelInterface
 		parent::__construct($storage_obj, $storage_type, $log, $db);
 	}
 }
-// End of ContactModel Class
+// End of WelcomeModel Class
 
-/* EOF application/models/contactModel.php */
+/* EOF application/models/welcomeModel.php */

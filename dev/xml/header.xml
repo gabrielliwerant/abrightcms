@@ -7,8 +7,8 @@
 	
 	<header>
 		<header_nav>
-			<home>
-				<text>Home</text>
+			<welcome>
+				<text>Welcome</text>
 				<is_anchor>1</is_anchor>
 				<is_internal>1</is_internal>
 				<path></path>
@@ -16,40 +16,18 @@
 				<title></title>
 				<id></id>
 				<class></class>				
-			</home>
+			</welcome>
 			
-			<about>
-				<text>About</text>
+			<example>
+				<text>Example</text>
 				<is_anchor>1</is_anchor>
 				<is_internal>1</is_internal>
-				<path>about</path>
+				<path>example</path>
 				<target>_self</target>
 				<title></title>
 				<id></id>
 				<class></class>				
-			</about>
-			
-			<contact>
-				<text>Contact</text>
-				<is_anchor>1</is_anchor>
-				<is_internal>1</is_internal>
-				<path>contact</path>
-				<target>_self</target>
-				<title></title>
-				<id></id>
-				<class></class>				
-			</contact>
-			
-			<app>
-				<text>App</text>
-				<is_anchor>1</is_anchor>
-				<is_internal>1</is_internal>
-				<path>app</path>
-				<target>_self</target>
-				<title></title>
-				<id></id>
-				<class></class>				
-			</app>
+			</example>
 		</header_nav>
 		
 		<separator></separator>

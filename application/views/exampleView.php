@@ -11,14 +11,14 @@
  */
 
 /**
- * AppView Class
+ * ExampleView Class
  * 
  * @subpackage views
  * @author Gabriel Liwerant
  * 
  * @uses DefaultPageView
  */
-class AppView extends DefaultPageView implements PageViewInterface
+class ExampleView extends DefaultPageView implements PageViewInterface
 {
 	/**
 	 * Construct the parent class.
@@ -28,6 +28,6 @@ class AppView extends DefaultPageView implements PageViewInterface
 		parent::__construct();
 	}
 }
-// End of AppView Class
+// End of ExampleView Class
 
-/* EOF application/views/appView.php */
+/* EOF application/views/exampleView.php */

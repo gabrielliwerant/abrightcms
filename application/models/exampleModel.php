@@ -11,14 +11,14 @@
  */
 
 /**
- * AppModel Class
+ * ExampleModel Class
  * 
  * @subpackage models
  * @author Gabriel Liwerant
  * 
  * @uses DefaultPageModel
  */
-class AppModel extends DefaultPageModel implements PageModelInterface
+class ExampleModel extends DefaultPageModel implements PageModelInterface
 {
 	/**
 	 * Call the parent constructor and pass it objects.
@@ -33,6 +33,6 @@ class AppModel extends DefaultPageModel implements PageModelInterface
 		parent::__construct($storage_obj, $storage_type, $log, $db);
 	}
 }
-// End of appModel Class
+// End of ExampleModel Class
 
-/* EOF application/models/appModel.php */
+/* EOF application/models/exampleModel.php */

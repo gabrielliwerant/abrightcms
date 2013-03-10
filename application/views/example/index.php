@@ -2,6 +2,6 @@
 
 <div id="container">
 
-	<h1>We are in App.</h1>
+	<h1><?php echo $this->example_content; ?></h1>
 	
 </div>

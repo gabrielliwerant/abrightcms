@@ -11,14 +11,14 @@
  */
 
 /**
- * IndexView Class
+ * WelcomeView Class
  * 
  * @subpackage views
  * @author Gabriel Liwerant
  * 
  * @uses DefaultPageView
  */
-class IndexView extends DefaultPageView implements PageViewInterface
+class WelcomeView extends DefaultPageView implements PageViewInterface
 {
 	/**
 	 * Construct the parent class.
@@ -28,6 +28,6 @@ class IndexView extends DefaultPageView implements PageViewInterface
 		parent::__construct();
 	}
 }
-// End of IndexView Class
+// End of WelcomeView Class
 
-/* EOF application/views/indexView.php */
+/* EOF application/views/welcomeView.php */

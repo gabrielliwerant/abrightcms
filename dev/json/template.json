@@ -9,11 +9,18 @@
 			"title"		: "A Bright CMS"
 		},
 		"title_page": {
-			"index"		: "Home",
-			"app"		: "App",
-			"about"		: "About",
-			"contact"	: "Contact",
-			"error"		: "Error"
+			"welcome"		: {
+				"text"		: "Welcome",
+				"submenu"	: ""
+			},
+			"example"		: {
+				"text"		: "Example",
+				"submenu"	: ""
+			},
+			"error"		: {
+				"text"		: "Error",
+				"submenu"	: ""
+			}
 		},
 		"head_meta"	: {
 			"name"	: {
@@ -88,8 +95,8 @@
 			"rights"	: "All Rights Reserved"
 		},
 		"footer_nav"	: {
-			"home"	: {
-				"text"			: "Home",
+			"welcome"	: {
+				"text"			: "Welcome",
 				"is_anchor"		: "1",
 				"is_internal"	: "1",
 				"path"			: "",
@@ -98,28 +105,8 @@
 				"id"			: "",
 				"class"			: ""
 			},
-			"about"	: {
-				"text"			: "About",
-				"is_anchor"		: "1",
-				"is_internal"	: "1",
-				"path"			: "about",
-				"target"		: "_self",
-				"title"			: "",
-				"id"			: "",
-				"class"			: ""
-			},
-			"contact"	: {
-				"text"			: "Contact",
-				"is_anchor"		: "1",
-				"is_internal"	: "1",
-				"path"			: "contact",
-				"target"		: "_self",
-				"title"			: "",
-				"id"			: "",
-				"class"			: ""
-			},
-			"app"	: {
-				"text"			: "App",
+			"example"	: {
+				"text"			: "Example",
 				"is_anchor"		: "1",
 				"is_internal"	: "1",
 				"path"			: "app",
