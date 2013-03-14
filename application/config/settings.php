@@ -64,7 +64,7 @@ define('DOES_CONCATENATE', false);
 define('CONCATENATE_TYPE', 'js');		// css | js
 
 // Set values for inbound emails sent from the server.
-define('EMAIL_ADDRESS', 'gabriel@abrightconcept.com');
+define('EMAIL_ADDRESS', 'contact@abrightcms.com');
 $headers	= "MIME-Version: 1.0\r\n"
 			. "Content-type: text/html;"
 			. "charset=iso-8859-1\r\n";

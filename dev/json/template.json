@@ -61,10 +61,41 @@
 					"ie_conditional": "lte IE 7"
 				}
 			},
-			"favicon"	: {
-				"href"			: "",
-				"is_internal"	: "1",
-				"ie_conditional": ""
+			"links"		: {
+				"favicon"	: {
+					"rel"			: "shortcut icon",
+					"href"			: "favicon.ico",
+					"is_image"		: "1"
+				},
+				"iphone"	: {
+					"rel"			: "apple-touch-icon-precomposed",
+					"href"			: "apple-touch-iphone.png",
+					"is_image"		: "1"
+				},
+				"ipad"	: {
+					"rel"			: "apple-touch-icon-precomposed",
+					"href"			: "apple-touch-ipad.png",
+					"is_image"		: "1",
+					"attributes"	: {
+						"sizes"	: "72x72"
+					}
+				},
+				"iphoneretina"	: {
+					"rel"			: "apple-touch-icon-precomposed",
+					"href"			: "apple-touch-iphone-retina.png",
+					"is_image"		: "1",
+					"attributes"	: {
+						"sizes"	: "114x114"
+					}
+				},
+				"ipadretina"	: {
+					"rel"			: "apple-touch-icon-precomposed",
+					"href"			: "apple-touch-ipad-retina.png",
+					"is_image"		: "1",
+					"attributes"	: {
+						"sizes"	: "144x144"
+					}
+				}
 			},
 			"head_js"	: {
 				"paths_development"	: {

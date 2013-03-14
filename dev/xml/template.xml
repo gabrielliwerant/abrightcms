@@ -70,11 +70,42 @@
 				</ie7>
 			</head_css>
 			
-			<favicon>
-				<href></href>
-				<is_internal>1</is_internal>
-				<ie_conditional></ie_conditional>
-			</favicon>
+			<links>
+				<favicon>
+					<rel>shortcut icon</rel>
+					<href>favicon.ico</href>
+					<is_image>1</is_image>
+				</favicon>
+				<iphone>
+					<rel>apple-touch-icon-precomposed</rel>
+					<href>apple-touch-iphone.png</href>
+					<is_image>1</is_image>
+				</iphone>
+				<ipad>
+					<rel>apple-touch-icon-precomposed</rel>
+					<href>apple-touch-ipad.png</href>
+					<is_image>1</is_image>
+					<attributes>
+						<sizes>72x72</sizes>
+					</attributes>
+				</ipad>
+				<iphoneretina>
+					<rel>apple-touch-icon-precomposed</rel>
+					<href>apple-touch-iphone-retina.png</href>
+					<is_image>1</is_image>
+					<attributes>
+						<sizes>114x114</sizes>
+					</attributes>
+				</iphoneretina>
+				<ipadretina>
+					<rel>apple-touch-icon-precomposed</rel>
+					<href>apple-touch-ipad-retina.png</href>
+					<is_image>1</is_image>
+					<attributes>
+						<sizes>144x144</sizes>
+					</attributes>
+				</ipadretina>
+			</links>
 			
 			<head_js>
 				<paths_development>

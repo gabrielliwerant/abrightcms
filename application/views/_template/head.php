@@ -12,7 +12,7 @@
 
 	<?php echo $this->css; ?>
 	
-	<?php echo $this->favicon; ?>
+	<?php echo $this->head_links; ?>
 	
 	<?php echo $this->head_js; ?>
    

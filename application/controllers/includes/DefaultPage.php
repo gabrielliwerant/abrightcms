@@ -46,6 +46,7 @@ class DefaultPage extends Controller
 	protected function _pageBuilder($data, $cache_buster = null)
 	{
 		$this
+			->_setHeadIncludesLink($data['template']['head']['head_includes']['links'], $cache_buster)
 			->_setNav('header_nav', $data['header']['header']['header_nav'], $data['header']['header']['separator'])
 			->_setLogo('header_logo', $data['header']['header']['branding']['logo'])
 			->_setViewProperty('site_name', $data['header']['header']['branding']['logo']['text'])

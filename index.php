@@ -28,6 +28,7 @@
  * @todo make a way for us to build an anchor out of copyright holder automatically
  * @todo www and query string do not redirect properly in .htaccess
  * @todo make RESTful by using request method to predict API (index in the case of GET)
+ * @todo add code.less to LESS files and make all of them more modular
  */
 
 // Define the full absolute directory file path
