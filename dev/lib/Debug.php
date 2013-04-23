@@ -55,27 +55,23 @@ class Debug
 		
 			$is_exit ? exit : false;
 		}
-		else
-		{
-			echo 'Cannot view: Debug mode is off.';
-		}
 	}
 	
 	/**
 	 * Send arrays to display for debugging using print_r.
 	 * 
-	 * @param array $arr Array value to display
+	 * @param mixed $value Value to display
 	 * @param boolean $is_exit Determines whether or not we halt the program
 	 */
-	public static function printArray($arr, $is_exit = true)
+	public static function printArray($value, $is_exit = true)
 	{
-		self::_toDisplay($arr, true, $is_exit);
+		self::_toDisplay($value, true, $is_exit);
 	}
 	
 	/**
 	 * Send values to display for debugging using var_dump.
 	 * 
-	 * @param array $value Value to display
+	 * @param mixed $value Value to display
 	 * @param boolean $is_exit Determines whether or not we halt the program
 	 */
 	public static function varDump($value, $is_exit = true)

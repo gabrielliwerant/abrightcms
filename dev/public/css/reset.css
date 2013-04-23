@@ -124,7 +124,7 @@ select
 	font-size:inherit;
 	font-weight:inherit;
 	
-	-webkit-appearance:none; /* get rid of some safari nonesense on mobile */
+	-webkit-appearance:none; /* get rid of some safari nonsense on mobile */
 }
 
 /* to enable resizing for IE */

@@ -1,0 +1,32 @@
+{
+	"title"			: "Blog",
+	"description"	: "Stores content and metadata.",
+	"author"		: "",
+	"date"			: "",
+	"ordering"		: "1",
+	"nav"			: "Blog",
+	"content"		: {
+		"name-1"	: {
+			"title"		: "",
+			"content"	: {
+				"section-1"	: {
+					"type"		: "default",
+					"content"	: [
+						""
+					]
+				}
+			}
+		},
+		"name-2" : {
+			"title"		: "",
+			"content"	: {
+				"section-1"	: {
+					"type"		: "list-unordered",
+					"content"	: [
+						""
+					]
+				}
+			}
+		}
+	}
+}
