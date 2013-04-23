@@ -33,8 +33,9 @@
  * @todo make note in readme for images abotu apple touch stuff
  * @todo add @license MIT throughout
  * @todo deal with new git push in git 2.0
- * @todo consider router class that allows redirection from anywhere with header and exit, etc.
+ * @todo consider router class (or method?) that allows redirection from anywhere with header and exit, etc.
  * @todo change less compile function for forwards compatibility
+ * @todo add blog template json and view template examples
  */
 
 // Define the full absolute directory file path
