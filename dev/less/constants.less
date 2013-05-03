@@ -133,13 +133,23 @@
  * Transitions
  *************************************************************/
 
- @transition-time: 400ms;
+@transition-time: 400ms;
  
 .transition(@style, @time, @easing) {
 	transition:			@style @time @easing;
    -moz-transition:		@style @time @easing;
    -webkit-transition:	@style @time @easing;
    -o-transition:		@style @time @easing;
+}
+
+/**
+ * Opacity
+ *************************************************************/
+ 
+.transparency(@decimal, @percent) {
+	zoom: 1;
+	opacity: @decimal;
+	filter:alpha(opacity=@percent); /* For IE8 and earlier */
 }
 
 /**
