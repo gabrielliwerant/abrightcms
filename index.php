@@ -30,12 +30,14 @@
  * @todo make RESTful by using request method to predict API (index in the case of GET)
  * @todo add code.less to LESS files and make all of them more modular
  * @todo consider removing jquery files to allow for submodule creation instead
- * @todo make note in readme for images abotu apple touch stuff
+ * @todo make note in readme for images about apple touch stuff
  * @todo add @license MIT throughout
  * @todo deal with new git push in git 2.0
  * @todo consider router class (or method?) that allows redirection from anywhere with header and exit, etc.
  * @todo change less compile function for forwards compatibility
  * @todo add blog template json and view template examples
+ * 
+ * @todo refactor file structure using themes? to make it easier to update
  */
 
 // Define the full absolute directory file path

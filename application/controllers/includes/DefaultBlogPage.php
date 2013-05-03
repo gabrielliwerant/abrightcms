@@ -150,7 +150,7 @@ class DefaultBlogPage extends Controller
 	 */
 	protected function _pageBuilder($data, $cache_buster = null)
 	{
-		$this
+		$this 
 			->_setHeadIncludesLink($data['template']['head']['head_includes']['links'], $cache_buster)
 			->_setNav('header_nav', $data['header']['header']['header_nav'], $data['header']['header']['separator'])
 			->_setSubNav('/' . $data['page_name'], STORAGE_TYPE, $data['page_name'] . '/index/', $data['content_section']['nav'])
