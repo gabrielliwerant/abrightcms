@@ -18,10 +18,6 @@
 				<text>Welcome</text>
 				<submenu></submenu>
 			</welcome>
-			<example>
-				<text>Example</text>
-				<submenu></submenu>
-			</example>
 			<error>
 				<text>Error</text>
 				<submenu></submenu>
@@ -148,17 +144,6 @@
 				<id></id>
 				<class></class>				
 			</welcome>
-			
-			<example>
-				<text>Example</text>
-				<is_anchor>1</is_anchor>
-				<is_internal>1</is_internal>
-				<path>example</path>
-				<target>_self</target>
-				<title></title>
-				<id></id>
-				<class></class>				
-			</example>
 		</footer_nav>
 		
 		<separator>|</separator>

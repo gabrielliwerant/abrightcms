@@ -18,9 +18,9 @@
  * @subpackage controllers 
  * @author Gabriel Liwerant
  * 
- * @uses DefaultPage
+ * @uses DefaultErrorPage
  */
-class Error extends DefaultPage implements PageControllerInterface
+class Error extends DefaultErrorPage implements PageControllerInterface
 {
 	/**
 	 * Construct the parent class.
@@ -34,48 +34,21 @@ class Error extends DefaultPage implements PageControllerInterface
 	}
 	
 	/**
-	 * Set the view property for the error page type (header).
-	 *
-	 * @param string $error_header
-	 * 
-	 * @return object Error 
-	 */
-	private function _setErrorType($error_header)
-	{
-		$this->_view->error_type = $this->_view->buildErrorType($error_header);
-		
-		return $this;
-	}
-	
-	/**
-	 * Set the view property for the error page message.
-	 *
-	 * @return object Error 
-	 */
-	private function _setErrorMsg()
-	{
-		$this->_view->error_msg = $this->_view->buildErrorMsg();
-		
-		return $this;
-	}
-	
-	/**
 	 * Call any methods necessary to build out basic page elements and set them 
 	 * as view properties for viewing.
 	 * 
 	 * @param array $data From storage to build out view properties
+	 * @param string $this_class_name
 	 * @param string|void $cache_buster Allows us to force re-caching
 	 * 
 	 * @return object Error Returned from parent method 
 	 */
-	protected function _pageBuilder($data, $cache_buster = null)
+	protected function _pageBuilder($data, $this_class_name, $cache_buster = null)
 	{
 		$this
-			->_setViewProperty('title_page', $data['template']['head']['title_page'][strtolower(__CLASS__)]['text'])
-			->_setErrorType($data['error_header'])
-			->_setErrorMsg();
+			->_setViewProperty('title_page', $data['template']['head']['title_page'][$this_class_name]['text']);
 		
-		return parent::_pageBuilder($data, $cache_buster);
+		return parent::_pageBuilder($data, $this_class_name, $cache_buster);
 	}
 	
 	/**
@@ -88,11 +61,27 @@ class Error extends DefaultPage implements PageControllerInterface
 	 */
 	public function index($parameter_arr)
 	{
-		$data					= $this->_model->getAllDataFromStorage();
-		$data['error_header']	= $parameter_arr[0];
-		$cache_buster			= $this->_cacheBuster(IS_MODE_CACHE_BUSTING, CACHE_BUSTING_VALUE);
+		$data = $this->_model->getAllDataFromStorage();		
+		$this_class_name = strtolower(__CLASS__);
+		
+		switch (get_parent_class())
+		{
+			case 'DefaultPage':
+				break;
+			case 'DefaultBlogPage':
+				break;
+			case 'DefaultErrorPage':
+				$data['error_header'] = $parameter_arr[0];
+				break;
+			default:
+				break;
+		}
+		
+		$cache_buster = $this->_cacheBuster(IS_MODE_CACHE_BUSTING, CACHE_BUSTING_VALUE);
 
-		$this->_pageBuilder($data, $cache_buster)->render(strtolower(__CLASS__));
+		$this
+			->_pageBuilder($data, $this_class_name, $cache_buster)
+			->render($this_class_name);
 	}
 }
 // End of Error Class

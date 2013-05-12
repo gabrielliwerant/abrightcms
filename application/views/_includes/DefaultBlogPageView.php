@@ -98,7 +98,6 @@ class DefaultBlogPageView extends View
 		return $final_list;
 	}
 }
-
 // End of DefaultBlogPageView Class
 
 /* EOF application/views/_includes/DefaultBlogPageView.php */

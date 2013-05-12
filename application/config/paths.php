@@ -17,14 +17,19 @@
  * functions to help us determine those paths.
  */
 
+// If we have a sub domain, append a dot for pathing
+$sub_domain_path = SUB_DOMAIN_NAME !== '' ? SUB_DOMAIN_NAME . '.' : SUB_DOMAIN_NAME;
+
 // Set up the root path
 if (IS_MODE_PRODUCTION)
 {
-	define('FILE_ROOT_PATH', '../' . DOMAIN_NAME);
+	$name = SUB_DOMAIN_NAME !== '' ? DOMAIN_NAME : SUB_DOMAIN_NAME;
+	
+	define('FILE_ROOT_PATH', '../' . $name);
 }
 else
 {
-	define('FILE_ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . DOMAIN_NAME);
+	define('FILE_ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . $sub_domain_path . DOMAIN_NAME);
 }
 
 // Set up paths derived from the root
@@ -41,7 +46,7 @@ define('LOGS_PATH', APPLICATION_PATH . '/logs');
 // Set up paths that depend upon development environment mode
 if (IS_MODE_PRODUCTION)
 {
-	define('HTTP_ROOT_PATH', 'http://' . DOMAIN_NAME);
+	define('HTTP_ROOT_PATH', 'http://' . $sub_domain_path . DOMAIN_NAME);
 	define('HTTP_APPLICATION_PATH', HTTP_ROOT_PATH . '/application');
 	
 	define('PUBLIC_PATH', HTTP_APPLICATION_PATH . '/public');

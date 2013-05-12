@@ -3,21 +3,11 @@
 	"description"	: "Stores header content and metadata for our html document",
 	"header" : {
 		"header_nav" : {
-			"home"	: {
-				"text"			: "Home",
+			"welcome"	: {
+				"text"			: "Welcome",
 				"is_anchor"		: "1",
 				"is_internal"	: "1",
 				"path"			: "",
-				"target"		: "_self",
-				"title"			: "",
-				"id"			: "",
-				"class"			: ""
-			},
-			"example"	: {
-				"text"			: "Example",
-				"is_anchor"		: "1",
-				"is_internal"	: "1",
-				"path"			: "example",
 				"target"		: "_self",
 				"title"			: "",
 				"id"			: "",

@@ -17,17 +17,6 @@
 				<id></id>
 				<class></class>				
 			</welcome>
-			
-			<example>
-				<text>Example</text>
-				<is_anchor>1</is_anchor>
-				<is_internal>1</is_internal>
-				<path>example</path>
-				<target>_self</target>
-				<title></title>
-				<id></id>
-				<class></class>				
-			</example>
 		</header_nav>
 		
 		<separator></separator>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<root>
-	
-	<title>Example</title>
-	<description>Stores example page content and metadata for our html document</description>
-	<content>Hello World Example Page</content>
-	
-</root>

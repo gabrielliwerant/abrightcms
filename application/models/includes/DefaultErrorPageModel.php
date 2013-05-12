@@ -11,14 +11,16 @@
  */
 
 /**
- * ExampleModel Class
+ * DefaultErrorPageModel Class
  * 
- * @subpackage models
+ * Use this to provide child classes with shared page model methods.
+ * 
+ * @subpackage models/includes
  * @author Gabriel Liwerant
  * 
- * @uses DefaultPageModel
+ * @uses Model
  */
-class ExampleModel extends DefaultPageModel implements PageModelInterface
+class DefaultErrorPageModel extends Model
 {
 	/**
 	 * Call the parent constructor and pass it objects.
@@ -33,6 +35,6 @@ class ExampleModel extends DefaultPageModel implements PageModelInterface
 		parent::__construct($storage_obj, $storage_type, $log, $db);
 	}
 }
-// End of ExampleModel Class
+// End of DefaultErrorPageModel Class
 
-/* EOF application/models/exampleModel.php */
+/* EOF application/models/_includes/DefaultErrorPageModel.php */

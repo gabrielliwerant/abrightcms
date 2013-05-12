@@ -36,6 +36,28 @@ class DefaultBlogPageModel extends Model
 	}
 
 	/**
+	 * Get the full path we'll need to hunt for data.
+	 *
+	 * @param string $sub_menu
+	 * @param string $page_name
+	 * @param string $sub_directory
+	 * 
+	 * @return string 
+	 */
+	public function getFullSubMenuPathToStorageData($sub_menu, $page_name, $sub_directory)
+	{
+		$storage_path	= $this->getStorageTypePath(STORAGE_TYPE);
+		$full_path	= $storage_path . '/' . $page_name;
+		
+		if ($sub_menu !== $page_name)
+		{
+			$full_path .= '/' . $sub_directory;
+		}
+		
+		return $full_path . '.' . strtolower(STORAGE_TYPE);
+	}
+	
+	/**
 	 * Creates a subnav array for later building a subnav from an array of files
 	 *
 	 * @param array $file_arr
@@ -47,7 +69,7 @@ class DefaultBlogPageModel extends Model
 	{
 		foreach ($file_arr as $file_name => $file)
 		{
-			$partial_href	= $api_path . $file_name;
+			$partial_href = $api_path . $file_name;
 
 			// Use ordering provided for array keys so we can sort
 			$nav_arr_to_build[(int)$file['ordering']] = array(
@@ -59,6 +81,28 @@ class DefaultBlogPageModel extends Model
 		ksort($nav_arr_to_build);
 		
 		return $nav_arr_to_build;
+	}
+	
+	/**
+	 * Search through articles from storage and return the first according to
+	 * ordering.
+	 *
+	 * @param string $sub_directory
+	 * 
+	 * @return array Contained in array as key => value
+	 */
+	public function getFirstArticleFromStorage($sub_directory)
+	{
+		$storage_path	= $this->getStorageTypePath(STORAGE_TYPE);
+		$article_arr	= $this->getStorageFilesFromDirectory($storage_path . '/' . $sub_directory, STORAGE_TYPE);
+
+		foreach ($article_arr as $file_name => $article)
+		{
+			if ((int)$article['ordering'] === 1)
+			{
+				return array($file_name => $article);
+			}
+		}
 	}
 }
 // End of DefaultBlogPageModel Class

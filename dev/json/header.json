@@ -12,16 +12,6 @@
 				"title"			: "",
 				"id"			: "",
 				"class"			: ""
-			},
-			"example"	: {
-				"text"			: "Example",
-				"is_anchor"		: "1",
-				"is_internal"	: "1",
-				"path"			: "example",
-				"target"		: "_self",
-				"title"			: "",
-				"id"			: "",
-				"class"			: ""
 			}
 		},
 		"separator"	: "",

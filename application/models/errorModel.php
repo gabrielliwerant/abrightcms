@@ -16,9 +16,9 @@
  * @subpackage models
  * @author Gabriel Liwerant
  * 
- * @uses DefaultPageModel
+ * @uses DefaultErrorPageModel
  */
-class ErrorModel extends DefaultPageModel implements PageModelInterface
+class ErrorModel extends DefaultErrorPageModel implements PageModelInterface
 {
 	/**
 	 * Call the parent constructor and pass it objects.

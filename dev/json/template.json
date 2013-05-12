@@ -13,10 +13,6 @@
 				"text"		: "Welcome",
 				"submenu"	: ""
 			},
-			"example"		: {
-				"text"		: "Example",
-				"submenu"	: ""
-			},
 			"error"		: {
 				"text"		: "Error",
 				"submenu"	: ""
@@ -131,16 +127,6 @@
 				"is_anchor"		: "1",
 				"is_internal"	: "1",
 				"path"			: "",
-				"target"		: "_self",
-				"title"			: "",
-				"id"			: "",
-				"class"			: ""
-			},
-			"example"	: {
-				"text"			: "Example",
-				"is_anchor"		: "1",
-				"is_internal"	: "1",
-				"path"			: "app",
 				"target"		: "_self",
 				"title"			: "",
 				"id"			: "",

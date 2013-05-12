@@ -11,7 +11,7 @@
  */
 
 /**
- * DefaultPage Class
+ * DefaultErrorPage Class
  * 
  * Creates default page so that child classes do not need to duplicate code.
  * Contains no index method because we are not meant to call this class directly.
@@ -21,7 +21,7 @@
  * 
  * @uses Controller
  */
-class DefaultPage extends Controller
+class DefaultErrorPage extends Controller
 {
 	/**
 	 * Construct the parent class.
@@ -35,6 +35,32 @@ class DefaultPage extends Controller
 	}
 	
 	/**
+	 * Set the view property for the error page type (header).
+	 *
+	 * @param string $error_header
+	 * 
+	 * @return object Error 
+	 */
+	private function _setErrorType($error_header)
+	{
+		$this->_view->error_type = $this->_view->buildErrorType($error_header);
+		
+		return $this;
+	}
+	
+	/**
+	 * Set the view property for the error page message.
+	 *
+	 * @return object Error 
+	 */
+	private function _setErrorMsg()
+	{
+		$this->_view->error_msg = $this->_view->buildErrorMsg();
+		
+		return $this;
+	}
+	
+	/**
 	 * Call any methods necessary to build out page-specific elements and set
 	 * them as view properties for viewing.
 	 *
@@ -42,7 +68,7 @@ class DefaultPage extends Controller
 	 * @param string $child_class_name
 	 * @param string|void $cache_buster Allows us to force re-caching
 	 * 
-	 * @return object Controller Returned from parent method
+	 * @return object Index Returned from parent method
 	 */
 	protected function _pageBuilder($data, $child_class_name, $cache_buster = null)
 	{
@@ -53,11 +79,13 @@ class DefaultPage extends Controller
 			->_setViewProperty('site_name', $data['header']['header']['branding']['logo']['text'])
 			->_setViewProperty('tagline', $data['header']['header']['branding']['tagline'])
 			->_setFinePrint($data['template']['footer']['fine_print'], $data['template']['footer']['separator'])
-			->_setNav('footer_nav', $data['template']['footer']['footer_nav'], $data['template']['footer']['separator']);
+			->_setNav('footer_nav', $data['template']['footer']['footer_nav'], $data['template']['footer']['separator'])
+			->_setErrorType($data['error_header'])
+			->_setErrorMsg();;
 		
 		return parent::_pageBuilder($data['template'], $child_class_name, $cache_buster);
 	}
 }
-// End of DefaultPage Class
+// End of DefaultErrorPage Class
 
-/* EOF application/controllers/includes/DefaultPage.php */
+/* EOF application/controllers/includes/DefaultErrorPage.php */

@@ -97,76 +97,106 @@ class DefaultBlogPage extends Controller
 	}
 	
 	/**
-	 * @kludge needs refactoring, consider requiring index method for defaults 
-	 *		and some overwriting in child classes.
-	 *
-	 * @param type $data
-	 * @param type $class
-	 * @param type $parameter
-	 * @param type $storage_type
+	 * Get the sub menu title, which will depend upon the page we called.
 	 * 
-	 * @return DefaultBlogPage 
+	 * @todo consider placing in model.
+	 * @todo maybe we should find the first article name here instead of null
+	 *
+	 * @param string $sub_menu_page
+	 * @param string $child_class_name
+	 * 
+	 * @return string 
 	 */
-	protected function _setBlogPageData(&$data, $class, $parameter, $storage_type)
+	protected function _getSubMenuTitle($sub_menu_page, $child_class_name)
 	{
-		$data['page_name']		= $class;
-		$data['submenu_title']	= $parameter !== $data['page_name'] ? $parameter : null;
-
-		$storage_path	= $this->_model->getStorageTypePath($storage_type);		
-		$full_path		= $parameter !== $data['page_name'] ? $storage_path . '/' . $data['page_name'] . '/' . $data['submenu_title'] . '.json' : $storage_path . '/' . $data['page_name'] . '.json';
-		
-		$this->_model->setDataIntoStorage($full_path, $data['submenu_title']);
-		
-		if ($parameter !== $data['page_name'])
+		if ($sub_menu_page !== $child_class_name)
 		{
-			$data['content_section'] = $this->_model->getDataFromStorage($data['submenu_title']);
+			$sub_title = $sub_menu_page;
 		}
 		else
 		{
-			$this->_model->setFilesFromDirectoryIntoStorage($storage_path . '/' . $data['page_name'], $storage_type);
-			$dir_files_arr		= $this->_model->getStorageFilesFromDirectory($storage_path . '/' . $data['page_name'], $storage_type);
-			$nav_arr_to_build	= $this->_model->getSortedSubNavArray($dir_files_arr, $data['page_name'] . '/index/');
-			
-			foreach ($dir_files_arr as $arr)
-			{
-				if ((int)$arr['ordering'] === 1)
-				{
-					$data['content_section'] = $arr;
-				}
-			}
+			$sub_title = key($this->_model->getFirstArticleFromStorage($child_class_name));
 		}
-		
+
+		return $sub_title;
+	}
+	
+	/**
+	 * After setting blog page data, get the appropriate data as array depending
+	 * upon which page we called in the API.
+	 * 
+	 * @param string $sub_menu_name
+	 * @param string $child_class_name
+	 * 
+	 * @return array 
+	 */
+	protected function _getBlogContentSection($sub_menu_name, $child_class_name)
+	{
+		if ($sub_menu_name !== $child_class_name)
+		{
+			return $this->_model->getDataFromStorage($this->_getSubMenuTitle($sub_menu_name, $child_class_name));
+		}
+		else
+		{
+			$article_arr = $this->_model->getFirstArticleFromStorage($child_class_name);
+			
+			return reset($article_arr);
+		}
+	}
+	
+	/**
+	 * Set blog articles data into storage.
+	 * 
+	 * If we know the sub menu page, set only that data. If we don't, we must 
+	 * set it all so we can later choose the one we want.
+	 *
+	 * @param string $sub_menu_name
+	 * @param string $child_class_name
+	 * 
+	 * @return object DefaultBlogPage 
+	 */
+	protected function _setBlogPageData($sub_menu_name, $child_class_name)
+	{
+		if ($sub_menu_name !== $child_class_name)
+		{
+			$sub_title = $this->_getSubMenuTitle($sub_menu_name, $child_class_name);
+			$full_path = $this->_model->getFullSubMenuPathToStorageData($sub_menu_name, $child_class_name, $sub_title);
+			$this->_model->setDataIntoStorage($full_path, $sub_title);
+		}
+		else
+		{
+			$storage_path = $this->_model->getStorageTypePath(STORAGE_TYPE);
+			$this->_model->setFilesFromDirectoryIntoStorage($storage_path . '/' . $child_class_name, STORAGE_TYPE);
+		}
+
 		return $this;
 	}
 	
 	/**
 	 * Call any methods necessary to build out page-specific elements and set
 	 * them as view properties for viewing.
-	 *
+	 * 
 	 * @param array $data From storage to build out page views
+	 * @param string $child_class_name
 	 * @param string|void $cache_buster Allows us to force re-caching
 	 * 
-	 * @return object Returned from parent method
+	 * @return object Controller Returned from parent method
 	 */
-	protected function _pageBuilder($data, $cache_buster = null)
+	protected function _pageBuilder($data, $child_class_name, $cache_buster = null)
 	{
-		$this 
+		$this
 			->_setHeadIncludesLink($data['template']['head']['head_includes']['links'], $cache_buster)
 			->_setNav('header_nav', $data['header']['header']['header_nav'], $data['header']['header']['separator'])
-			->_setSubNav('/' . $data['page_name'], STORAGE_TYPE, $data['page_name'] . '/index/', $data['content_section']['nav'])
+			->_setSubNav('/' . $child_class_name, $child_class_name . '/index/', $data['content_section']['nav'])
 			->_setLogo('header_logo', $data['header']['header']['branding']['logo'])
 			->_setViewProperty('site_name', $data['header']['header']['branding']['logo']['text'])
 			->_setViewProperty('tagline', $data['header']['header']['branding']['tagline'])
 			->_setFinePrint($data['template']['footer']['fine_print'], $data['template']['footer']['separator'])
 			->_setLogo('footer_logo', $data['template']['footer']['branding']['logo'])
-			->_setNav('footer_nav', $data['template']['footer']['footer_nav'], $data['template']['footer']['separator']);
+			->_setNav('footer_nav', $data['template']['footer']['footer_nav'], $data['template']['footer']['separator'])
+			->_setTitleSubPage($data['template']['head']['title_page'][$child_class_name]['submenu'], $data['sub_menu_title'], '|');
 		
-		if ( ! empty($data['submenu_title']) AND isset($data['template']['head']['title_page'][$data['page_name']]['submenu'][$data['submenu_title']]) )
-		{
-			$this->_setTitleSubpage($data['template']['head']['title_page'][$data['page_name']]['submenu'][$data['submenu_title']], '|');
-		}
-		
-		return parent::_pageBuilder($data['template'], $cache_buster);
+		return parent::_pageBuilder($data['template'], $child_class_name, $cache_buster);
 	}
 }
 // End of DefaultBlogPage Class

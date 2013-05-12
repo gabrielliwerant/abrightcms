@@ -25,6 +25,7 @@
 define('DENY_ACCESS', true);
 
 // Domain name defined here, used for pathing
+define('SUB_DOMAIN_NAME', '');
 define('DOMAIN_NAME', 'abrightcms');
 
 // Allows us to change the controller that will be loaded by default when no
@@ -60,8 +61,16 @@ define('HAS_DATABASE', false);
 define('EXCLUDE_CONTROLLER_DIRECTORY', 'includes');
 
 // Sets whether or not we run concatenator for files we're combining in config.
-define('DOES_CONCATENATE', false);
+define('DOES_CONCATENATE', true);
 define('CONCATENATE_TYPE', 'js');		// css | js
+/* $js_files = array(
+			'paths_production.js',
+			'modernizr-custom.js'
+		);
+		$css_files = array(
+			'reset.css',
+			'style.css'
+		); */
 
 // Set values for inbound emails sent from the server.
 define('EMAIL_ADDRESS', 'contact@abrightcms.com');
