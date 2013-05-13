@@ -22,7 +22,7 @@
 			"name"	: {
 				"description"	: "",
 				"keywords"		: "",
-				"author"		: "Gabriel Liwerant",
+				"author"		: "",
 				"viewport"		: "width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0"
 			},
 			"http-equiv"	: {
@@ -31,11 +31,6 @@
 		},
 		"head_includes"	: {
 			"head_css"	: {
-				"reset" : {
-					"href"			: "",
-					"is_internal"	: "1",
-					"ie_conditional": ""
-				},
 				"style"	: {
 					"href"			: "",
 					"is_internal"	: "1",

@@ -1,86 +1,134 @@
-.no-text-shadow { text-shadow:none; }
+.no-text-shadow {
+  text-shadow: none;
+}
 .css_clear {
-  content:" ";
-  display:block;
-  height:0;
-  clear:both;
-  visibility:hidden;
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
 }
 .box_sizing {
-  box-sizing:border-box;
-  -moz-box-sizing:border-box;
-  -webkit-box-sizing:border-box;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
-.test { border:10px solid red; }
-body { font-size:100%; }
-a { text-decoration:underline; }
-a:hover, a.section-nav { text-decoration:none; }
-.clear { clear:both; }
-.no-css, .hide, noscript { display:none; }
-.show { display:block; }
-.left { float:left; }
-.right { float:right; }
+.test {
+  border: 10px solid red;
+}
+body {
+  font-size: 100%;
+}
+a {
+  text-decoration: underline;
+}
+a:hover,
+a.section-nav {
+  text-decoration: none;
+}
+.clear {
+  clear: both;
+}
+.no-css,
+.hide,
+noscript {
+  display: none;
+}
+.show {
+  display: block;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
 #wrapper-outer {
-  width:100%;
-  margin:auto;
+  width: 100%;
+  margin: auto;
 }
-#warning, #warning a { color:; }
+#warning,
+#warning a {
+  color: ;
+}
 #warning {
-  font-family:Helvetica, Arial, sans-serif;
-  font-size:1.25em;
-  line-height:1.25em;
-  padding:1.5em;
-  background:yellow;
-  top:0;
-  border-bottom:3px solid red;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.25em;
+  line-height: 1.25em;
+  padding: 1.5em;
+  background: yellow;
+  top: 0;
+  border-bottom: 3px solid red;
 }
-#warning i { display:none; }
+#warning i {
+  display: none;
+}
 .exception {
-  font-family:Helvetica, Arial, sans-serif;
-  font-size:1em;
-  padding:1em;
-  background:#ffffff;
-  border-top:2px solid red;
-  border-bottom:2px solid red;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  padding: 1em;
+  background: #ffffff;
+  border-top: 2px solid red;
+  border-bottom: 2px solid red;
 }
-header { margin-bottom:1em; }
-header #branding { padding:1em; }
+header {
+  margin-bottom: 1em;
+}
+header #branding {
+  padding: 1em;
+}
 header #branding h1 {
-  font-size:2em;
-  margin-bottom:0.5em;
+  font-size: 2em;
+  margin-bottom: 0.5em;
 }
 header #branding h2 {
-  font-size:1.75em;
-  margin-bottom:0.5em;
+  font-size: 1.75em;
+  margin-bottom: 0.5em;
 }
-header #branding h3 { font-size:1.5em; }
+header #branding h3 {
+  font-size: 1.5em;
+}
 header nav {
-  background-color:#dddddd;
-  padding:1em;
+  background-color: #dddddd;
+  padding: 1em;
 }
 header nav li {
-  display:inline-block;
-  margin-right:1em;
+  display: inline-block;
+  margin-right: 1em;
 }
-header nav ul li:last-child { margin-right:0; }
-#container { padding:1em; }
+header nav ul li:last-child {
+  margin-right: 0;
+}
+#container {
+  padding: 1em;
+}
 footer {
-  background-color:#dddddd;
-  padding:1em;
-  margin-top:1em;
+  background-color: #dddddd;
+  padding: 1em;
+  margin-top: 1em;
 }
-footer li .separator { display:none; }
+footer li .separator {
+  display: none;
+}
 @media only screen and (min-width: 650px) {
-  body { font-size:110%; }
-  footer li { display:inline-block; }
+  body {
+    font-size: 110%;
+  }
+  footer li {
+    display: inline-block;
+  }
   footer li .separator {
-    display:inline-block;
-    margin:0 0.5em;
+    display: inline-block;
+    margin: 0 0.5em;
   }
 }
 @media only screen and (min-width: 850px) {
-  body { font-size:120%; }
+  body {
+    font-size: 120%;
+  }
 }
 @media only screen and (min-width: 1100px) {
-  body { font-size:130%; }
+  body {
+    font-size: 130%;
+  }
 }

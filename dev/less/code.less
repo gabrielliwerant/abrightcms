@@ -1,0 +1,45 @@
+/**
+ * Code
+ * 
+ * Styles specific to displaying code.
+ *
+ * @package A Bright CMS
+ * @author Gabriel Liwerant
+ */
+ 
+pre {
+	width: 100%;
+	overflow: auto;
+	font-size: 1.25em;
+	background-color: @code-background;
+	@pre-padding: 0.75em;	
+	padding: @pre-padding;
+	.box_sizing;
+	margin-bottom: 1em;
+ 
+	ol {
+		li {
+			list-style: decimal !important;
+			color: @code-line-number;
+			font-weight: bold;
+		}
+	}
+	
+	code {
+		font-family: @code-font-list;
+		color: @code-font;
+		@indent: 3em;
+		font-weight: normal;
+		
+		span.indent-1 {
+			padding: 0 @pre-padding 0 @indent;
+		}
+		span.indent-2 {
+			padding: 0 @pre-padding 0 @indent * 2;
+		}
+	}
+ }
+ 
+ pre:last-child {
+	margin-bottom: 0;
+ }
