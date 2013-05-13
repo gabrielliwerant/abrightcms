@@ -23,6 +23,7 @@
  * @todo catch exceptions deeper in the code
  * @todo determine what to put for @package docblock comments and how to change
  *		it everywhere with regex.
+ * @todo add @license MIT throughout
  * 
  * @todo make re-usable form/contact controller
  * @todo make a way for us to build an anchor out of copyright holder automatically
@@ -31,10 +32,8 @@
  * @todo add code.less to LESS files and make all of them more modular
  * @todo consider removing jquery files to allow for submodule creation instead
  * @todo make note in readme for images about apple touch stuff
- * @todo add @license MIT throughout
  * @todo deal with new git push in git 2.0
  * @todo consider router class (or method?) that allows redirection from anywhere with header and exit, etc.
- * @todo change less compile function for forwards compatibility
  * @todo add blog template json and view template examples
  * 
  * @todo refactor file structure using themes? to make it easier to update
@@ -48,6 +47,7 @@ define('CONFIG_PATH', ABSOLUTE_ROOT_PATH . '/application/config');
 // Load the initial configuration files
 require_once CONFIG_PATH . '/settings.php';
 require_once CONFIG_PATH . '/paths.php';
+require_once CONFIG_PATH . '/init.php';
 require_once CONFIG_PATH . '/config.php';
 
 // Create the main application object with its dependencies. We wrap in a 
