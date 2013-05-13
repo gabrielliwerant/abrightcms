@@ -16,6 +16,6 @@ function when you clone to make sure you get it. You may yell at me for this.
 
 ## Contact
 
-* Email: gabriel@abrightconcept.com
+* Email: contact@abrightcms.com
 * Twitter: @gabrielliwerant
 * Website: http://abrightcms.com
