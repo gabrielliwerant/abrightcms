@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+
+	<title>Blog</title>
+	<description>Stores content and metadata.</description>
+	<author></author>
+	<date></date>
+	<ordering>1</ordering>
+	<nav>Blog</nav>
+	
+	<content>
+		<name-1>
+			<title></title>
+			<content>
+				<section-1>
+					<type>default</type>
+					<content></content>
+				</section-1>
+			</content>
+		</name-1>
+		<name-2>
+			<title></title>
+			<content>
+				<section-1>
+					<type>list-unordered</type>
+					<content></content>
+				</section-1>
+			</content>
+		</name-2>
+	</content>
+
+</root>

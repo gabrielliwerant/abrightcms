@@ -28,8 +28,8 @@
 			<name>
 				<description></description>
 				<keywords></keywords>
-				<author>Gabriel Liwerant</author>
-				<viewport>width=device-width; maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0</viewport>
+				<author></author>
+				<viewport>width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0</viewport>
 			</name>
 			
 			<http-equiv>
@@ -39,11 +39,11 @@
 		
 		<head_includes>
 			<head_css>
-				<style-min>
+				<style>
 					<href></href>
 					<is_internal>1</is_internal>
 					<ie_conditional></ie_conditional>
-				</style-min>
+				</style>
 				<ie9>
 					<href></href>
 					<is_internal>1</is_internal>
@@ -166,12 +166,12 @@
 				<ie_conditional></ie_conditional>
 			</jquery>
 			
-			<application>
+			<application-footer-min>
 				<src>application-footer-min</src>
 				<is_internal>1</is_internal>
 				<code></code>
 				<ie_conditional></ie_conditional>
-			</application>
+			</application-footer-min>
 		</footer_js>
 	</footer>
 

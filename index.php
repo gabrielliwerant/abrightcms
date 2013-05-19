@@ -29,13 +29,10 @@
  * @todo make a way for us to build an anchor out of copyright holder automatically
  * @todo www and query string do not redirect properly in .htaccess
  * @todo make RESTful by using request method to predict API (index in the case of GET)
- * @todo consider removing jquery files to allow for submodule creation instead
  * @todo make note in readme for images about apple touch stuff
  * @todo deal with new git push in git 2.0
  * @todo consider router class (or method?) that allows redirection from anywhere with header and exit, etc.
- * @todo add blog template json and view template examples
- * 
- * @todo refactor file structure using themes? to make it easier to update
+ * @todo make xml-compatible version of blog template
  */
 
 // Define the full absolute directory file path

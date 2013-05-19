@@ -62,15 +62,14 @@ if (DOES_CONCATENATE)
 	{
 		case 'js':
 			$content_type = 'Content-type: application/javascript';
-			$path = FILE_ROOT_PATH . '/dev/public/js/';
+			$path = JS_PATH . '/';
 			$file_array = array(
-				'paths_production.js',
-				'modernizr-custom.js'
+				'paths-production.js'
 			);
 			break;			
 		case 'css':
 			$content_type = 'Content-type: text/css';
-			$path = FILE_ROOT_PATH . '/dev/public/css/';
+			$path = CSS_PATH . '/';
 			$file_array = array(
 				'style.css'
 			);

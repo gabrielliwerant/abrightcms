@@ -33,6 +33,10 @@ define('DOMAIN_NAME', 'abrightcms');
 // GoDaddy, because they reserve certain words from incoming GET requests.
 define('DEFAULT_PAGE_CONTROLLER', 'welcome');	// Ex: index
 
+// Tells us which skin/content to load
+define('SKIN_NAME', 'default');
+define('CONTENT_NAME', SKIN_NAME);
+
 // Sets the program environment, false is for development.
 define('IS_MODE_PRODUCTION', false);
 
@@ -51,7 +55,7 @@ define('IS_MODE_LOGGING', true);
 
 // Defines the way we store and retrieve data from our model for our page views.
 // The name set here must also be the name of our storage class.
-define('STORAGE_TYPE', 'json');					// json | xml
+define('STORAGE_TYPE', 'xml');					// json | xml
 
 // Will determine whether we load a database object or void into our model.
 define('HAS_DATABASE', false);
@@ -62,7 +66,7 @@ define('EXCLUDE_CONTROLLER_DIRECTORY', 'includes');
 
 // Sets whether or not we run concatenator for files we're combining in config.
 define('DOES_CONCATENATE', false);
-define('CONCATENATE_TYPE', 'css');				// css | js
+define('CONCATENATE_TYPE', 'js');				// css | js
 
 // Set values for inbound emails sent from the server.
 define('EMAIL_ADDRESS', 'contact@abrightcms.com');

@@ -38,10 +38,16 @@ define('SYSTEM_PATH', FILE_ROOT_PATH . '/system');
 define('MODEL_PATH', APPLICATION_PATH . '/models');
 define('VIEW_PATH', APPLICATION_PATH . '/views');
 define('VIEW_INCLUDES_PATH', VIEW_PATH . '/_includes');
+define('TEMPLATE_PATH', VIEW_PATH . '/_template');
 define('CONTROLLER_PATH', APPLICATION_PATH . '/controllers');
 define('CORE_PATH', SYSTEM_PATH . '/core');
 define('UTILS_PATH', SYSTEM_PATH . '/utils');
 define('LOGS_PATH', APPLICATION_PATH . '/logs');
+define('SKIN_PATH', APPLICATION_PATH . '/skins/' . SKIN_NAME);
+define('CSS_PATH', SKIN_PATH . '/public/css');
+define('JS_PATH', SKIN_PATH . '/public/js');
+define('JSON_PATH', APPLICATION_PATH . '/content/' . CONTENT_NAME . '/json');
+define('XML_PATH', APPLICATION_PATH . '/content/' . CONTENT_NAME . '/xml');
 
 // Set up paths that depend upon development environment mode
 if (IS_MODE_PRODUCTION)
@@ -49,30 +55,25 @@ if (IS_MODE_PRODUCTION)
 	define('HTTP_ROOT_PATH', 'http://' . $sub_domain_path . DOMAIN_NAME);
 	define('HTTP_APPLICATION_PATH', HTTP_ROOT_PATH . '/application');
 	
-	define('PUBLIC_PATH', HTTP_APPLICATION_PATH . '/public');
-	define('JSON_PATH', APPLICATION_PATH . '/json');
-	define('XML_PATH', APPLICATION_PATH . '/xml');
+	define('PUBLIC_PATH', HTTP_APPLICATION_PATH . '/skins/' . SKIN_NAME . '/public');
 }
 else
 {
-	define('HTTP_ROOT_PATH', 'http://localhost/' . DOMAIN_NAME);
+	define('HTTP_ROOT_PATH', 'http://localhost/' . $sub_domain_path . DOMAIN_NAME);
 	define('HTTP_APPLICATION_PATH', HTTP_ROOT_PATH . '/application');
 	
-	define('PUBLIC_PATH', HTTP_ROOT_PATH . '/dev/public');
+	define('PUBLIC_PATH', HTTP_APPLICATION_PATH . '/skins/' . SKIN_NAME . '/public');
 	define('DEVELOPMENT_PATH', FILE_ROOT_PATH . '/dev');
 	define('DEVELOPMENT_LIBRARY_PATH', DEVELOPMENT_PATH . '/lib');
 	define('TESTS_PATH', DEVELOPMENT_PATH . '/tests');
-	define('JSON_PATH', DEVELOPMENT_PATH . '/json');
-	define('XML_PATH', DEVELOPMENT_PATH . '/xml');
-	define('LESS_IN_PATH', DEVELOPMENT_PATH . '/less');
-	define('LESS_OUT_PATH', DEVELOPMENT_PATH . '/public/css');
+	define('LESS_IN_PATH', SKIN_PATH . '/less');
+	define('LESS_OUT_PATH', SKIN_PATH . '/public/css');
 }
 
-// Set up other paths
-define('JS_PATH', PUBLIC_PATH . '/js');
-define('CSS_PATH', PUBLIC_PATH . '/css');
+// Set up paths that depend upon environment mode
+define('CSS_PUBLIC_PATH', PUBLIC_PATH . '/css');
+define('JS_PUBLIC_PATH', PUBLIC_PATH . '/js');
 define('IMAGES_PATH', PUBLIC_PATH . '/images');
-define('TEMPLATE_PATH', VIEW_PATH . '/_template');
 define('ERROR_HANDLER_PAGE_PATH', HTTP_APPLICATION_PATH . '/views/_template/error.html');
 
 /* EOF application/config/paths.php */
