@@ -86,6 +86,8 @@ class DefaultBlogPageModel extends Model
 	/**
 	 * Search through articles from storage and return the first according to
 	 * ordering.
+	 * 
+	 * @todo return null on failure?
 	 *
 	 * @param string $sub_directory
 	 * 
